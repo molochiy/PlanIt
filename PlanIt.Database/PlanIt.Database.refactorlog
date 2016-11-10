@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="8248bccf-f3c0-4ae9-adbd-2a9ef5a6ff16" ChangeDateTime="11/09/2016 10:09:31">
+    <Property Name="ElementName" Value="[dbo].[Plan].[Status]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Plan]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="StatusId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4f0a565a-e241-4721-82d1-fe7a35ae1ee9" ChangeDateTime="11/09/2016 10:31:51">
+    <Property Name="ElementName" Value="[dbo].[PlanComment].[PlanId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PlanComment]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PlanItemId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b2689960-c2da-492d-aedb-1aa0afceb20a" ChangeDateTime="11/09/2016 10:39:51">
+    <Property Name="ElementName" Value="[dbo].[tblUser].[PasswordHash]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblUser]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Password" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6c410bdb-7b3e-40e3-a98a-296611365333" ChangeDateTime="11/09/2016 21:48:57">
+    <Property Name="ElementName" Value="[dbo].[Comment].[IsDeleted]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Comment]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PlanID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4fe0d826-937f-4a1a-84b5-498a3bbaa496" ChangeDateTime="11/09/2016 21:49:10">
+    <Property Name="ElementName" Value="[dbo].[Comment].[IsDeleted]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Comment]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PlanItemID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a53b46da-e9b2-493d-b6cd-cbbd357b1dc5" ChangeDateTime="11/09/2016 21:49:18">
+    <Property Name="ElementName" Value="[dbo].[Comment].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Comment]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b2ec3e99-f228-4394-bda5-203b8079a8b9" ChangeDateTime="11/09/2016 21:49:34">
+    <Property Name="ElementName" Value="[dbo].[Comment].[ID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Comment]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a157c199-2fe2-490a-b9b0-180371bb91e9" ChangeDateTime="11/09/2016 21:49:40">
+    <Property Name="ElementName" Value="[dbo].[Comment].[PlanID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Comment]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PlanId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="dd1f2d89-8599-4d96-8224-794e97cb93c6" ChangeDateTime="11/09/2016 21:49:46">
+    <Property Name="ElementName" Value="[dbo].[Comment].[PlanItemID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Comment]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PlanItemId" />
+  </Operation>
+</Operations>

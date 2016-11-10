@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanIt.Web", "PlanIt.Web\PlanIt.Web.csproj", "{5C1F3D96-3F51-46F9-BF91-061172C4DE6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanIt.Web.Tests", "PlanIt.Web.Tests\PlanIt.Web.Tests.csproj", "{179C20F4-9E7D-450E-9D37-D2555FA5E917}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanIt.Entities", "PlanIt.Entities\PlanIt.Entities.csproj", "{40729599-84EF-4699-B509-FECD6DB2E2D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanIt.Repositories", "PlanIt.Repositories\PlanIt.Repositories.csproj", "{B0EFCC36-FD57-4495-BCBF-E405AABC6C71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanIt.Services", "PlanIt.Services\PlanIt.Services.csproj", "{73D5E374-4A34-4660-BB9A-2B79A2DF3DAE}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "PlanIt.Database", "PlanIt.Database\PlanIt.Database.sqlproj", "{0E052E82-74F5-49FE-BB70-0FCFC9CCB697}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C1F3D96-3F51-46F9-BF91-061172C4DE6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C1F3D96-3F51-46F9-BF91-061172C4DE6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C1F3D96-3F51-46F9-BF91-061172C4DE6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C1F3D96-3F51-46F9-BF91-061172C4DE6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{179C20F4-9E7D-450E-9D37-D2555FA5E917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{179C20F4-9E7D-450E-9D37-D2555FA5E917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{179C20F4-9E7D-450E-9D37-D2555FA5E917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{179C20F4-9E7D-450E-9D37-D2555FA5E917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40729599-84EF-4699-B509-FECD6DB2E2D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40729599-84EF-4699-B509-FECD6DB2E2D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40729599-84EF-4699-B509-FECD6DB2E2D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40729599-84EF-4699-B509-FECD6DB2E2D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0EFCC36-FD57-4495-BCBF-E405AABC6C71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0EFCC36-FD57-4495-BCBF-E405AABC6C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0EFCC36-FD57-4495-BCBF-E405AABC6C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0EFCC36-FD57-4495-BCBF-E405AABC6C71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73D5E374-4A34-4660-BB9A-2B79A2DF3DAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73D5E374-4A34-4660-BB9A-2B79A2DF3DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73D5E374-4A34-4660-BB9A-2B79A2DF3DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73D5E374-4A34-4660-BB9A-2B79A2DF3DAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E052E82-74F5-49FE-BB70-0FCFC9CCB697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E052E82-74F5-49FE-BB70-0FCFC9CCB697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E052E82-74F5-49FE-BB70-0FCFC9CCB697}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0E052E82-74F5-49FE-BB70-0FCFC9CCB697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E052E82-74F5-49FE-BB70-0FCFC9CCB697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E052E82-74F5-49FE-BB70-0FCFC9CCB697}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
