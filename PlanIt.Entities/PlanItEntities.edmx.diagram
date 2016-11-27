@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="55bce0a8b3b1420eab063dfe27f2ad92" Name="Diagram1">
+        <EntityTypeShape EntityType="PlanItModel.Comment" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanItModel.Image" Width="1.5" PointX="6" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanItModel.Plan" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanItModel.PlanItem" Width="1.5" PointX="8.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanItModel.Profile" Width="1.5" PointX="1.5" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanItModel.SharedPlanItemUser" Width="1.5" PointX="10.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanItModel.SharedPlanUser" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanItModel.SharingStatus" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanItModel.Status" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanItModel.User" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="PlanItModel.FK_Comment_Plan" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanItModel.FK_Comment_PlanItem" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanItModel.FK_PlanItem_Image" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanItModel.FK_Plan_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanItModel.FK_Plan_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanItModel.FK_PlanItem_Plan" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanItModel.FK_SharedPlanUser_Plan" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanItModel.FK_PlanItem_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanItModel.FK_SharedPlanItemUserr_PlanItem" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanItModel.FK_User_Image" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanItModel.FK_SharedPlanItemUser_SharingStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanItModel.FK_SharedPlanItemUser_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanItModel.FK_SharedPlanUser_SharingStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanItModel.FK_SharedPlanUser_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

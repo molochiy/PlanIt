@@ -3,7 +3,6 @@
 	[Id] INT identity(1,1) NOT NULL,
 	[FirstName] [NVARCHAR](50) NULL,
 	[LastName] [NVARCHAR](50) NULL,
-	[FatheName] [NVARCHAR](50) NULL,
 	[Phone] [VARCHAR](20) NULL,
 	constraint PK_Profile primary key clustered 
 	(

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PlanIt.Entities")]
+[assembly: AssemblyTitle("PlanIt.PlanItEntities")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("PlanIt Team")]
-[assembly: AssemblyProduct("PlanIt.Entities")]
+[assembly: AssemblyProduct("PlanIt.PlanItEntities")]
 [assembly: AssemblyCopyright("Copyright © PlanIt Team 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

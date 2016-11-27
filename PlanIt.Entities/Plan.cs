@@ -17,9 +17,9 @@ namespace PlanIt.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Plan()
         {
-            this.Comment = new HashSet<Comment>();
-            this.PlanItem = new HashSet<PlanItem>();
-            this.SharedPlanUser = new HashSet<SharedPlanUser>();
+            this.Comments = new HashSet<Comment>();
+            this.PlanItems = new HashSet<PlanItem>();
+            this.SharedPlanUsers = new HashSet<SharedPlanUser>();
         }
     
         public int Id { get; set; }
@@ -32,12 +32,12 @@ namespace PlanIt.Entities
         public int UserId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comment> Comment { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
         public virtual Status Status { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanItem> PlanItem { get; set; }
+        public virtual ICollection<PlanItem> PlanItems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SharedPlanUser> SharedPlanUser { get; set; }
+        public virtual ICollection<SharedPlanUser> SharedPlanUsers { get; set; }
     }
 }

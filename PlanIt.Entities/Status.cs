@@ -17,16 +17,16 @@ namespace PlanIt.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Status()
         {
-            this.Plan = new HashSet<Plan>();
-            this.PlanItem = new HashSet<PlanItem>();
+            this.Plans = new HashSet<Plan>();
+            this.PlanItems = new HashSet<PlanItem>();
         }
     
         public int Id { get; set; }
-        public string Status1 { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Plan> Plan { get; set; }
+        public virtual ICollection<Plan> Plans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanItem> PlanItem { get; set; }
+        public virtual ICollection<PlanItem> PlanItems { get; set; }
     }
 }

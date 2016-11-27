@@ -1,10 +1,10 @@
-﻿CREATE TABLE [dbo].[Comment]
+﻿CREATE TABLE [PlanI].[Comment]
 (
 	[Id] INT identity(1,1) NOT NULL, 
     [PlanId] INT NULL , 
     [PlanItemId] INT NULL, 
-	[Comment] NVARCHAR(MAX) NOT NULL, 
-    [Time] DATETIME NOT NULL, 
+	[Text] NVARCHAR(MAX) NOT NULL, 
+    [CreatedTime] DATETIME NOT NULL, 
     [IsDeleted] BIT NOT NULL DEFAULT 0
 	constraint PK_Comment primary key clustered 
 	(

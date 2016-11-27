@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Status]
 (
 	[Id] INT identity(1,1) NOT NULL, 
-    [Status] NVARCHAR(50) NOT NULL,
+    [Name] NVARCHAR(50) NOT NULL,
 	constraint PK_Status primary key clustered 
 	(
 		Id asc

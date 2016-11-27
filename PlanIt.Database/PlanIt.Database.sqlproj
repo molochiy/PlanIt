@@ -58,28 +58,37 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Data" />
-    <Folder Include="Pre Deploy" />
-    <Folder Include="Post Deploy" />
     <Folder Include="Stored procedures" />
     <Folder Include="Tables" />
+    <Folder Include="Foreign keys" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\User.sql" />
-    <Build Include="Tables\Plan.sql" />
-    <Build Include="Tables\PlanItem.sql" />
-    <Build Include="Tables\Status.sql" />
-    <Build Include="Tables\Image.sql" />
-    <Build Include="Tables\Comment.sql" />
-    <Build Include="Tables\SharedPlanUser.sql" />
-    <Build Include="Tables\SharedPlanItemUser.sql" />
-    <Build Include="Tables\Profile.sql" />
-    <Build Include="Tables\SharingStatus.sql" />
-    <PostDeploy Include="Post Deploy\Foreign keys.sql" />
+    <None Include="Tables\User.sql" />
+    <None Include="Tables\Plan.sql" />
+    <None Include="Tables\PlanItem.sql" />
+    <None Include="Tables\Status.sql" />
+    <None Include="Tables\Image.sql" />
+    <None Include="Tables\Comment.sql" />
+    <None Include="Tables\SharedPlanUser.sql" />
+    <None Include="Tables\SharedPlanItemUser.sql" />
+    <None Include="Tables\Profile.sql" />
+    <None Include="Tables\SharingStatus.sql" />
+    <PreDeploy Include="PreDeploymentScript.sql" />
+    <None Include="Data\Profile.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PlanIt.Database.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PlanIt.Database.publish.xml" />
+    <None Include="Data\User.sql" />
+    <None Include="Foreign keys\Comment.sql" />
+    <None Include="Foreign keys\Plan.sql" />
+    <None Include="Foreign keys\PlanItem.sql" />
+    <None Include="Foreign keys\User.sql" />
+    <None Include="Foreign keys\SharedPlanUser.sql" />
+    <None Include="Foreign keys\SharedPlanItemUser.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostDeploymentScript.sql" />
   </ItemGroup>
 </Project>

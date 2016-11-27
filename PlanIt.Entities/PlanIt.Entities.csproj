@@ -38,13 +38,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -55,83 +52,79 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Comment.cs">
-      <DependentUpon>PlanIt.tt</DependentUpon>
-    </Compile>
-    <Compile Include="C__RefactorLog.cs">
-      <DependentUpon>PlanIt.tt</DependentUpon>
+      <DependentUpon>PlanItEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Image.cs">
-      <DependentUpon>PlanIt.tt</DependentUpon>
+      <DependentUpon>PlanItEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Plan.cs">
-      <DependentUpon>PlanIt.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PlanIt.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PlanIt.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PlanIt.cs" />
-    <Compile Include="PlanIt.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PlanIt.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="PlanIt1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PlanIt.tt</DependentUpon>
+      <DependentUpon>PlanItEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="PlanItem.cs">
-      <DependentUpon>PlanIt.tt</DependentUpon>
+      <DependentUpon>PlanItEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="PlanItEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlanItEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlanItEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlanItEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlanItEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlanItEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="PlanItEntitiesPartial.cs" />
     <Compile Include="Profile.cs">
-      <DependentUpon>PlanIt.tt</DependentUpon>
+      <DependentUpon>PlanItEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharedPlanItemUser.cs">
-      <DependentUpon>PlanIt.tt</DependentUpon>
+      <DependentUpon>PlanItEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="SharedPlanUser.cs">
-      <DependentUpon>PlanIt.tt</DependentUpon>
+      <DependentUpon>PlanItEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="SharingStatus.cs">
-      <DependentUpon>PlanIt.tt</DependentUpon>
+      <DependentUpon>PlanItEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Status.cs">
-      <DependentUpon>PlanIt.tt</DependentUpon>
+      <DependentUpon>PlanItEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>PlanIt.tt</DependentUpon>
+      <DependentUpon>PlanItEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="PlanIt.edmx">
+    <EntityDeploy Include="PlanItEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PlanIt.Designer.cs</LastGenOutput>
+      <LastGenOutput>PlanItEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="PlanIt.edmx.diagram">
-      <DependentUpon>PlanIt.edmx</DependentUpon>
+    <None Include="PlanItEntities.edmx.diagram">
+      <DependentUpon>PlanItEntities.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PlanIt.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PlanIt.edmx</DependentUpon>
-      <LastGenOutput>PlanIt.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="PlanIt.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PlanIt.edmx</DependentUpon>
-      <LastGenOutput>PlanIt1.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="PlanItEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PlanItEntities.edmx</DependentUpon>
+      <LastGenOutput>PlanItEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="PlanItEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PlanItEntities.edmx</DependentUpon>
+      <LastGenOutput>PlanItEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
