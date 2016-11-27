@@ -75,6 +75,7 @@
     <None Include="Tables\SharingStatus.sql" />
     <PreDeploy Include="PreDeploymentScript.sql" />
     <None Include="Data\Profile.sql" />
+    <None Include="PlanIt.Database.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PlanIt.Database.refactorlog" />
