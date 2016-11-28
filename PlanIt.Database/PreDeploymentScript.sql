@@ -27,3 +27,5 @@
 
 :r ".\Data\Profile.sql"
 :r ".\Data\User.sql"
+:r ".\Data\Status.sql"
+:r ".\Data\Plan.sql"

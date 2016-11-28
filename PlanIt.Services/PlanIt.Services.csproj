@@ -46,8 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\BaseService.cs" />
+    <Compile Include="Abstract\IPlanService.cs" />
     <Compile Include="Abstract\IUserService.cs" />
     <Compile Include="AutofacModule.cs" />
+    <Compile Include="Concrete\PlanService.cs" />
     <Compile Include="Concrete\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

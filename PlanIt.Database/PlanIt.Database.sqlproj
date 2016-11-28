@@ -92,4 +92,10 @@
   <ItemGroup>
     <PostDeploy Include="PostDeploymentScript.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\Status.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\Plan.sql" />
+  </ItemGroup>
 </Project>

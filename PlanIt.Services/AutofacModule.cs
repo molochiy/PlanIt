@@ -15,6 +15,7 @@ namespace PlanIt.Services
             builder.Register(с => new DefaultDataContextSettings(connectionString)).As<IDataContextSettings>();
             builder.RegisterModule<Repositories.AutofacModule>();
             builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<PlanService>().As<IPlanService>();
         }
     }
 }
