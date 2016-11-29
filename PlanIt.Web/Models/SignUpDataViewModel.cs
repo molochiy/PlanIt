@@ -8,10 +8,10 @@ namespace PlanIt.Web.Models
         [RegularExpression(".+\\@.+\\..+", ErrorMessage = "Please enter a valid email address")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Please enter your passqord")]
+        [Required(ErrorMessage = "Please enter your password")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Please enter your passqord one more time")]
+        [Compare("Password", ErrorMessage = "Confirm password doesn't match")]
         public string ConfirmPassword { get; set; }
     }
 }

@@ -24,8 +24,18 @@
                     </li>
                 </ul>
                 <div class="nav navbar-nav navbar-right navbar-ex1-collapse hidden-xs">
-                    @Html.ActionLink("Log In", "LogIn", "User", new { returnUrl = Request.Url.PathAndQuery }, new { @class = "btn btn-default btn-primary", verticalLayout = true })
-                    @Html.ActionLink("Sign Up", "SignUp", "User", new { returnUrl = Request.Url.PathAndQuery }, new { @class = "btn btn-default btn-warning", verticalLayout = true })
+                    @if (Request.IsAuthenticated)
+                    {
+                        <strong>
+                            @Html.Encode(User.Identity.Name)
+                        </strong>
+                        @Html.ActionLink("Log Out", "LogOut", "User", new { returnUrl = Request.Url.PathAndQuery }, new { @class = "btn btn-default btn-primary", verticalLayout = true })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Log In", "LogIn", "User", new { returnUrl = Request.Url.PathAndQuery }, new { @class = "btn btn-default btn-primary", verticalLayout = true })
+                        @Html.ActionLink("Sign Up", "SignUp", "User", new { returnUrl = Request.Url.PathAndQuery }, new { @class = "btn btn-default btn-warning", verticalLayout = true })
+                    }
                 </div>
             </div>
         </div>

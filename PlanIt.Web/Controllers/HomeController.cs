@@ -3,6 +3,7 @@ using PlanIt.Services.Abstract;
 
 namespace PlanIt.Web.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         private readonly IUserService _userService;
