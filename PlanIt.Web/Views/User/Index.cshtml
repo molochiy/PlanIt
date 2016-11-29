@@ -1,37 +1,28 @@
 ﻿@model PlanIt.Entities.User
 
 @{
-    Layout = null;
+    @ViewBag.Title = "User";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Test repo works</title>
-</head>
-<body>
-    <div>
-        <table>
-            <tbody>
-                <tr>
-                    <td>Id</td>
-                    <td>@Model.Id</td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td>@Model.Email</td>
-                </tr>
-                <tr>
-                    <td>Password</td>
-                    <td>@Model.Password</td>
-                </tr>
-                <tr>
-                    <td>Is email confirmed</td>
-                    <td>@Model.IsEmailConfirmed</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>
+<div>
+    <table>
+        <tbody>
+            <tr>
+                <td>Id</td>
+                <td>@Model.Id</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>@Model.Password</td>
+            </tr>
+            <tr>
+                <td>Is email confirmed</td>
+                <td>@Model.IsEmailConfirmed</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

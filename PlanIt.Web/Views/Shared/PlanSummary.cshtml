@@ -1,0 +1,43 @@
+﻿@model PlanIt.Entities.Plan
+
+<div class="well">
+    <h3>
+        <strong>@Model.Title</strong>
+    </h3>
+    @using (Html.BeginForm("Plans", "Plan"))
+            {
+        <div class="pull-right">
+            <input type="submit" class="btn btn-success" value="Edit" />
+            <input type="submit" class="btn btn-success" value="Remove" />
+        </div>
+    }
+    <span class="lead"> @Model.Description</span>
+</div>
+
+@*        <div class="container" style="background-color: #CCCCCC; margin-top:5px; margin-bottom:5px; padding:10px;">
+            <div class="well well-sm" style=" margin-bottom:5px;"><h5><strong>@plan.Title</strong></h5></div>
+
+            <div class="well"> @plan.Description</div>
+
+            @using (Html.BeginForm("Plans", "Plan"))
+            {
+                <div class="pull-right">
+                    <input type="submit" class="btn btn-success" value="Edit" />
+                    <input type="submit" class="btn btn-success" value="Remove" />
+                </div>
+            }
+        </div>*@
+
+
+@*<div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="..." alt="...">
+                <div class="caption">
+                    <h3>@plan.Title</h3>
+                    <p>@plan.Description</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                </div>
+            </div>
+        </div>
+    </div>}*@
