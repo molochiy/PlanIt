@@ -38,7 +38,8 @@ namespace PlanIt.Web.Controllers
         // GET: User
         public ActionResult Index()
         {
-            return View();
+            var user = _userService.GetUserById(2);
+            return View(user);
         }
     }
 }

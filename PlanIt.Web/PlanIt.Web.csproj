@@ -136,7 +136,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\LogInDataViewModel.cs" />
     <Compile Include="Models\PlanIndexViewModel.cs" />
+    <Compile Include="Models\SignUpDataViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
