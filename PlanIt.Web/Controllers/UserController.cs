@@ -21,7 +21,7 @@ namespace PlanIt.Web.Controllers
             return View();
         }
 
-        public ViewResult SignIn()
+        public ActionResult LogIn()
         {
             return View();
         }
@@ -31,7 +31,7 @@ namespace PlanIt.Web.Controllers
             return View();
         }
 
-        public ViewResult LogOut()
+        public ActionResult LogOut()
         {
             return View();
         }
