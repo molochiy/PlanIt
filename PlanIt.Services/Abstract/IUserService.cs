@@ -10,5 +10,9 @@ namespace PlanIt.Services.Abstract
     public interface IUserService
     {
         User GetUserById(int id);
+
+        User GetUserExistByEmail(string email);
+
+        User AddUser(User user);
     }
 }

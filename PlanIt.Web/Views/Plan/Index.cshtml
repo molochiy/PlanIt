@@ -1,0 +1,23 @@
+﻿@model PlanIt.Web.Models.PlanIndexViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @if (Model.Plans.Count() == 0)
+    {
+        <h3>Sorry, You don't have plans</h3>
+    }
+    else
+    {
+        foreach (var plan in Model.Plans)
+        {
+             @Html.Partial("PlanSummary", plan)
+        }
+    }
+</body>
+</html>

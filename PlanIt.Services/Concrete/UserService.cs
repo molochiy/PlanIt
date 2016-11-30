@@ -21,5 +21,15 @@ namespace PlanIt.Services.Concrete
 
             return user;
         }
+
+        public User GetUserExistByEmail(string email)
+        {
+            return _repository.GetSingle<User>(u => u.Email == email);
+        }
+
+        public User AddUser(User user)
+        {
+            return _repository.Insert<User>(user);
+        }
     }
 }
