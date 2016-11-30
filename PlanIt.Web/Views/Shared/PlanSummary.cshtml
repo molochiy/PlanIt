@@ -7,8 +7,7 @@
     @using (Html.BeginForm("Plans", "Plan"))
             {
         <div class="pull-right">
-            <input type="submit" class="btn btn-success" value="Edit" />
-            <input type="submit" class="btn btn-success" value="Remove" />
+            @Html.ActionLink("Remove", "RemovePlan", "Plan", new { planId = Model.Id }, new { @class = "btn btn-success" })
         </div>
     }
     <span class="lead"> @Model.Description</span>

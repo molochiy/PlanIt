@@ -29,7 +29,7 @@ namespace PlanIt.Services.Concrete
 
         public IEnumerable<Plan> GetAllPlansByUserId(int id)
         {
-            var plans = _repository.Get<Plan>(u => u.UserId == id);
+            var plans = _repository.Get<Plan>(u => u.UserId == id && !u.IsDeleted);
             return plans;
         }
 
@@ -42,6 +42,11 @@ namespace PlanIt.Services.Concrete
         public void SavePlan(Plan plan)
         {
            _repository.Insert<Plan>(plan);
+        }
+
+        public void DeletePlan(Plan plan)
+        {
+            _repository.Update<Plan>(plan);
         }
     }
 }
