@@ -1,4 +1,4 @@
-﻿CREATE TABLE [PlanI].[Comment]
+﻿CREATE TABLE [dbo].[Comment]
 (
 	[Id] INT identity(1,1) NOT NULL, 
     [PlanId] INT NULL , 

@@ -3,7 +3,7 @@
 	[Id] INT identity(1,1) NOT NULL, 
 	[PlanId] INT NOT NULL,
     [Title] NVARCHAR(50) NOT NULL, 
-    [Descripiton] NVARCHAR(MAX) NULL, 
+    [Description] NVARCHAR(MAX) NULL, 
     [Begin] DATETIME NULL, 
     [End] DATETIME NULL, 
     [StatusId] INT NOT NULL, 
