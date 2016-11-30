@@ -170,10 +170,10 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap-datepicker.js" />
-    <Content Include="Scripts\bootstrap-datepicker.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\libs\bootstrap\bootstrap-datepicker.js" />
+    <Content Include="Scripts\libs\bootstrap\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\libs\bootstrap\bootstrap.js" />
+    <Content Include="Scripts\libs\bootstrap\bootstrap.min.js" />
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css.map" />
     <Content Include="Content\bootstrap-datepicker3.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker3.min.css.map" />
@@ -182,23 +182,23 @@
     <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker.min.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <None Include="Scripts\jquery-3.1.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-3.1.1.js" />
-    <Content Include="Scripts\jquery-3.1.1.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
-    <Content Include="Scripts\jquery-ui-1.12.1.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <None Include="Scripts\libs\jquery\jquery-1.10.2.intellisense.js" />
+    <None Include="Scripts\libs\jquery\jquery-3.1.1-vsdoc.js" />
+    <Content Include="Scripts\libs\jquery\jquery-3.1.1.js" />
+    <Content Include="Scripts\libs\jquery\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\libs\jquery\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\libs\jquery\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\libs\jquery\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\libs\jquery\jquery-3.1.1.min.map" />
+    <Content Include="Scripts\libs\jquery\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\libs\jquery\jquery-ui-1.12.1.min.js" />
+    <None Include="Scripts\libs\jquery\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\libs\jquery\jquery.validate.js" />
+    <Content Include="Scripts\libs\jquery\jquery.validate.min.js" />
+    <Content Include="Scripts\libs\jquery\jquery.validate.unobtrusive.bootstrap.js" />
+    <Content Include="Scripts\libs\jquery\jquery.validate.unobtrusive.bootstrap.min.js" />
+    <Content Include="Scripts\libs\jquery\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\libs\jquery\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.az.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.bg.min.js" />
@@ -296,7 +296,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
+    <Content Include="Scripts\libs\jquery\jquery.validate.unobtrusive.bootstrap.min.js.map" />
     <None Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Plan\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
@@ -314,6 +314,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Infrastructure\" />
+    <Folder Include="Scripts\app\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PlanIt.Entities\PlanIt.Entities.csproj">
