@@ -57,6 +57,10 @@ namespace PlanIt.Web.Controllers
         [AllowAnonymous]
         public ActionResult LogIn()
         {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Plan");
+            }
             return View();
         }
 

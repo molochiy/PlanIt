@@ -16,9 +16,11 @@ namespace PlanIt.Web.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var user = _userService.GetUserById(2);
-
-            return View(user);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Plan");
+            }
+            return View();
         }
     }
 }

@@ -61,7 +61,7 @@ namespace PlanIt.Web.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return RedirectToAction("LogIn", "User");
             }
