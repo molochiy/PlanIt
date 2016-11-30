@@ -8,9 +8,16 @@
     <title>Index</title>
 </head>
 <body>
-    @foreach (var plan in Model.Plans)
+    @if (Model.Plans.Count() == 0)
     {
-         @Html.Partial("PlanSummary", plan)
+        <h3>Sorry, You don't have plans</h3>
+    }
+    else
+    {
+        foreach (var plan in Model.Plans)
+        {
+             @Html.Partial("PlanSummary", plan)
+        }
     }
 </body>
 </html>

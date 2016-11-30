@@ -13,6 +13,8 @@ namespace PlanIt.Services.Abstract
 
         PlanItem GetPlanItemById(int id);
 
+        void SavePlan(Plan plan);
+
         IEnumerable<Plan> GetAllPlansByUserId(int id);
 
         IEnumerable<PlanItem> GetAllPlanItemsByPlanId(int id);

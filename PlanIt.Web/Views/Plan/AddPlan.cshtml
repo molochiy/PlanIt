@@ -1,0 +1,53 @@
+﻿@model PlanIt.Web.Models.PlanAddPlanViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddPlan</title>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript">    </script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+</head>
+<body>
+    <div class="panel panel-success">
+    <div class="panel-heading text-center"><h4>Add Plan</h4></div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary()
+            <div class="form-group">
+                <label>Title:</label>
+                @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+            </div>
+                <div class="form-group">
+                    <label>Description:</label>
+                    @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Start date:</label>
+                    <div class="input-daterange">
+                        @Html.TextBoxFor(x => x.StartDate, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>End date:</label>
+                    <div class="input-daterange">
+                        @Html.TextBoxFor(x => x.EndDate, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input class="btn btn-success" type="submit" value="Add Plan" />
+                </div>
+        }
+    </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    $(".input-daterange input").each(function (){
+        $(this).datepicker("clearDates ");
+    });
+</script>

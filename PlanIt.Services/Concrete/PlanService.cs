@@ -38,5 +38,10 @@ namespace PlanIt.Services.Concrete
             var planItems = _repository.Get<PlanItem>(u => u.PlanId == id);
             return planItems;
         }
+
+        public void SavePlan(Plan plan)
+        {
+           _repository.Insert<Plan>(plan);
+        }
     }
 }

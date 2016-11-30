@@ -15,9 +15,16 @@ namespace PlanIt.Web
 
             routes.MapRoute(null,
                 "Page{page}",
+                new { controller = "Plan", action = "AddPlan", category = (string)null },
+                new { page = @"\d+" }
+            );
+
+            routes.MapRoute(null,
+                "Page{page}",
                 new { controller = "Plan", action = "Index", category = (string)null },
                 new { page = @"\d+" }
             );
+
 
             routes.MapRoute(
                 name: "Default",
