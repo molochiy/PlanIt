@@ -21,6 +21,7 @@ namespace PlanIt.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ViewResult SignUp()
         {
             return View();
@@ -53,12 +54,14 @@ namespace PlanIt.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult LogIn()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult LogIn(Models.LogInDataViewModel user)
         {
             if (ModelState.IsValid && IsValid(user.Email, user.Password))

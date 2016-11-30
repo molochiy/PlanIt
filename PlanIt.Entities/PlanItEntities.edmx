@@ -43,7 +43,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PlanId" Type="int" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Descripiton" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Begin" Type="datetime" />
           <Property Name="End" Type="datetime" />
           <Property Name="StatusId" Type="int" Nullable="false" />
@@ -84,7 +84,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -389,7 +389,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PlanId" Type="Int32" Nullable="false" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Descripiton" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Begin" Type="DateTime" Precision="3" />
           <Property Name="End" Type="DateTime" Precision="3" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
@@ -400,6 +399,7 @@
           <NavigationProperty Name="Plan" Relationship="Self.FK_PlanItem_Plan" FromRole="PlanItem" ToRole="Plan" />
           <NavigationProperty Name="Status" Relationship="Self.FK_PlanItem_Status" FromRole="PlanItem" ToRole="Status" />
           <NavigationProperty Name="SharedPlanItemUsers" Relationship="Self.FK_SharedPlanItemUserr_PlanItem" FromRole="PlanItem" ToRole="SharedPlanItemUser" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -442,9 +442,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="SharedPlanItemUsers" Relationship="Self.FK_SharedPlanItemUser_SharingStatus" FromRole="SharingStatus" ToRole="SharedPlanItemUser" />
           <NavigationProperty Name="SharedPlanUsers" Relationship="Self.FK_SharedPlanUser_SharingStatus" FromRole="SharingStatus" ToRole="SharedPlanUser" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -748,10 +748,10 @@
           <EntitySetMapping Name="PlanItems">
             <EntityTypeMapping TypeName="PlanItModel.PlanItem">
               <MappingFragment StoreEntitySet="PlanItem">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PlanId" ColumnName="PlanId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Descripiton" ColumnName="Descripiton" />
                 <ScalarProperty Name="Begin" ColumnName="Begin" />
                 <ScalarProperty Name="End" ColumnName="End" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
@@ -795,8 +795,8 @@
           <EntitySetMapping Name="SharingStatuses">
             <EntityTypeMapping TypeName="PlanItModel.SharingStatus">
               <MappingFragment StoreEntitySet="SharingStatus">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

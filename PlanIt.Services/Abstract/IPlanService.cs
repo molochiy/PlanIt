@@ -18,5 +18,7 @@ namespace PlanIt.Services.Abstract
         IEnumerable<Plan> GetAllPlansByUserId(int id);
 
         IEnumerable<PlanItem> GetAllPlanItemsByPlanId(int id);
+
+        void DeletePlan(Plan plan);
     }
 }
