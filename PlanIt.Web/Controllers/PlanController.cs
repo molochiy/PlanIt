@@ -66,5 +66,21 @@ namespace PlanIt.Web.Controllers
                 return RedirectToAction("LogIn", "User");
             }
         }
+
+        public ActionResult RemovePlan(int planId)
+        {
+            Plan planFromDb = _planService.GetPlanById(planId);
+            _planService.DeletePlan(new Plan {
+                Id = planFromDb.Id,
+                Title = planFromDb.Title,
+                Description = planFromDb.Description,
+                Begin = planFromDb.Begin,
+                End = planFromDb.End,
+                StatusId = planFromDb.StatusId,
+                IsDeleted = true,
+                UserId = planFromDb.UserId
+            });
+            return RedirectToAction("Index", "Plan");
+        }
     }
 }
