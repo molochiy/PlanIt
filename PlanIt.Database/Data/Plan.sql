@@ -3,8 +3,8 @@
 MERGE INTO [Plan] AS TARGET
 	USING (
 	VALUES
-		(1, 'Title1', 'Description1', DATEADD(DAY,  5, GETDATE()), DATEADD(DAY,  10, GETDATE()), 1, 0, 1),
-		(2, 'Title2', 'Description2', DATEADD(DAY,  1, GETDATE()), DATEADD(DAY,  10, GETDATE()), 1, 0, 1),
+		(1, 'short title', 'Simple Description', DATEADD(DAY,  5, GETDATE()), DATEADD(DAY,  10, GETDATE()), 1, 0, 1),
+		(2, 'very very very huge and long title', 'Simple loooooooooooooooooong Description', DATEADD(DAY,  1, GETDATE()), DATEADD(DAY,  10, GETDATE()), 1, 0, 1),
 		(3, 'Title3', 'Description3', DATEADD(DAY,  10, GETDATE()), DATEADD(DAY,  12, GETDATE()), 1, 1, 1),
 		(4, 'Title4', 'Description4', DATEADD(DAY,  5, GETDATE()), DATEADD(DAY,  9, GETDATE()), 2, 0, 2),
 		(5, 'Title5', 'Description5', DATEADD(DAY,  13, GETDATE()), DATEADD(DAY,  17, GETDATE()), 2, 0, 2),

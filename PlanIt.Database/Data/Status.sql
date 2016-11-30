@@ -3,7 +3,7 @@
 MERGE INTO [Status] AS TARGET
 	USING (
 	VALUES
-		(1, 'Not started'),
+		(1, 'Created'),
 		(2, 'In progress'),
 		(3, 'Done'))
 	AS SOURCE ([Id], [Name])
