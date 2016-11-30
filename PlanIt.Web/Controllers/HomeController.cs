@@ -13,6 +13,7 @@ namespace PlanIt.Web.Controllers
             _userService = userService;
         }
 
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var user = _userService.GetUserById(2);
