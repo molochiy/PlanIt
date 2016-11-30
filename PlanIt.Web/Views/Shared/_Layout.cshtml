@@ -26,7 +26,7 @@
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
-                    <li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "AddPlan" ? "active" : "")">
                         @Html.ActionLink("Add Plan", "AddPlan", "Plan")
                     </li>
                     <li>
@@ -36,20 +36,35 @@
                         <a href="">Contact</a>
                     </li>
                 </ul>
-                <div class="nav navbar-nav navbar-right navbar-ex1-collapse hidden-xs">
+                <ul class="nav navbar-nav navbar-right navbar-ex1-collapse hidden-xs">
                     @if (Request.IsAuthenticated)
                     {
-                        <strong>
-                            @Html.Encode(User.Identity.Name)
-                        </strong>
-                        @Html.ActionLink("Log Out", "LogOut", "User", new { returnUrl = Request.Url.PathAndQuery }, new { @class = "btn btn-default btn-primary", verticalLayout = true })
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Profile" ? "active" : "")">
+                            <a href="@Url.Action("Profile", "User")">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                @User.Identity.Name
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("LogOut", "User")">
+                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                                Log Out
+                            </a>
+                        </li>
                     }
                     else
                     {
-                        @Html.ActionLink("Log In", "LogIn", "User", new { returnUrl = Request.Url.PathAndQuery }, new { @class = "btn btn-default btn-primary", verticalLayout = true })
-                        @Html.ActionLink("Sign Up", "SignUp", "User", new { returnUrl = Request.Url.PathAndQuery }, new { @class = "btn btn-default btn-warning", verticalLayout = true })
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "LogIn" ? "active" : "")">
+                            <a href="@Url.Action("LogIn", "User")">
+                                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                                Log In
+                            </a>
+                        </li>
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "SignUp" ? "active" : "")">
+                            @Html.ActionLink("Sign Up", "SignUp", "User")
+                        </li>
                     }
-                </div>
+                </ul>
             </div>
         </div>
     </div>

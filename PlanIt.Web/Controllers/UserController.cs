@@ -78,7 +78,7 @@ namespace PlanIt.Web.Controllers
             bool IsValid = false;
 
             var user = _userService.GetUserExistByEmail(email);
-            if (user.Password == sha256(password))
+            if (user != null && user.Password == sha256(password))
             {
                 IsValid = true;
             }
