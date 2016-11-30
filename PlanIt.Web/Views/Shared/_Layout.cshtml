@@ -21,7 +21,8 @@
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand navbar-header" href="">PlanIt</a>
+                @*<a class="navbar-brand navbar-header" href="">PlanIt</a>*@
+                @Html.ActionLink("PlanIt", "Index", "Plan",null, new { @class = "navbar-brand navbar-header" })
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
