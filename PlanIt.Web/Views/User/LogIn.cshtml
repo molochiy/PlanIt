@@ -2,32 +2,22 @@
 
 @{
     ViewBag.Title = "LogIn";
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-offset-2 col-md-8">
-        <div class="panel">
-            <div class="panel-heading">
-                <h3>Log In</h3>
-            </div>
-            <div class="panel-body">
-                @using (Html.BeginForm())
-                {
-                    @Html.ValidationSummary(true)
-                    <div class="form-group">
-                        <label>Email:</label>
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email)
-                    </div>
-                    <div class="form-group">
-                        <label>Password:</label>
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password)
-                    </div>
-                    <input type="submit" value="Log in" class="btn btn-primary" />
-                }
-            </div>
+<div class="auth-background">
+    <div class="loginmodal-container">
+        <h1>Login to Your Account</h1><br>
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.Email) })
+            @Html.ValidationMessageFor(m => m.Email)
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.Password) })
+            @Html.ValidationMessageFor(m => m.Password)
+            <input type="submit" name="Login" class="login loginmodal-submit" value="Login">
+        }
+        <div class="login-help">
+            <a href="@Url.Action("SignUp", "User")">Register</a>
         </div>
     </div>
 </div>
