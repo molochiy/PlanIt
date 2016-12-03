@@ -104,6 +104,7 @@ namespace PlanIt.Web.Controllers
             return hash.ToString();
         }
 
+        [HttpGet]
         public ViewResult EditProfile()
         {
             return View();

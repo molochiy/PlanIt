@@ -1,86 +1,107 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
-    <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet">\
-
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
-    <script src="~/Scripts/libs/jquery/jquery-3.1.1.js"></script>
-    <script src="~/Scripts/libs/jquery/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/libs/jquery/jquery.validate.unobtrusive.bootstrap.js"></script>
-    <script src="~/Scripts/libs/jquery/jquery.validate.unobtrusive.js"></script>
-    <script src="~/Scripts/libs/jquery/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Scripts/libs/bootstrap/bootstrap.js"></script>
-    <script src="~/Scripts/libs/bootstrap/bootstrap-datepicker.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Landing Page - Start Bootstrap Theme</title>
+    <link href="~/Content/css/landing-page.css" rel="stylesheet">
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                @*<a class="navbar-brand navbar-header" href="">PlanIt</a>*@
-                @Html.ActionLink("PlanIt", "Index", "Plan",null, new { @class = "navbar-brand navbar-header" })
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" href="@Url.Action("Index", "Home")">PlanIt</a>
             </div>
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "AddPlan" ? "active" : "")">
-                        @Html.ActionLink("Add Plan", "AddPlan", "Plan")
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#about">About</a>
                     </li>
                     <li>
-                        <a href="">About</a>
+                        <a href="@Url.Action("LogIn", "User")">Login</a>
                     </li>
                     <li>
-                        <a href="">Contact</a>
+                        <a href="@Url.Action("SignUp", "User")">Register</a>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right navbar-ex1-collapse hidden-xs">
-                    @if (Request.IsAuthenticated)
-                    {
-                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Profile" ? "active" : "")">
-                            <a href="@Url.Action("Profile", "User")">
-                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                @User.Identity.Name
-                            </a>
-                        </li>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Header -->
+    <a name="about"></a>
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-message">
+                        <h1>Landing Page</h1>
+                        <h3>A Template by Start Bootstrap</h3>
+                        <hr class="intro-divider">
+                        <ul class="list-inline intro-social-buttons">
+                            <li>
+                                <a href="#" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
                         <li>
-                            <a href="@Url.Action("LogOut", "User")">
-                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                                Log Out
-                            </a>
+                            <a href="#">Home</a>
                         </li>
-                    }
-                    else
-                    {
-                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "LogIn" ? "active" : "")">
-                            <a href="@Url.Action("LogIn", "User")">
-                                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-                                Log In
-                            </a>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#about">About</a>
                         </li>
-                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "SignUp" ? "active" : "")">
-                            @Html.ActionLink("Sign Up", "SignUp", "User")
-                        </li>
-                    }
-                </ul>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; Your Company 2014. All Rights Reserved</p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row panel">
-        <div class="col-sm-3 hidden-xs">
-        </div>
-        <div class="col-xs-12 col-sm-5">
-            @RenderBody()
-        </div>
-        <div class="col-sm-3 hidden-xs">
-        </div>
-    </div>
-    <div class="container body-content">
-        <footer>
-            <p>&copy; @DateTime.Now.Year - PlanIt</p>
-        </footer>
-    </div>
+    </footer>
+    @RenderBody()
+    <!-- jQuery -->
+    <script src="~/Content/js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/js/bootstrap.min.js"></script>
 </body>
 </html>
