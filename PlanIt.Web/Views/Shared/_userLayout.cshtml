@@ -46,15 +46,9 @@
             </li>
         </ul>
     </nav>
-    <div class="row panel">
-        <div>
-            @RenderBody()
-        </div>
-    </div>
-    <div class="container body-content">
-        <footer>
-            <p>&copy; @DateTime.Now.Year - PlanIt</p>
-        </footer>
+    <img src="~/Content/img/background.jpg" id="bg" alt="">
+    <div class="page-background">
+        @RenderBody()
     </div>
     <script src="~/Content/js/user/menu.js"></script>
 </body>

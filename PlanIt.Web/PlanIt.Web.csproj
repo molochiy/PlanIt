@@ -134,6 +134,7 @@
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\img\background.jpg" />
     <Content Include="Content\img\intro-bg.jpg" />
     <Content Include="Content\img\login.jpg" />
     <Content Include="Content\js\bootstrap.js" />

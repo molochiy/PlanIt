@@ -4,21 +4,22 @@
     ViewBag.Title = "AddPlan";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-<div class="panel panel-success">
-    <div class="panel-heading text-center"><h4>Add Plan</h4></div>
-    <div class="panel-body">
-        @using (Html.BeginForm())
-        {
-            @Html.ValidationSummary(true)
-            <div class="form-group">
-                <label>Title:</label>
-                @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.Title)
-            </div>
-            <div class="form-group">
-                <label>Description:</label>
-                @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
-            </div>
+<div class="container content-container">
+    <div class="panel panel-success">
+        <div class="panel-heading text-center"><h4>Add Plan</h4></div>
+        <div class="panel-body">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    <label>Title:</label>
+                    @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Title)
+                </div>
+                <div class="form-group">
+                    <label>Description:</label>
+                    @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+                </div>
                 <div class="form-group">
                     <label>Start date:</label>
                     <div class="input-daterange">
@@ -34,11 +35,12 @@
                 <div class="text-center">
                     <input class="btn btn-success" type="submit" value="Add Plan" />
                 </div>
-        }
+            }
+        </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(".input-daterange input").each(function () {
-        $(this).datepicker("clearDates ");
-    });
-</script>
+    <script type="text/javascript">
+        $(".input-daterange input").each(function () {
+            $(this).datepicker("clearDates ");
+        });
+    </script>

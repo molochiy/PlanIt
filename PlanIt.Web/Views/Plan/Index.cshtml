@@ -1,19 +1,22 @@
 ﻿@model PlanIt.Web.Models.PlanIndexViewModel
-@{ 
+@{
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-<div class="row">
-    <div class="col-md-offset-2 col-md-8">
-        @if (Model.Plans.Count() == 0)
-        {
-            <h3>Sorry, You don't have plans</h3>
-        }
-        else
-        {
-            foreach (var plan in Model.Plans)
+<div class="content-container container">
+    <h1>My Plans</h1>
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            @if (Model.Plans.Count() == 0)
             {
-                @Html.Partial("PlanSummary", plan)
+                <h3>Sorry, You don't have plans</h3>
             }
-        }
+            else
+            {
+                foreach (var plan in Model.Plans)
+                {
+                    @Html.Partial("PlanSummary", plan)
+                }
+            }
+        </div>
     </div>
 </div>
