@@ -17,7 +17,7 @@
     <AssemblyName>PlanIt.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44317</IISExpressSSLPort>
+    <IISExpressSSLPort>44310</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -142,6 +142,7 @@
     <Content Include="Content\js\jquery.js" />
     <Content Include="Content\js\user\edit-profile.js" />
     <Content Include="Content\js\user\menu.js" />
+    <Content Include="Content\Plan.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -362,6 +363,7 @@
     <Content Include="Views\Plan\AddPlan.cshtml" />
     <Content Include="Views\User\EditProfile.cshtml" />
     <Content Include="Views\Shared\_UserLayout.cshtml" />
+    <Content Include="Views\Shared\PlanModaAddlEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -399,9 +401,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62215</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44317/</IISUrl>
+          <IISUrl>https://localhost:44310/</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:62215/</IISAppRootUrl>
+          <IISAppRootUrl>https://localhost:44310/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
