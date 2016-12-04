@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<div class="container">
+<div class="container content-container">
     <h1>Edit Profile</h1>
     <hr>
     <div class="row">
@@ -21,35 +21,37 @@
             
             <h3>Personal info</h3>
 
-            <form class="form-horizontal" role="form">
+            <form class="form-horizontal" role="form" id="editProfileForm" action="/User/EditProfile" method="post">
                 <div class="form-group">
                     <label class="col-lg-3 control-label">First name:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" value="Jane">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.FirstName) })
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Last name:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" value="Bishop">
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.LastName) })
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Phone number:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" value="">
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.PhoneNumber) })
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">
-                        <input type="button" class="btn btn-primary" value="Save Changes">
+                        <input type="button" class="btn btn-primary" id="save" value="Save Changes">
                         <span></span>
-                        <input type="reset" class="btn btn-default" value="Cancel">
+                        <input type="reset" class="btn btn-default" id="reset" value="Cancel">
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script src="~/Content/js/user/edit-profile.js"></script>
 
