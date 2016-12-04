@@ -16,6 +16,7 @@ namespace PlanIt.Services
             builder.RegisterModule<Repositories.AutofacModule>();
             builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterType<PlanService>().As<IPlanService>();
+            builder.RegisterType<ProfileService>().As<IProfileService>();
         }
     }
 }

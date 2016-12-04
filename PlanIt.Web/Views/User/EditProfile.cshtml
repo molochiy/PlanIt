@@ -21,31 +21,31 @@
             
             <h3>Personal info</h3>
 
-            <form class="form-horizontal" role="form" id="editProfileForm" action="/User/EditProfile" method="post">
+            <form class="form-horizontal" role="form" id="editProfileForm" action="/User/EditProfile" method="post" novalidate="novalidate">
                 <div class="form-group">
                     <label class="col-lg-3 control-label">First name:</label>
                     <div class="col-lg-8">
-                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.FirstName) })
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.FirstName), value = Html.DisplayFor(m => m.FirstName) })
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Last name:</label>
                     <div class="col-lg-8">
-                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.LastName) })
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.LastName), value = Html.DisplayFor(m => m.LastName) })
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Phone number:</label>
                     <div class="col-lg-8">
-                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.PhoneNumber) })
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.PhoneNumber), value = Html.DisplayFor(m => m.PhoneNumber) })
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">
-                        <input type="button" class="btn btn-success" id="save" value="Save Changes">
+                        <input type="submit" class="btn btn-success" id="save" value="Save Changes">
                         <span></span>
-                        <input type="reset" class="btn btn-default" id="reset" value="Cancel">
+                        <input type="reset" class="btn btn-default" id="reset" value="Cancel" onclick="window.location.href='@Url.Action("Index", "Home")'">
                     </div>
                 </div>
             </form>

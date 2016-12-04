@@ -8,6 +8,7 @@ using PlanIt.Entities;
 using System.Web.Security;
 using System.Web.Helpers;
 using System.Text;
+using System.Net;
 
 namespace PlanIt.Web.Controllers
 {
@@ -15,9 +16,12 @@ namespace PlanIt.Web.Controllers
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService)
+        private readonly IProfileService _profileService;
+
+        public UserController(IUserService userService, IProfileService profileService)
         {
             _userService = userService;
+            _profileService = profileService;
         }
 
         [HttpGet]
@@ -105,9 +109,42 @@ namespace PlanIt.Web.Controllers
         }
 
         [HttpGet]
-        public ViewResult EditProfile()
+        public ActionResult EditProfile()
         {
-            return View();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                var user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
+                if (user != null)
+                {
+                    var profileId = user.ProfileId;
+                    Profile profile = _profileService.GetProfileById(profileId);
+                    Models.ProfileEditProfileViewModel model = new Models.ProfileEditProfileViewModel();
+                    model.FirstName = profile.FirstName;
+                    model.LastName = profile.LastName;
+                    model.PhoneNumber = profile.Phone;
+                    return View(model);
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult EditProfile(Models.ProfileEditProfileViewModel model)
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                var user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
+                if (user != null)
+                {
+                    var profileId = user.ProfileId;
+                    Profile profile = _profileService.GetProfileById(profileId);
+                    profile.FirstName = model.FirstName;
+                    profile.LastName = model.LastName;
+                    profile.Phone = model.PhoneNumber;
+                    _profileService.UpdateProfile(profile);
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult LogOut()
