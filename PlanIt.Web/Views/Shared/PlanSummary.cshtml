@@ -10,49 +10,23 @@
         <div class="pull-right">
             @Html.ActionLink("Remove", "RemovePlan", "Plan", new { planId = Model.Id }, new { @class = "btn btn-success" })
         </div>
-
-        <div class="pull-right">
-            <button type="button" class="btn btn-primary btn-warning" data-toggle="modal" data-target="#modalChooseUserToShare"><span class="glyphicon"></span>Share</button>
-        </div>
-
-            <!-- Modal -->
-        <div class="modal fade" id="modalChooseUserToShare" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Share</h4>
-                    </div>
-                    <div class="modal-body">
-                        @Html.TextBox("User", null, new { @class = "form-control", @placeholder = "Title" })
-                        @Html.TextArea("Description", null, new { @class = "form-control", @placeholder = "Description" })
-                        <div class="modal-footer">
-                            <button type="button" id="sharePlanBtn" class="btn btn-warning" data-dismiss="modal">Share</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     }
     <span class="lead"> @Model.Description</span>
 </div>
 
-<script src="~/Scripts/user-interaction/choose-user-to-share.js"></script>
-
 @*        <div class="container" style="background-color: #CCCCCC; margin-top:5px; margin-bottom:5px; padding:10px;">
-        <div class="well well-sm" style=" margin-bottom:5px;"><h5><strong>@plan.Title</strong></h5></div>
+            <div class="well well-sm" style=" margin-bottom:5px;"><h5><strong>@plan.Title</strong></h5></div>
 
-        <div class="well"> @plan.Description</div>
+            <div class="well"> @plan.Description</div>
 
-        @using (Html.BeginForm("Plans", "Plan"))
-        {
-            <div class="pull-right">
-                <input type="submit" class="btn btn-success" value="Edit" />
-                <input type="submit" class="btn btn-success" value="Remove" />
-            </div>
-        }
-    </div>*@
+            @using (Html.BeginForm("Plans", "Plan"))
+            {
+                <div class="pull-right">
+                    <input type="submit" class="btn btn-success" value="Edit" />
+                    <input type="submit" class="btn btn-success" value="Remove" />
+                </div>
+            }
+        </div>*@
 
 
 @*<div class="row">
