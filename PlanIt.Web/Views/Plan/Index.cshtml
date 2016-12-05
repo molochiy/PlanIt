@@ -8,7 +8,7 @@
         <div class="col-md-offset-2 col-md-8">
             @if (Model.Plans.Count() == 0)
             {
-                <h3>Sorry, You don't have plans</h3>
+                <h3>You don't have plans</h3>
             }
             else
             {
@@ -33,7 +33,7 @@
                             <h4 class="modal-title">Add Plan</h4>
                         </div>
                         <div class="modal-body">
-                            @Html.TextBox("Title", null, new { @class = "form-control", @placeholder = "Title" })
+                            @Html.TextBox("Title", null, new { @class = "form-control", @required = "required", @placeholder = "Title" })
                             @Html.TextArea("Description", null, new { @class = "form-control", @placeholder = "Description" })
                         <div class="modal-footer">
                             <div class="input-daterange">
@@ -44,7 +44,7 @@
                                     @Html.TextBox("EndDate", null, new { @class = "form-control", @placeholder = "End date" })
                                 </div>
                             </div>
-                            <button type="button" id="planAddEdit" class="btn btn-success" data-dismiss="modal">Add</button>
+                            <button type="button" id="planAddEdit" class="btn btn-success">Add</button>
                         </div>
                     </div>
 
@@ -66,18 +66,32 @@
         $('#planAddEdit').click(function () {
             var url = '/Plan/AddPlan/';
             var post = {};
-            post.title = $('#Title').val();
-            post.description = $('#Description').val();
-            post.startDate = $('#StartDate').val();
-            post.endDate = $('#EndDate').val();
-            $.ajax({
-                url:url,
-                type:"POST",
-                data: JSON.stringify(post),
-                contentType:"application/json; charset=utf-8",
-                dataType:"json",
-                success: function(){
+            if ($('#Title').val() == "") {
+                if ($("#Title").prev(".validation").length == 0) {
+                    $("#Title").before("<div class='validation' style='color:red; margin-botton: 2px;'>Please enter Title: </div>");
+                }
+            }
+            else {
+                $("#Title").prev(".validation").remove();
+                $("#Title").attr("data-dismiss", "modal");
+
+                post.title = $('#Title').val();
+                post.description = $('#Description').val();
+                post.startDate = $('#StartDate').val();
+                post.endDate = $('#EndDate').val();
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: JSON.stringify(post),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        window.location.href = data;
                     }
-            })
-    })
+                })
+            }
+        })
+
+
     </script>
+
