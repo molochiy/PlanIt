@@ -27,6 +27,12 @@ namespace PlanIt.Services.Concrete
             return _repository.GetSingle<User>(u => u.Email == email);
         }
 
+        public List<User> GetUsersExistByEmailSubstring(string emailSubstring)
+        {
+            //return _repository.Get<User>(u => u.Email.StartsWith(emailSubstring));
+            return _repository.Get<User>(u => u.Email.Contains(emailSubstring));
+        }
+
         public User AddUser(User user)
         {
             return _repository.Insert<User>(user);

@@ -27,6 +27,7 @@
                     <div class="modal-body">
                         @Html.TextBox("User", null, new { @class = "form-control", @placeholder = "Title" })
                         @Html.TextArea("Description", null, new { @class = "form-control", @placeholder = "Description" })
+                        <input type="text" name="country" id="chooseUserAutocomplete" />
                         <div class="modal-footer">
                             <button type="button" id="sharePlanBtn" class="btn btn-warning" data-dismiss="modal">Share</button>
                         </div>

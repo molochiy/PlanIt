@@ -15,3 +15,21 @@
         }
     })
 })
+
+$('#chooseUserAutocomplete').autocomplete({
+    serviceUrl: '/Share/ChooseUser',
+    onSelect: function (suggestion) {
+        alert('You have shared plan with user: ' + suggestion.value + ', ' + suggestion.data);
+    }
+});
+
+$('#autocomplete').autocomplete({
+    paramName: 'searchString',
+    transformResult: function (response) {
+        return {
+            suggestions: $.map(response.myData, function (dataItem) {
+                return { value: dataItem.valueField, data: dataItem.dataField };
+            })
+        };
+    }
+})
