@@ -17,10 +17,10 @@
     <AssemblyName>PlanIt.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44310</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressSSLPort>44333</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -322,6 +322,7 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\user-interactions\choose-user-to-share.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +332,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlanController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserInteractionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -375,6 +377,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Infrastructure\" />
     <Folder Include="Scripts\app\" />
+    <Folder Include="Views\UserInteractions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PlanIt.Entities\PlanIt.Entities.csproj">
