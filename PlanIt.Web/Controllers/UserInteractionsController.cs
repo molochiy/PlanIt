@@ -54,11 +54,22 @@ namespace PlanIt.Web.Controllers
 
         }
 
-        public ActionResult SharePlan(int planId, string toUserEmail)
+        [HttpPost]
+        public JsonResult SharePlan(int planId, string toUserEmail)
         {
-            _sharingService.SharePlan(planId, HttpContext.User.Identity.Name, toUserEmail);
+            string message;
 
-            return Json(Url.Action("Index", "Plan"));
+            try
+            {
+                _sharingService.SharePlan(planId, HttpContext.User.Identity.Name, toUserEmail);
+                message = "Plan is success shared!";
+            }
+            catch (Exception)
+            {
+                message = "Server error! Plan didn't shared.";
+            }
+
+            return Json(new { message });
         }
     }
 }

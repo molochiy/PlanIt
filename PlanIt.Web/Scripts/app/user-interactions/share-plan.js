@@ -19,7 +19,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                window.location.href = data;
+                noty({ text: data.message, layout: 'topCenter', type: 'success', timeout: 5000, maxVisible: 1 });
             }
         });
     }

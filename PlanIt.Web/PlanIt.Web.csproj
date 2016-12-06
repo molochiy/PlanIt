@@ -352,25 +352,24 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\noty\jquery.noty.js" />
-    <Content Include="Scripts\noty\layouts\bottom.js" />
-    <Content Include="Scripts\noty\layouts\bottomCenter.js" />
-    <Content Include="Scripts\noty\layouts\bottomLeft.js" />
-    <Content Include="Scripts\noty\layouts\bottomRight.js" />
-    <Content Include="Scripts\noty\layouts\center.js" />
-    <Content Include="Scripts\noty\layouts\centerLeft.js" />
-    <Content Include="Scripts\noty\layouts\centerRight.js" />
-    <Content Include="Scripts\noty\layouts\inline.js" />
-    <Content Include="Scripts\noty\layouts\top.js" />
-    <Content Include="Scripts\noty\layouts\topCenter.js" />
-    <Content Include="Scripts\noty\layouts\topLeft.js" />
-    <Content Include="Scripts\noty\layouts\topRight.js" />
-    <Content Include="Scripts\noty\themes\bootstrap.js" />
-    <Content Include="Scripts\noty\themes\default.js" />
-    <Content Include="Scripts\noty\themes\relax.js" />
-    <Content Include="Scripts\user-interactions\choose-user-to-share.js" />
-    <Content Include="Scripts\user-interactions\notification.js" />
-    <Content Include="Scripts\user-interactions\share-plan.js" />
+    <Content Include="Scripts\libs\noty\jquery.noty.js" />
+    <Content Include="Scripts\libs\noty\layouts\bottom.js" />
+    <Content Include="Scripts\libs\noty\layouts\bottomCenter.js" />
+    <Content Include="Scripts\libs\noty\layouts\bottomLeft.js" />
+    <Content Include="Scripts\libs\noty\layouts\bottomRight.js" />
+    <Content Include="Scripts\libs\noty\layouts\center.js" />
+    <Content Include="Scripts\libs\noty\layouts\centerLeft.js" />
+    <Content Include="Scripts\libs\noty\layouts\centerRight.js" />
+    <Content Include="Scripts\libs\noty\layouts\inline.js" />
+    <Content Include="Scripts\libs\noty\layouts\top.js" />
+    <Content Include="Scripts\libs\noty\layouts\topCenter.js" />
+    <Content Include="Scripts\libs\noty\layouts\topLeft.js" />
+    <Content Include="Scripts\libs\noty\layouts\topRight.js" />
+    <Content Include="Scripts\libs\noty\themes\bootstrap.js" />
+    <Content Include="Scripts\libs\noty\themes\default.js" />
+    <Content Include="Scripts\libs\noty\themes\relax.js" />
+    <Content Include="Scripts\app\user-interactions\choose-user-to-share.js" />
+    <Content Include="Scripts\app\user-interactions\share-plan.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -426,7 +425,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Infrastructure\" />
-    <Folder Include="Scripts\app\" />
     <Folder Include="Views\UserInteractions\" />
   </ItemGroup>
   <ItemGroup>
