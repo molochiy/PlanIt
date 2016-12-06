@@ -8,7 +8,7 @@
     @using (Html.BeginForm("Plans", "Plan"))
             {
         <div class="pull-right">
-            @Html.ActionLink("Remove", "RemovePlan", "Plan", new { planId = Model.Id }, new { @class = "btn btn-success" })
+            @Html.ActionLink("Remove", "RemovePlan", "Plan", new { planId = Model.Id }, new { @class = "btn btn-success btn-remove-plan" })
         </div>
         <div class="pull-right">
             <button type="button" class="btn btn-primary btn-warning" data-toggle="modal" data-target="#modalChooseUserToShare"><span class="glyphicon"></span>Share</button>
