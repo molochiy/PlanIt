@@ -17,6 +17,7 @@ namespace PlanIt.Services
             builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterType<PlanService>().As<IPlanService>();
             builder.RegisterType<ProfileService>().As<IProfileService>();
+            builder.RegisterType<SharingService>().As<ISharingService>();
         }
     }
 }

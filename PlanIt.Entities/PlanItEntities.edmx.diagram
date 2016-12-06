@@ -26,9 +26,11 @@
         <AssociationConnector Association="PlanItModel.FK_SharedPlanItemUserr_PlanItem" ManuallyRouted="false" />
         <AssociationConnector Association="PlanItModel.FK_User_Image" ManuallyRouted="false" />
         <AssociationConnector Association="PlanItModel.FK_SharedPlanItemUser_SharingStatus" ManuallyRouted="false" />
-        <AssociationConnector Association="PlanItModel.FK_SharedPlanItemUser_User" ManuallyRouted="false" />
         <AssociationConnector Association="PlanItModel.FK_SharedPlanUser_SharingStatus" ManuallyRouted="false" />
-        <AssociationConnector Association="PlanItModel.FK_SharedPlanUser_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanItModel.FK_SharedPlanItemUser_UserOwner" />
+        <AssociationConnector Association="PlanItModel.FK_SharedPlanItemUser_UserReceiver" />
+        <AssociationConnector Association="PlanItModel.FK_SharedPlanUser_UserOwner" />
+        <AssociationConnector Association="PlanItModel.FK_SharedPlanUser_UserReceiver" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

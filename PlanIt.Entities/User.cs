@@ -18,8 +18,10 @@ namespace PlanIt.Entities
         public User()
         {
             this.Plans = new HashSet<Plan>();
-            this.SharedPlanItemUsers = new HashSet<SharedPlanItemUser>();
-            this.SharedPlanUsers = new HashSet<SharedPlanUser>();
+            this.SharedPlanItemUsersOwner = new HashSet<SharedPlanItemUser>();
+            this.SharedPlanItemUsersReceiver = new HashSet<SharedPlanItemUser>();
+            this.SharedPlanUsersOwner = new HashSet<SharedPlanUser>();
+            this.SharedPlanUsersReceiver = new HashSet<SharedPlanUser>();
         }
     
         public int Id { get; set; }
@@ -32,8 +34,12 @@ namespace PlanIt.Entities
         public virtual ICollection<Plan> Plans { get; set; }
         public virtual Profile Profile { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SharedPlanItemUser> SharedPlanItemUsers { get; set; }
+        public virtual ICollection<SharedPlanItemUser> SharedPlanItemUsersOwner { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SharedPlanUser> SharedPlanUsers { get; set; }
+        public virtual ICollection<SharedPlanItemUser> SharedPlanItemUsersReceiver { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SharedPlanUser> SharedPlanUsersOwner { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SharedPlanUser> SharedPlanUsersReceiver { get; set; }
     }
 }

@@ -7,7 +7,8 @@ using PlanIt.Entities;
 
 namespace PlanIt.Services.Abstract
 {
-    interface ISharingService
+    public interface ISharingService
     {
+        void SharePlan(int planId, string fromUserEmail, string toUserEmail);
     }
 }

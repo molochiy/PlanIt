@@ -32,5 +32,3 @@
 :r ".\Data\User.sql"
 :r ".\Data\Plan.sql"
 :r ".\Data\PlanItem.sql"
-:r ".\Data\SharedPlanItemUser.sql"
-:r ".\Data\SharedPlanUser.sql"

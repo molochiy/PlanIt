@@ -24,7 +24,8 @@
                         <h4 class="modal-title">Share</h4>
                     </div>
                     <div class="modal-body">
-                        <input type="text" id="chooseUserAutocomplete" />
+                        <input type="hidden" id="planId" value=@Model.Id>
+                        <input type="text" id="chooseUserAutocomplete"/>
                         <div class="modal-footer">
                             <button type="button" id="sharePlanBtn" class="btn btn-warning" data-dismiss="modal">Share</button>
                         </div>
@@ -36,17 +37,13 @@
     <span class="lead"> @Model.Description</span>
 </div>
 
-<script src="~/Scripts/user-interactions/notification.js"></script>
 <script src="~/Scripts/noty/jquery.noty.js"></script>
 <script src="~/Scripts/noty/layouts/top.js"></script>
 <script src="~/Scripts/noty/themes/default.js"></script>
 
-<!-- Import the SignalR scripts -->
-<script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
-<script src="~/signalr/hubs"></script>
-
 <script src="~/Scripts/libs/jquery/jquery-ui-1.12.1.min.js"></script>
 <script src="~/Scripts/user-interactions/choose-user-to-share.js"></script>
+<script src="~/Scripts/user-interactions/share-plan.js"></script>
 
     @*        <div class="container" style="background-color: #CCCCCC; margin-top:5px; margin-bottom:5px; padding:10px;">
             <div class="well well-sm" style=" margin-bottom:5px;"><h5><strong>@plan.Title</strong></h5></div>

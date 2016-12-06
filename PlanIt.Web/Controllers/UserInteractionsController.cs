@@ -12,10 +12,12 @@ namespace PlanIt.Web.Controllers
     public class UserInteractionsController : Controller
     {
         private readonly IUserService _userService;
+        private readonly ISharingService _sharingService;
 
-        public UserInteractionsController(IUserService userService)
+        public UserInteractionsController(IUserService userService, ISharingService sharingService)
         {
             _userService = userService;
+            _sharingService = sharingService;
         }
 
         // GET: UserInteractions
@@ -50,6 +52,13 @@ namespace PlanIt.Web.Controllers
         public void CommentPlanItem()
         {
 
+        }
+
+        public ActionResult SharePlan(int planId, string toUserEmail)
+        {
+            _sharingService.SharePlan(planId, HttpContext.User.Identity.Name, toUserEmail);
+
+            return Json(Url.Action("Index", "Plan"));
         }
     }
 }

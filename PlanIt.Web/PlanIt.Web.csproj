@@ -370,6 +370,7 @@
     <Content Include="Scripts\noty\themes\relax.js" />
     <Content Include="Scripts\user-interactions\choose-user-to-share.js" />
     <Content Include="Scripts\user-interactions\notification.js" />
+    <Content Include="Scripts\user-interactions\share-plan.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

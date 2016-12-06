@@ -18,10 +18,12 @@ namespace PlanIt.Entities
         public int PlanItemId { get; set; }
         public System.DateTime SharingDateTime { get; set; }
         public int SharingStatusId { get; set; }
-        public int UserId { get; set; }
+        public int UserOwnerId { get; set; }
+        public int UserReceiverId { get; set; }
     
         public virtual PlanItem PlanItem { get; set; }
         public virtual SharingStatus SharingStatus { get; set; }
-        public virtual User User { get; set; }
+        public virtual User UserOwner { get; set; }
+        public virtual User UserReceiver { get; set; }
     }
 }
