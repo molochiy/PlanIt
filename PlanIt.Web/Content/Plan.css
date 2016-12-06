@@ -35,4 +35,18 @@ textarea.form-control {
 
 .btn-remove-plan {
     min-width: 100px;
+    margin-left: 5px;
+}
+
+.plan-heading h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: normal;
+    width: 75%;
+    padding-top: 8px;
+}
+
+.well > .panel {
+    margin-bottom: 0
 }

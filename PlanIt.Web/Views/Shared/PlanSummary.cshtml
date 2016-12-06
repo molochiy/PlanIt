@@ -2,39 +2,64 @@
 
 
 <div class="well">
-    <h3>
-        <strong>@Model.Title</strong>
-    </h3>
-    @using (Html.BeginForm("Plans", "Plan"))
+    <div class="panel panel-default">
+        <div class="panel-heading plan-heading">
+            <h3 class="panel-title pull-left">
+                <a href="@("#collapse-" + Model.Id)" data-parent="#collapsible-" class="accordion-toggle" data-toggle="collapse"><strong>@Model.Title</strong></a>
+            </h3>
+            @using (Html.BeginForm("Plans", "Plan"))
             {
-        <div class="pull-right">
-            @Html.ActionLink("Remove", "RemovePlan", "Plan", new { planId = Model.Id }, new { @class = "btn btn-success btn-remove-plan" })
-        </div>
-        <div class="pull-right">
-            <button type="button" class="btn btn-primary btn-warning" data-toggle="modal" data-target="#modalChooseUserToShare"><span class="glyphicon"></span>Share</button>
-        </div>
+                <div class="pull-right">
+                    @Html.ActionLink("Remove", "RemovePlan", "Plan", new { planId = Model.Id }, new { @class = "btn btn-success btn-remove-plan" })
+                </div>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary btn-warning" data-toggle="modal" data-target="#modalChooseUserToShare"><span class="glyphicon"></span>Share</button>
+                </div>
 
             <!-- Modal -->
-        <div class="modal fade" id="modalChooseUserToShare" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Share</h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" id="planId" value=@Model.Id>
-                        <input type="text" id="chooseUserAutocomplete"/>
-                        <div class="modal-footer">
-                            <button type="button" id="sharePlanBtn" class="btn btn-warning" data-dismiss="modal">Share</button>
+                <div class="modal fade" id="modalChooseUserToShare" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Share</h4>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" id="planId" value=@Model.Id>
+                                <input type="text" id="chooseUserAutocomplete" />
+                                <div class="modal-footer">
+                                    <button type="button" id="sharePlanBtn" class="btn btn-warning" data-dismiss="modal">Share</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            }
+            <div class="clearfix"></div>
+        </div>
+        <div id="@("collapse-" + Model.Id)" class="panel-collapse collapse">
+            <div class="panel-body">
+                <span class="lead"> @Model.Description</span>
+                @foreach (var planItem in Model.PlanItems)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">
+                                @Model.PlanItems.Count
+                                <a href="@("#collapse-" + planItem.Id)" class="accordion-toggle" data-toggle="collapse">Headline 1.1</a>
+                            </h2>
+                        </div>
+                        <div id="@("collapse-" + planItem.Id)" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <span class="lead"> @Model.Description</span>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
-    }
-    <span class="lead"> @Model.Description</span>
+    </div>
 </div>
 
 <script src="~/Scripts/libs/noty/jquery.noty.js"></script>
@@ -45,6 +70,7 @@
 <script src="~/Scripts/libs/jquery/jquery-ui-1.12.1.min.js"></script>
 <script src="~/Scripts/app/user-interactions/choose-user-to-share.js"></script>
 <script src="~/Scripts/app/user-interactions/share-plan.js"></script>
+<script src="~/Scripts/app/plan/collapse-plan-panel.js"></script>
 
     @*        <div class="container" style="background-color: #CCCCCC; margin-top:5px; margin-bottom:5px; padding:10px;">
             <div class="well well-sm" style=" margin-bottom:5px;"><h5><strong>@plan.Title</strong></h5></div>
