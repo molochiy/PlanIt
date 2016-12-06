@@ -43,7 +43,7 @@ namespace PlanIt.Web.Controllers
         }
 
         [HttpPost]
-        public RedirectToRouteResult AddPlan(PlanAddPlanViewModel postData)
+        public ActionResult AddPlan(PlanAddPlanViewModel postData)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace PlanIt.Web.Controllers
                     UserId = user.Id
                 });
 
-                return RedirectToAction("Index");
+                return Json(Url.Action("Index", "Plan"));
             }
             catch (Exception ex)
             {
