@@ -154,6 +154,7 @@
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\landing-page.css" />
+    <Content Include="Content\css\notification-menu-item.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
@@ -166,6 +167,7 @@
     <Content Include="Content\js\jquery.js" />
     <Content Include="Content\js\user\edit-profile.js" />
     <Content Include="Content\js\user\menu.js" />
+    <Content Include="Content\js\user\notification-menu-item.js" />
     <Content Include="Content\Plan.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -278,7 +280,6 @@
     <Content Include="Scripts\libs\jquery\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\libs\jquery\jquery-ui-1.12.1.min.js" />
     <None Include="Scripts\libs\jquery\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\libs\jquery\jquery-ui.js" />
     <Content Include="Scripts\libs\jquery\jquery.validate.js" />
     <Content Include="Scripts\libs\jquery\jquery.validate.min.js" />
     <Content Include="Scripts\libs\jquery\jquery.validate.unobtrusive.bootstrap.js" />

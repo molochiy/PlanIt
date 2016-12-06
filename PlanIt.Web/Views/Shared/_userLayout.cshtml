@@ -8,6 +8,7 @@
     <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet">
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css">
     <link href="~/Content/Plan.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/css/notification-menu-item.css" rel="stylesheet" type="text/css">
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/libs/jquery/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/libs/bootstrap/bootstrap.min.js"></script>
@@ -28,8 +29,10 @@
             </li>
             <li>
                 <a href="@Url.Action("Index", "Home")" class="animate">
-                    <span class="desc animate"> Shared plans </span>
-                    <span class="glyphicon glyphicon-th-list"></span>
+                    <span class="desc animate"> Notifications </span>
+                    <div id="noti_Counter"></div>
+                    <span class="glyphicon glyphicon-bell"></span>
+                    <script src="~/Content/js/user/notification-menu-item.js"></script>
                 </a>
             </li>
             <li>
