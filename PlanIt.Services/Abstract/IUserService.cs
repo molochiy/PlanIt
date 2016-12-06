@@ -15,6 +15,8 @@ namespace PlanIt.Services.Abstract
 
         List<string> GetUsersEmailsByEmailSubstring(string emailSubstring);
 
+        int GetUserIdByEmail(string email);
+
         User AddUser(User user);
     }
 }

@@ -27,6 +27,10 @@ namespace PlanIt.Services.Concrete
             return _repository.GetSingle<User>(u => u.Email == email);
         }
 
+        public int GetUserIdByEmail(string email)
+        {
+            return _repository.GetSingle<User>(u => u.Email == email).Id;
+        }
         public List<string> GetUsersEmailsByEmailSubstring(string emailSubstring)
         {
             return _repository.Get<User>(u => u.Email.Contains(emailSubstring)).Select(u => u.Email).ToList();

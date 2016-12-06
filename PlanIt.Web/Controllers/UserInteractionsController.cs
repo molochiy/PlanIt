@@ -19,6 +19,7 @@ namespace PlanIt.Web.Controllers
         }
 
         // GET: UserInteractions
+        //for perspective: view for interaction log
         public ActionResult Index()
         {
             return View();
@@ -29,6 +30,26 @@ namespace PlanIt.Web.Controllers
         {
             var emails = _userService.GetUsersEmailsByEmailSubstring(partOfEmail);
             return JsonConvert.SerializeObject(emails);
+        }
+
+        public ActionResult AddPlansMember()
+        {
+            return RedirectToAction("Index", "Plan");
+        }
+
+        public ActionResult AddPlanItemsMember()
+        {
+            return RedirectToAction("Index", "Plan");
+        }
+
+        public void CommentPlan()
+        {
+
+        }
+
+        public void CommentPlanItem()
+        {
+
         }
     }
 }
