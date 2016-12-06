@@ -62,11 +62,11 @@ namespace PlanIt.Web.Controllers
             try
             {
                 _sharingService.SharePlan(planId, HttpContext.User.Identity.Name, toUserEmail);
-                message = "Plan is success shared!";
+                message = "Plan was successfully shared!";
             }
             catch (Exception)
             {
-                message = "Server error! Plan didn't shared.";
+                message = "Server error! Plan wasn't shared.";
             }
 
             return Json(new { message });
