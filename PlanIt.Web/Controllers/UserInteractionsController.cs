@@ -102,12 +102,13 @@ namespace PlanIt.Web.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public JsonResult GetNumberOfIncommingPlansWithPendingStatus()
+        public JsonResult GetNumberOfNotifications()
         {
             string userEmail = HttpContext.User.Identity.Name;
-            int n = _sharingService.GetSharedPlanUserDataWithStatus(userEmail, "Pending").Count;
-            return Json(new { n });
+
+            int numberOfNotification = _sharingService.GetNumberOfNotificationForUser(userEmail);
+
+            return Json(new { numberOfNotification }, JsonRequestBehavior.AllowGet);
         }
     }
 }
