@@ -153,6 +153,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\jquery-ui.css" />
     <Content Include="Content\css\landing-page.css" />
     <Content Include="Content\css\notification-menu-item.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
