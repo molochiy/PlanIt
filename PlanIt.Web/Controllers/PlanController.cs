@@ -48,14 +48,18 @@ namespace PlanIt.Web.Controllers
             try
             {
                 User user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
+                DateTime? postBegin = null;
+                DateTime? postEnd = null;
+                if (postData.StartDate != "" && postData.StartDate != null) postBegin = DateTime.Parse(postData.StartDate);
+                if (postData.EndDate != "" && postData.EndDate != null) postEnd = DateTime.Parse(postData.EndDate);
                 if (postData.Id != null)
                 {
                     _planService.UpdatePlan(new Plan {
                         Id = Convert.ToInt32(postData.Id),
                         Title = postData.Title,
                         Description = postData.Description,
-                        Begin = DateTime.Parse(postData.StartDate),
-                        End = DateTime.Parse(postData.EndDate),
+                        Begin = postBegin,
+                        End = postEnd,
                         StatusId = 1,
                         IsDeleted = false,
                         UserId = user.Id
@@ -67,8 +71,8 @@ namespace PlanIt.Web.Controllers
                     {
                         Title = postData.Title,
                         Description = postData.Description,
-                        Begin = DateTime.Parse(postData.StartDate),
-                        End = DateTime.Parse(postData.EndDate),
+                        Begin = postBegin,
+                        End = postEnd,
                         StatusId = 1,
                         IsDeleted = false,
                         UserId = user.Id
@@ -76,7 +80,7 @@ namespace PlanIt.Web.Controllers
                 }
                 return Json(Url.Action("Index", "Plan"));
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return RedirectToAction("LogIn", "User");
             }

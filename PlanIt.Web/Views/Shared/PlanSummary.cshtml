@@ -6,8 +6,8 @@
     @Html.Hidden("plan-id-"+@Model.Id.ToString(), @Model.Id)
 	@Html.Hidden("plan-title-"+@Model.Id.ToString(), @Model.Title)
     @Html.Hidden("plan-description-" + @Model.Id.ToString(), @Model.Description)
-    @Html.Hidden("plan-begin-" + @Model.Id.ToString(), @Model.Begin.Value.ToShortDateString().Replace('.', '/'))
-    @Html.Hidden("plan-end-" + @Model.Id.ToString(), @Model.End.Value.ToShortDateString().Replace('.', '/'))
+    @Html.Hidden("plan-begin-" + @Model.Id.ToString(), @Model.Begin != null ? @Model.Begin.Value.ToShortDateString().Replace('.', '/'):null)
+    @Html.Hidden("plan-end-" + @Model.Id.ToString(), @Model.End!= null ? @Model.End.Value.ToShortDateString().Replace('.', '/'):null)
     <div class="panel panel-default">
         <div class="panel-heading plan-heading">
             <h3 class="panel-title pull-left">
