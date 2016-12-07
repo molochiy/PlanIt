@@ -19,7 +19,7 @@
             }
 
             <div class="text-center">
-                 <button type="button" class="btn btn-primary btn-success" data-toggle="modal" data-target="#modalPlanAddEdit"><span class="glyphicon glyphicon-plus"></span> Add Plan</Button>
+                 <button id="btn-add-plan" type="button" class="btn btn-primary btn-success" data-toggle="modal" data-target="#modalPlanAddEdit"><span class="glyphicon glyphicon-plus"></span> Add Plan</Button>
             </div>
 
             <!-- Modal -->
@@ -68,7 +68,7 @@
   $(function () {
       $(".input-daterange #datepickerEnd").datepicker();
   });
-  $('#btn-close').click(function () {
+  $('#btn-add-plan').click(function () {
       $('#Id').val("");
       $('#Title').val("");
       $('#Description').val("");
