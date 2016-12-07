@@ -43,7 +43,13 @@ namespace PlanIt.Services.Concrete
         public List<SharedPlanUser> GetSharedPlanUserToShow(string userEmail)
         {
             var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
-            return _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId && (s.SharingStatusId == 1 || s.SharingStatusId == 2 || s.SharingStatusId == 3));
+            var pandingStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Pending").Id;
+            var acceptedStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Accepted").Id;
+            var declinedStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Declined").Id;
+            return _repository.Get<SharedPlanUser>(
+               (s => (s.UserReceiverId == userId && s.SharingStatusId == pandingStatusId) ||
+              (s.UserOwnerId == userId && s.SharingStatusId == acceptedStatusId) ||
+              (s.UserOwnerId == userId && s.SharingStatusId == declinedStatusId)));
         }
 
         public List<SharedPlanUser> GetSharedPlanUserDataWithStatus(string userEmail, string status)

@@ -73,6 +73,11 @@ namespace PlanIt.Web.Controllers
             return RedirectToAction("Index", "UserInteractions");
         }
 
+        public ActionResult AcceptAndAddPlan(int sharedPlanUserId, string newStatus)
+        {
+            return RedirectToAction("Index", "UserInteractions");
+        }
+
         public void CommentPlan()
         {
 
