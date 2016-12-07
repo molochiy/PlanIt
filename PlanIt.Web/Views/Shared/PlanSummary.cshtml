@@ -17,11 +17,7 @@
             {
                 <div class="pull-right">
                     @Html.ActionLink("Remove", "RemovePlan", "Plan", new { planId = Model.Id }, new { @class = "btn btn-success btn-remove-plan" })
-                </div>
-                <div class="pull-right">
                     <button id="edit-plan-@Model.Id" type="button" class="btn btn-primary btn-success" ><span class="glyphicon"></span>Edit</button>
-                </div>
-                <div class="pull-right">
                     <button type="button" class="btn btn-primary btn-warning" data-toggle="modal" data-target="#modalChooseUserToShare"><span class="glyphicon"></span>Share</button>
                 </div>
      
