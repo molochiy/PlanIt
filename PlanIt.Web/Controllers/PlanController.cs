@@ -48,17 +48,32 @@ namespace PlanIt.Web.Controllers
             try
             {
                 User user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
-                _planService.SavePlan(new Plan
+                if (postData.Id != null)
                 {
-                    Title = postData.Title,
-                    Description = postData.Description,
-                    Begin = postData.StartDate,
-                    End = postData.EndDate,
-                    StatusId = 1,
-                    IsDeleted = false,
-                    UserId = user.Id
-                });
-
+                    _planService.UpdatePlan(new Plan {
+                        Id = Convert.ToInt32(postData.Id),
+                        Title = postData.Title,
+                        Description = postData.Description,
+                        Begin = DateTime.Parse(postData.StartDate),
+                        End = DateTime.Parse(postData.EndDate),
+                        StatusId = 1,
+                        IsDeleted = false,
+                        UserId = user.Id
+                    });
+                }
+                else
+                {
+                    _planService.SavePlan(new Plan
+                    {
+                        Title = postData.Title,
+                        Description = postData.Description,
+                        Begin = DateTime.Parse(postData.StartDate),
+                        End = DateTime.Parse(postData.EndDate),
+                        StatusId = 1,
+                        IsDeleted = false,
+                        UserId = user.Id
+                    });
+                }
                 return Json(Url.Action("Index", "Plan"));
             }
             catch (Exception)
@@ -70,7 +85,7 @@ namespace PlanIt.Web.Controllers
         public ActionResult RemovePlan(int planId)
         {
             Plan planFromDb = _planService.GetPlanById(planId);
-            _planService.DeletePlan(new Plan {
+            _planService.UpdatePlan(new Plan {
                 Id = planFromDb.Id,
                 Title = planFromDb.Title,
                 Description = planFromDb.Description,

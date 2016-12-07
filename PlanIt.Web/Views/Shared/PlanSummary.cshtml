@@ -3,10 +3,11 @@
 
 
 <div class="well">
+    @Html.Hidden("plan-id-"+@Model.Id.ToString(), @Model.Id)
 	@Html.Hidden("plan-title-"+@Model.Id.ToString(), @Model.Title)
     @Html.Hidden("plan-description-" + @Model.Id.ToString(), @Model.Description)
-    @Html.Hidden("plan-begin-" + @Model.Id.ToString(), @Model.Begin.Value.ToShortDateString())
-    @Html.Hidden("plan-end-" + @Model.Id.ToString(), @Model.End.Value.ToShortDateString())
+    @Html.Hidden("plan-begin-" + @Model.Id.ToString(), @Model.Begin.Value.ToShortDateString().Replace('.', '/'))
+    @Html.Hidden("plan-end-" + @Model.Id.ToString(), @Model.End.Value.ToShortDateString().Replace('.', '/'))
     <div class="panel panel-default">
         <div class="panel-heading plan-heading">
             <h3 class="panel-title pull-left">
@@ -16,6 +17,9 @@
             {
                 <div class="pull-right">
                     @Html.ActionLink("Remove", "RemovePlan", "Plan", new { planId = Model.Id }, new { @class = "btn btn-success btn-remove-plan" })
+                </div>
+                <div class="pull-right">
+                    <button id="edit-plan-@Model.Id" type="button" class="btn btn-primary btn-success" ><span class="glyphicon"></span>Edit</button>
                 </div>
                 <div class="pull-right">
                     <button type="button" class="btn btn-primary btn-warning" data-toggle="modal" data-target="#modalChooseUserToShare"><span class="glyphicon"></span>Share</button>
@@ -85,12 +89,13 @@
 
         $("#edit-plan-@Model.Id").attr("data-toggle", "modal");
         $("#edit-plan-@Model.Id").attr("data-target", "#modalPlanAddEdit");
+        $('#Id').val($('#plan-id-@Model.Id').val());
         $('#Title').val($('#plan-title-@Model.Id').val());
         $('#Description').val($('#plan-description-@Model.Id').val());
         console.log($('#plan-begin-@Model.Id').val());
         console.log($('#plan-end-@Model.Id').val());
-        $('#StartDate').val($('#plan-begin-@Model.Id').val());
-        $('#EndDate').val($('#plan-end-@Model.Id').val());
+        $('#datepickerStart').val($('#plan-begin-@Model.Id').val());
+        $('#datepickerEnd').val($('#plan-end-@Model.Id').val());
     });
 </script>
 

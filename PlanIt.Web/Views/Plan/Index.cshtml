@@ -29,10 +29,11 @@
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <button id ="btn-close" type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Add Plan</h4>
                         </div>
                         <div class="modal-body">
+                            @Html.Hidden("ID",null, new { @id = "Id", @class = "form-control"})
                             @Html.TextBox("Title", null, new { @id = "Title", @class = "form-control", @required = "required", @placeholder = "Title" })
                             @Html.TextArea("Description", null, new { @id = "Description",  @class = "form-control", @placeholder = "Description" })
                         <div class="modal-footer">
@@ -67,6 +68,13 @@
   $(function () {
       $(".input-daterange #datepickerEnd").datepicker();
   });
+  $('#btn-close').click(function () {
+      $('#Id').val("");
+      $('#Title').val("");
+      $('#Description').val("");
+      $('#datepickerStart').val("");
+      $('#datepickerEnd').val("");
+  });
 </script>
 
 
@@ -83,10 +91,11 @@
                 $("#Title").prev(".validation").remove();
                 $("#Title").attr("data-dismiss", "modal");
 
+                post.Id = $('#Id').val();
                 post.title = $('#Title').val();
                 post.description = $('#Description').val();
-                post.startDate = $('#StartDate').val();
-                post.endDate = $('#EndDate').val();
+                post.startDate = $('#datepickerStart').val();
+                post.endDate = $('#datepickerEnd').val();
                 $.ajax({
                     url: url,
                     type: "POST",
