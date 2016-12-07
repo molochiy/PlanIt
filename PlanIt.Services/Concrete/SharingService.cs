@@ -34,6 +34,51 @@ namespace PlanIt.Services.Concrete
             _repository.Insert(sharedPlanUser);
         }
 
+        public List<int> GetOutcommingPlans(string userEmail)
+        {
+            var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
+            return _repository.Get<SharedPlanUser>(s => s.UserOwnerId == userId).Select(s => s.PlanId).ToList();
+        }
 
+        public List<int> GetOutcommingPlansWithStatus(string userEmail, string status)
+        {
+            var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
+            var statusId = _repository.GetSingle<SharingStatus>(s => s.Name == status).Id;
+            return _repository.Get<SharedPlanUser>(s => s.UserOwnerId == userId && s.SharingStatusId == statusId).Select(s => s.PlanId).ToList();
+        }
+
+        public List<int> GetIncommingPlans(string userEmail)
+        {
+            var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
+            return _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId).Select(s => s.PlanId).ToList();
+        }
+
+        public List<int> GetIncommingPlansWithStatus(string userEmail, string status)
+        {
+            var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
+            var statusId = _repository.GetSingle<SharingStatus>(s => s.Name == status).Id;
+            return _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId && s.SharingStatusId == statusId).Select(s => s.PlanId).ToList();
+        }
+
+        public List<SharedPlanUser> GetIncomingSharingData(string userEmail)
+        {
+            var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
+           return _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId);
+        }
+
+        public List<SharedPlanUser> GetIncommingSharingDataWithStatus(string userEmail, string status)
+        {
+            var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
+            var statusId = _repository.GetSingle<SharingStatus>(s => s.Name == status).Id;
+            return _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId && s.SharingStatusId == statusId);
+        }
+
+        public void ChangeSharedPlanUserStatus(int sharedPlanUserId, string newSharingStatus)
+        {
+           var sharedInfo = _repository.GetSingle<SharedPlanUser>(s => s.Id == sharedPlanUserId);
+            var statusId = _repository.GetSingle<SharingStatus>(s => s.Name == newSharingStatus).Id;
+            sharedInfo.SharingStatusId = statusId;
+            _repository.Update<SharedPlanUser>(sharedInfo);
+        }
     }
 }

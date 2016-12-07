@@ -3,6 +3,7 @@
         position: absolute;
         background:#E1141E;
         color:#FFF;
+        opacity: 0;
         font-size:12px;
         font-weight:normal;
         padding:1px 3px;

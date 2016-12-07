@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using PlanIt.Services.Abstract;
 using PlanIt.Services.Concrete;
 using Newtonsoft.Json;
+using PlanIt.Entities;
+using PlanIt.Web.Models;
 
 namespace PlanIt.Web.Controllers
 {
@@ -13,18 +15,45 @@ namespace PlanIt.Web.Controllers
     {
         private readonly IUserService _userService;
         private readonly ISharingService _sharingService;
+        private readonly IPlanService _planService;
 
-        public UserInteractionsController(IUserService userService, ISharingService sharingService)
+        public UserInteractionsController(IUserService userService, ISharingService sharingService, IPlanService planService)
         {
             _userService = userService;
             _sharingService = sharingService;
+            _planService = planService;
         }
 
         // GET: UserInteractions
         //for perspective: view for interaction log
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                List<SharedPlanUser> sharingData = _sharingService.GetIncommingSharingDataWithStatus(HttpContext.User.Identity.Name, "Pending");
+                List<NotificationSummaryModel> notifications = new List<NotificationSummaryModel>();
+                foreach(var data in sharingData)
+                {
+                    User userWhoSharedPlan = _userService.GetUserById(data.UserOwnerId);
+                    Plan sharedPlan = _planService.GetPlanById(data.PlanId);
+
+                    notifications.Add(new NotificationSummaryModel
+                    {
+                        SharedPlanUserId = data.Id,
+                        UserWhoSharedPlan = userWhoSharedPlan,
+                        SharingDateTime = data.SharingDateTime,
+                        SharedPlan = sharedPlan
+                    });
+                }
+                return View(new NotificationViewModel
+                {
+                    Notifications = notifications
+                });
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("LogIn", "User");
+            }
         }
 
         [HttpGet]
@@ -34,14 +63,16 @@ namespace PlanIt.Web.Controllers
             return JsonConvert.SerializeObject(emails);
         }
 
-        public ActionResult AddPlansMember()
+        public ActionResult AcceptSharedPlan(int sharedPlanUserId)
         {
-            return RedirectToAction("Index", "Plan");
+            _sharingService.ChangeSharedPlanUserStatus(sharedPlanUserId, "Accepted");
+            return RedirectToAction("Index", "UserInteractions");
         }
 
-        public ActionResult AddPlanItemsMember()
+        public ActionResult DeclineSharedPlan(int sharedPlanUserId)
         {
-            return RedirectToAction("Index", "Plan");
+            _sharingService.ChangeSharedPlanUserStatus(sharedPlanUserId, "Declined");
+            return RedirectToAction("Index", "UserInteractions");
         }
 
         public void CommentPlan()
@@ -70,6 +101,15 @@ namespace PlanIt.Web.Controllers
             }
 
             return Json(new { message });
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public JsonResult GetNumberOfIncommingPlansWithPendingStatus()
+        {
+            string userEmail = HttpContext.User.Identity.Name;
+            int n = _sharingService.GetIncommingPlansWithStatus(userEmail, "Pending").Count;
+            return Json(new { n });
         }
     }
 }

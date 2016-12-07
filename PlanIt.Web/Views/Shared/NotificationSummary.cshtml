@@ -1,0 +1,69 @@
+﻿@model PlanIt.Web.Models.NotificationSummaryModel
+
+<div class="well">
+    @Html.Hidden("plan-title-" + @Model.SharedPlan.Id.ToString(), @Model.SharedPlan.Title)
+    @Html.Hidden("plan-description-" + @Model.SharedPlan.Id.ToString(), @Model.SharedPlan.Description)
+    @Html.Hidden("plan-begin-" + @Model.SharedPlan.Id.ToString(), @Model.SharedPlan.Begin.Value.ToShortDateString())
+    @Html.Hidden("plan-end-" + @Model.SharedPlan.Id.ToString(), @Model.SharedPlan.End.Value.ToShortDateString())
+    <div class="panel panel-default">
+        <div class="panel-heading plan-heading">
+            <h3 class="panel-title pull-left">
+                User @Model.UserWhoSharedPlan.Email have shared plan
+                <a href="@("#collapse-" + Model.SharedPlan.Id)" data-parent="#collapsible-" class="accordion-toggle" data-toggle="collapse"><strong>@Model.SharedPlan.Title</strong></a>
+                with you.
+            </h3>
+            <h6 class="panel-info pull-left">@Model.SharingDateTime.ToString()</h6>
+            <div class="pull-right">
+                @Html.ActionLink("Accept", "AcceptSharedPlan", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId }, new { @class = "btn btn-success" })
+            </div>
+            <div class="pull-right">
+                @Html.ActionLink("Decline", "DeclineSharedPlan", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId}, new { @class = "btn btn-warning" })
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div id="@("collapse-" + Model.SharedPlan.Id)" class="panel-collapse collapse">
+            <div class="panel-body">
+                <span class="lead"> @Model.SharedPlan.Description</span>
+                @foreach (var planItem in Model.SharedPlan.PlanItems)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">
+                                @Model.SharedPlan.PlanItems.Count
+                                <a href="@("#collapse-" + planItem.Id)" class="accordion-toggle" data-toggle="collapse">Headline 1.1</a>
+                            </h2>
+                        </div>
+                        <div id="@("collapse-" + planItem.Id)" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <span class="lead"> @Model.SharedPlan.Description</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/libs/noty/jquery.noty.js"></script>
+<script src="~/Scripts/libs/noty/layouts/top.js"></script>
+<script src="~/Scripts/libs/noty/layouts/topCenter.js"></script>
+<script src="~/Scripts/libs/noty/themes/default.js"></script>
+
+<script src="~/Scripts/libs/jquery/jquery-ui-1.12.1.min.js"></script>
+<script src="~/Scripts/app/user-interactions/choose-user-to-share.js"></script>
+<script src="~/Scripts/app/user-interactions/share-plan.js"></script>
+<script src="~/Scripts/app/plan/collapse-plan-panel.js"></script>
+
+
+<script>
+    $('#edit-plan-@Model.SharedPlan.Id').click(function () {
+
+        $('#Title').val($('#plan-title-@Model.SharedPlan.Id').val());
+        $('#Description').val($('#plan-description-@Model.SharedPlan.Id').val());
+        console.log($('#plan-begin-@Model.SharedPlan.Id').val());
+        console.log($('#plan-end-@Model.SharedPlan.Id').val());
+        $('#StartDate').val($('#plan-begin-@Model.SharedPlan.Id').val());
+        $('#EndDate').val($('#plan-end-@Model.SharedPlan.Id').val());
+    });
+</script>
