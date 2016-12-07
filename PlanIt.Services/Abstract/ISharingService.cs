@@ -15,7 +15,7 @@ namespace PlanIt.Services.Abstract
 
         List<SharedPlanUser> GetSharedPlanUserToShow(string userEmail);
 
-        List<SharedPlanUser> GetSharedPlanUserDataWithStatus(string userEmail, string status);
+        int GetNumberOfNotificationForUser(string userEmail);
 
         void ChangeSharedPlanUserStatus(int sharedPlanUserId, string newSharingStatus);
 

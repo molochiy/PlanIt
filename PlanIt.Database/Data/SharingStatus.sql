@@ -5,7 +5,8 @@ MERGE INTO [SharingStatus] AS TARGET
 	VALUES
 		(1, 'Accepted'),
 		(2, 'Pending'),
-		(3, 'Declined'))
+		(3, 'Declined'),
+		(4, 'Notified'))
 	AS SOURCE ([Id], [Name])
 	ON TARGET.[Id] = SOURCE.[Id]
 		WHEN MATCHED THEN
