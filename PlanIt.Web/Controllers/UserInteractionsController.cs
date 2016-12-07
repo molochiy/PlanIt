@@ -73,8 +73,21 @@ namespace PlanIt.Web.Controllers
             return RedirectToAction("Index", "UserInteractions");
         }
 
-        public ActionResult AcceptAndAddPlan(int sharedPlanUserId, string newStatus)
+        public ActionResult AcceptAndAddPlan(int sharedPlanUserId, int sharedPlanId)
         {
+            _sharingService.ChangeSharedPlanUserStatus(sharedPlanUserId, "Accepted");
+            User user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
+            Plan sharedPlan = _planService.GetPlanById(sharedPlanId);
+            _planService.SavePlan(new Plan
+            {
+                Title = sharedPlan.Title,
+                Description = sharedPlan.Description,
+                Begin = sharedPlan.Begin,
+                End = sharedPlan.End,
+                StatusId = 1,
+                IsDeleted = false,
+                UserId = user.Id
+            });
             return RedirectToAction("Index", "UserInteractions");
         }
 

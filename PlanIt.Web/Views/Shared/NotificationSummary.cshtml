@@ -35,7 +35,7 @@
             @if (Model.SharingStatus == "Pending")
             {
                 <div class="pull-right">
-                    @Html.ActionLink("Accept", "ChangeSharedPlanUserStatus", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newStatus = "Accepted" }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Accept", "AcceptAndAddPlan", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, sharedPlanId = Model.SharedPlan.Id }, new { @class = "btn btn-success" })
                 </div>
                 <div class="pull-right">
                     @Html.ActionLink("Decline", "ChangeSharedPlanUserStatus", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newStatus = "Declined" }, new { @class = "btn btn-warning" })
@@ -44,13 +44,13 @@
             @if (Model.SharingStatus == "Accepted")
             {
                 <div class="pull-right">
-                    @Html.ActionLink("Ok", "ChangeSharedPlanUserStatus", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newStatus = "AcceptedNotified" }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Ok", "ChangeSharedPlanUserStatus", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newStatus = "Notified" }, new { @class = "btn btn-default" })
                 </div>
             }
             @if (Model.SharingStatus == "Declined")
             {
                 <div class="pull-right">
-                    @Html.ActionLink("Ok", "ChangeSharedPlanUserStatus", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newStatus = "DeclinedNotified" }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Ok", "ChangeSharedPlanUserStatus", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newStatus = "Notified" }, new { @class = "btn btn-default" })
                 </div>
             }
             <div class="clearfix"></div>

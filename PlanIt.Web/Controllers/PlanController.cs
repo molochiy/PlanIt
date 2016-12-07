@@ -61,7 +61,7 @@ namespace PlanIt.Web.Controllers
 
                 return Json(Url.Action("Index", "Plan"));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return RedirectToAction("LogIn", "User");
             }
