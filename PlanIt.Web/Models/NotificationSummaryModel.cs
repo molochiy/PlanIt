@@ -10,7 +10,11 @@ namespace PlanIt.Web.Models
     {
         public int SharedPlanUserId { get; set; }
 
-        public User UserWhoSharedPlan { get; set; }
+        public string SharingStatus { get; set; }
+
+        public User UserOwner { get; set; }
+
+        public User UserReciever { get; set; }
 
         public DateTime SharingDateTime { get; set; }
 

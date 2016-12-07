@@ -34,39 +34,19 @@ namespace PlanIt.Services.Concrete
             _repository.Insert(sharedPlanUser);
         }
 
-        public List<int> GetOutcommingPlans(string userEmail)
-        {
-            var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
-            return _repository.Get<SharedPlanUser>(s => s.UserOwnerId == userId).Select(s => s.PlanId).ToList();
-        }
-
-        public List<int> GetOutcommingPlansWithStatus(string userEmail, string status)
-        {
-            var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
-            var statusId = _repository.GetSingle<SharingStatus>(s => s.Name == status).Id;
-            return _repository.Get<SharedPlanUser>(s => s.UserOwnerId == userId && s.SharingStatusId == statusId).Select(s => s.PlanId).ToList();
-        }
-
-        public List<int> GetIncommingPlans(string userEmail)
-        {
-            var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
-            return _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId).Select(s => s.PlanId).ToList();
-        }
-
-        public List<int> GetIncommingPlansWithStatus(string userEmail, string status)
-        {
-            var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
-            var statusId = _repository.GetSingle<SharingStatus>(s => s.Name == status).Id;
-            return _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId && s.SharingStatusId == statusId).Select(s => s.PlanId).ToList();
-        }
-
-        public List<SharedPlanUser> GetIncomingSharingData(string userEmail)
+        public List<SharedPlanUser> GetSharedPlanUserData(string userEmail)
         {
             var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
            return _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId);
         }
 
-        public List<SharedPlanUser> GetIncommingSharingDataWithStatus(string userEmail, string status)
+        public List<SharedPlanUser> GetSharedPlanUserToShow(string userEmail)
+        {
+            var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
+            return _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId && (s.SharingStatusId == 1 || s.SharingStatusId == 2 || s.SharingStatusId == 3));
+        }
+
+        public List<SharedPlanUser> GetSharedPlanUserDataWithStatus(string userEmail, string status)
         {
             var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
             var statusId = _repository.GetSingle<SharingStatus>(s => s.Name == status).Id;
@@ -78,7 +58,13 @@ namespace PlanIt.Services.Concrete
            var sharedInfo = _repository.GetSingle<SharedPlanUser>(s => s.Id == sharedPlanUserId);
             var statusId = _repository.GetSingle<SharingStatus>(s => s.Name == newSharingStatus).Id;
             sharedInfo.SharingStatusId = statusId;
+            sharedInfo.SharingDateTime = DateTime.Now;
             _repository.Update<SharedPlanUser>(sharedInfo);
+        }
+
+        public string GetSharingStatusById(int sharingStatusId)
+        {
+            return _repository.GetSingle<SharingStatus>(s => s.Id == sharingStatusId).Name;
         }
     }
 }

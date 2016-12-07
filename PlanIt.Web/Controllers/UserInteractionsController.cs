@@ -30,17 +30,21 @@ namespace PlanIt.Web.Controllers
         {
             try
             {
-                List<SharedPlanUser> sharingData = _sharingService.GetIncommingSharingDataWithStatus(HttpContext.User.Identity.Name, "Pending");
+                List<SharedPlanUser> sharingData = _sharingService.GetSharedPlanUserToShow(HttpContext.User.Identity.Name);
                 List<NotificationSummaryModel> notifications = new List<NotificationSummaryModel>();
                 foreach(var data in sharingData)
                 {
-                    User userWhoSharedPlan = _userService.GetUserById(data.UserOwnerId);
+                    User userOwner = _userService.GetUserById(data.UserOwnerId);
+                    User userReciever = _userService.GetUserById(data.UserReceiverId);
                     Plan sharedPlan = _planService.GetPlanById(data.PlanId);
+                    string sharingStatus = _sharingService.GetSharingStatusById(data.SharingStatusId);
 
                     notifications.Add(new NotificationSummaryModel
                     {
                         SharedPlanUserId = data.Id,
-                        UserWhoSharedPlan = userWhoSharedPlan,
+                        SharingStatus = sharingStatus,
+                        UserOwner = userOwner,
+                        UserReciever = userReciever,
                         SharingDateTime = data.SharingDateTime,
                         SharedPlan = sharedPlan
                     });
@@ -63,15 +67,9 @@ namespace PlanIt.Web.Controllers
             return JsonConvert.SerializeObject(emails);
         }
 
-        public ActionResult AcceptSharedPlan(int sharedPlanUserId)
+        public ActionResult ChangeSharedPlanUserStatus(int sharedPlanUserId, string newStatus)
         {
-            _sharingService.ChangeSharedPlanUserStatus(sharedPlanUserId, "Accepted");
-            return RedirectToAction("Index", "UserInteractions");
-        }
-
-        public ActionResult DeclineSharedPlan(int sharedPlanUserId)
-        {
-            _sharingService.ChangeSharedPlanUserStatus(sharedPlanUserId, "Declined");
+            _sharingService.ChangeSharedPlanUserStatus(sharedPlanUserId, newStatus);
             return RedirectToAction("Index", "UserInteractions");
         }
 
@@ -108,7 +106,7 @@ namespace PlanIt.Web.Controllers
         public JsonResult GetNumberOfIncommingPlansWithPendingStatus()
         {
             string userEmail = HttpContext.User.Identity.Name;
-            int n = _sharingService.GetIncommingPlansWithStatus(userEmail, "Pending").Count;
+            int n = _sharingService.GetSharedPlanUserDataWithStatus(userEmail, "Pending").Count;
             return Json(new { n });
         }
     }
