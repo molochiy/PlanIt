@@ -4,7 +4,7 @@
         var partOfEmail = inputField[0].value;
         if (partOfEmail.length > 4) {
             $.ajax({
-                url: '/UserInteractions/GetUsersByPartOfEmails?partOfEmail=' + partOfEmail,
+                url: '/UserInteractions/GetUsersByPartOfEmailsExceptCurrentUser?partOfEmail=' + partOfEmail,
                 type: "GET",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",

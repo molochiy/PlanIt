@@ -6,13 +6,11 @@
         dataType: "json",
         success: function (data) {
             if (data && data.numberOfNotification > 0) {
-                $('#noti_Counter')
-                    .css({ opacity: 0 })
-                    .text(data.numberOfNotification)
-                    .css({ top: '10px', right: '10px' })
-                    .animate({ top: '10px', opacity: 1 }, 500);
+                $('#noti_Counter').text(data.numberOfNotification).css('opacity', '1');
+
+                $('#noti_Counter :hidden').show();
             } else {
-                $('#noti_Counter').remove();
+                $('#noti_Counter :visible').hide();
             }
             setTimeout(updateCountNotifications, 5000);
         }

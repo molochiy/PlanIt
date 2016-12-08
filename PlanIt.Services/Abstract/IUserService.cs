@@ -13,10 +13,12 @@ namespace PlanIt.Services.Abstract
 
         User GetUserExistByEmail(string email);
 
-        List<string> GetUsersEmailsByEmailSubstring(string emailSubstring);
+        List<string> GetUsersEmailsByEmailSubstringExceptCurrentUser(string emailSubstring, string currentUserEmail);
 
         int GetUserIdByEmail(string email);
 
         User AddUser(User user);
+
+        bool UserExistsByEmail(string email);
     }
 }

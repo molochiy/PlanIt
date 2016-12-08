@@ -17,14 +17,14 @@
             {
                 <div class="pull-right">
                     @Html.ActionLink("Remove", "RemovePlan", "Plan", new { planId = Model.Id }, new { @class = "btn btn-danger btn-remove-plan" })
-                    <button id="edit-plan-@Model.Id" type="button" class="btn btn-primary btn-success" ><span class="glyphicon"></span>Edit</button>
-                    <button type="button" class="btn btn-primary btn-warning" data-toggle="modal" data-target="#modalChooseUserToShare"><span class="glyphicon"></span>Share</button>
+                    <button id="edit-plan-@Model.Id" type="button" class="btn btn-primary btn-success"><span class="glyphicon"></span>Edit</button>
+                    <button type="button" class="btn btn-primary btn-warning" data-toggle="modal" data-target="@("#modalChooseUserToShare" + Model.Id)"><span class="glyphicon"></span>Share</button>
                 </div>
      
 
 
             <!-- Modal -->
-                <div class="modal fade" id="modalChooseUserToShare" role="dialog">
+                <div class="modal fade" id="@("modalChooseUserToShare" + Model.Id)" role="dialog">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -33,10 +33,9 @@
                                 <h4 class="modal-title">Share</h4>
                             </div>
                             <div class="modal-body">
-                                <input type="hidden" id="planId" value=@Model.Id>
-                                <input type="text" id="chooseUserAutocomplete" />
+                                <input type="text" id="@("chooseUserAutocomplete-" + Model.Id)" />
                                 <div class="modal-footer">
-                                    <button type="button" id="sharePlanBtn" class="btn btn-warning" data-dismiss="modal">Share</button>
+                                    <button type="button" id="sharePlanBtn" class="btn btn-warning" onclick="@(string.Format("sharePlan({0})", Model.Id))" data-dismiss="modal">Share</button>
                                 </div>
                             </div>
                         </div>

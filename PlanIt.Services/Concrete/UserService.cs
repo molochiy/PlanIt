@@ -31,14 +31,19 @@ namespace PlanIt.Services.Concrete
         {
             return _repository.GetSingle<User>(u => u.Email == email).Id;
         }
-        public List<string> GetUsersEmailsByEmailSubstring(string emailSubstring)
+        public List<string> GetUsersEmailsByEmailSubstringExceptCurrentUser(string emailSubstring, string currentUserEmail)
         {
-            return _repository.Get<User>(u => u.Email.Contains(emailSubstring)).Select(u => u.Email).ToList();
+            return _repository.Get<User>(u => u.Email.Contains(emailSubstring)).Select(u => u.Email).Where(email => email != currentUserEmail).ToList();
         }
 
         public User AddUser(User user)
         {
             return _repository.Insert<User>(user);
+        }
+
+        public bool UserExistsByEmail(string email)
+        {
+            return _repository.Exists<User>(u => u.Email == email);
         }
     }
 }
