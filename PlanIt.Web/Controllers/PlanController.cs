@@ -110,19 +110,29 @@ namespace PlanIt.Web.Controllers
             }
         }
 
-        public ActionResult RemovePlan(int planId)
+        public ActionResult RemovePlan(int planId, bool isItem = false)
         {
-            Plan planFromDb = _planService.GetPlanById(planId);
-            _planService.UpdatePlan(new Plan {
-                Id = planFromDb.Id,
-                Title = planFromDb.Title,
-                Description = planFromDb.Description,
-                Begin = planFromDb.Begin,
-                End = planFromDb.End,
-                StatusId = planFromDb.StatusId,
-                IsDeleted = true,
-                UserId = planFromDb.UserId
-            });
+            if (isItem)
+            {
+                PlanItem planItemFromDb = _planService.GetPlanItemById(planId);
+                planItemFromDb.IsDeleted = true;
+                _planService.UpdatePlanItem(planItemFromDb);
+            }
+            else
+            {
+                Plan planFromDb = _planService.GetPlanById(planId);
+                _planService.UpdatePlan(new Plan
+                {
+                    Id = planFromDb.Id,
+                    Title = planFromDb.Title,
+                    Description = planFromDb.Description,
+                    Begin = planFromDb.Begin,
+                    End = planFromDb.End,
+                    StatusId = planFromDb.StatusId,
+                    IsDeleted = true,
+                    UserId = planFromDb.UserId
+                });
+            }
             return RedirectToAction("Index", "Plan");
         }
     }
