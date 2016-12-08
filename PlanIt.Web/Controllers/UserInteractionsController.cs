@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PlanIt.Services.Abstract;
@@ -32,7 +33,7 @@ namespace PlanIt.Web.Controllers
             {
                 List<SharedPlanUser> sharingData = _sharingService.GetSharedPlanUserToShow(HttpContext.User.Identity.Name);
                 List<NotificationSummaryModel> notifications = new List<NotificationSummaryModel>();
-                foreach(var data in sharingData)
+                foreach (var data in sharingData)
                 {
                     User userOwner = _userService.GetUserById(data.UserOwnerId);
                     User userReciever = _userService.GetUserById(data.UserReceiverId);
@@ -61,9 +62,11 @@ namespace PlanIt.Web.Controllers
         }
 
         [HttpGet]
-        public string GetUsersByPartOfEmails(string partOfEmail)
+        public string GetUsersByPartOfEmailsExceptCurrentUser(string partOfEmail)
         {
-            var emails = _userService.GetUsersEmailsByEmailSubstring(partOfEmail);
+            var currentUserEmail = HttpContext.User.Identity.Name;
+            var emails = _userService.GetUsersEmailsByEmailSubstringExceptCurrentUser(partOfEmail, currentUserEmail);
+
             return JsonConvert.SerializeObject(emails);
         }
 
@@ -104,19 +107,40 @@ namespace PlanIt.Web.Controllers
         [HttpPost]
         public JsonResult SharePlan(int planId, string toUserEmail)
         {
-            string message;
+            var currentUserEmail = HttpContext.User.Identity.Name;
+
+            if (currentUserEmail == toUserEmail)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "You can't share plan with yourself."
+                });
+            }
 
             try
             {
-                _sharingService.SharePlan(planId, HttpContext.User.Identity.Name, toUserEmail);
-                message = "Plan was successfully shared!";
+                if (!_userService.UserExistsByEmail(toUserEmail))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "User with enetered email not found!"
+                    });
+                }
+
+                _sharingService.SharePlan(planId, currentUserEmail, toUserEmail);
             }
             catch (Exception)
             {
-                message = "Server error! Plan wasn't shared.";
+                return Json(new
+                {
+                    success = false,
+                    message = "Server error! Plan wasn't shared."
+                });
             }
 
-            return Json(new { message });
+            return Json(new { success = true, message = "Plan was successfully shared!" });
         }
 
         [HttpGet]

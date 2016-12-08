@@ -6,7 +6,7 @@
         dataType: "json",
         success: function (data) {
             if (data && data.numberOfNotification > 0) {
-                $('#noti_Counter').text(data.numberOfNotification);
+                $('#noti_Counter').text(data.numberOfNotification).css('opacity', '1');
 
                 $('#noti_Counter :hidden').show();
             } else {
