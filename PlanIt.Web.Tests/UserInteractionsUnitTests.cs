@@ -14,7 +14,19 @@ namespace PlanIt.Web.Tests
     {
 
         [TestMethod]
-        public void TestMethod()
+        public void SharePlanTest()
+        {
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void AcceptSharedPlanTest()
+        {
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void DeclineSharedPlanTest()
         {
             Assert.IsTrue(true);
         }

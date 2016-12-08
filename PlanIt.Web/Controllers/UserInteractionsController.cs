@@ -94,16 +94,6 @@ namespace PlanIt.Web.Controllers
             return RedirectToAction("Index", "UserInteractions");
         }
 
-        public void CommentPlan()
-        {
-
-        }
-
-        public void CommentPlanItem()
-        {
-
-        }
-
         [HttpPost]
         public JsonResult SharePlan(int planId, string toUserEmail)
         {

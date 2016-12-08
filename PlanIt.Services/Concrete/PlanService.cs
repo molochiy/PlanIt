@@ -17,7 +17,13 @@ namespace PlanIt.Services.Concrete
 
         public Plan GetPlanById(int id)
         {
-            var plan = _repository.GetSingle<Plan>(u => u.Id == id);
+            var plan = _repository.GetSingle<Plan>(u => u.Id == id && !u.IsDeleted);
+            var planItems = GetAllPlanItemsByPlanId(plan.Id).ToList();
+            foreach(PlanItem item in planItems)
+            {
+                if (!item.IsDeleted)
+                    plan.PlanItems.Add(item);
+            }
             return plan;
         }
 

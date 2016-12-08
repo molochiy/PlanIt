@@ -43,7 +43,7 @@
             </li>
             <li>
                 <a href="@Url.Action("EditProfile", "User")" class="animate">
-                    <span class="desc animate"> Profile </span>
+                    <span class="desc animate">@HttpContext.Current.User.Identity.Name</span>
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
             </li>
