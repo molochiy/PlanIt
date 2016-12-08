@@ -34,6 +34,7 @@
                         </div>
                         <div class="modal-body">
                             @Html.Hidden("ID",null, new { @id = "Id", @class = "form-control"})
+                            @Html.Hidden("PlanId", null, new { @id = "PlanId", @class = "form-control" })
                             @Html.TextBox("Title", null, new { @id = "Title", @class = "form-control", @required = "required", @placeholder = "Title" })
                             @Html.TextArea("Description", null, new { @id = "Description",  @class = "form-control", @placeholder = "Description" })
                         <div class="modal-footer">
@@ -92,6 +93,7 @@
                 $("#Title").attr("data-dismiss", "modal");
 
                 post.Id = $('#Id').val();
+                post.PlanId = $('#PlanId').val();
                 post.title = $('#Title').val();
                 post.description = $('#Description').val();
                 post.startDate = $('#datepickerStart').val();

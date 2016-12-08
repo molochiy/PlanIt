@@ -30,6 +30,7 @@ namespace PlanIt.Services.Concrete
         public IEnumerable<Plan> GetAllPlansByUserId(int id)
         {
             var plans = _repository.Get<Plan>(u => u.UserId == id && !u.IsDeleted);
+            plans.ForEach(plan => GetAllPlanItemsByPlanId(plan.Id).ToList().ForEach(item => plan.PlanItems.Add(item)));
             return plans;
         }
 
@@ -42,6 +43,17 @@ namespace PlanIt.Services.Concrete
         public void SavePlan(Plan plan)
         {
            _repository.Insert<Plan>(plan);
+        }
+
+
+        public void UpdatePlanItem(PlanItem planItem)
+        {
+            _repository.Update<PlanItem>(planItem);
+        }
+
+        public void SavePlanItem(PlanItem planItem)
+        {
+            _repository.Insert<PlanItem>(planItem);
         }
 
 

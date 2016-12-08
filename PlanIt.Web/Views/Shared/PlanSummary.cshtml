@@ -16,7 +16,7 @@
             @using (Html.BeginForm("Plans", "Plan"))
             {
                 <div class="pull-right">
-                    @Html.ActionLink("Remove", "RemovePlan", "Plan", new { planId = Model.Id }, new { @class = "btn btn-success btn-remove-plan" })
+                    @Html.ActionLink("Remove", "RemovePlan", "Plan", new { planId = Model.Id }, new { @class = "btn btn-danger btn-remove-plan" })
                     <button id="edit-plan-@Model.Id" type="button" class="btn btn-primary btn-success" ><span class="glyphicon"></span>Edit</button>
                     <button type="button" class="btn btn-primary btn-warning" data-toggle="modal" data-target="#modalChooseUserToShare"><span class="glyphicon"></span>Share</button>
                 </div>
@@ -53,17 +53,19 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h2 class="panel-title">
-                                @Model.PlanItems.Count
-                                <a href="@("#collapse-" + planItem.Id)" class="accordion-toggle" data-toggle="collapse">Headline 1.1</a>
+                                <a href="@("#collapse-" + planItem.Id)" class="accordion-toggle" data-toggle="collapse">@planItem.Title</a>
                             </h2>
                         </div>
                         <div id="@("collapse-" + planItem.Id)" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <span class="lead"> @Model.Description</span>
+                                <span class="lead"> @planItem.Description</span>
                             </div>
                         </div>
                     </div>
                 }
+                <div class="text-center">
+                    <button id="add-plan-item-@Model.Id" type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add Plan Item</button>
+                </div>
             </div>
         </div>
     </div>
@@ -92,6 +94,17 @@
         console.log($('#plan-end-@Model.Id').val());
         $('#datepickerStart').val($('#plan-begin-@Model.Id').val());
         $('#datepickerEnd').val($('#plan-end-@Model.Id').val());
+    });
+
+    $('#add-plan-item-@Model.Id').click(function () {
+        $("#add-plan-item-@Model.Id").attr("data-toggle", "modal");
+        $("#add-plan-item-@Model.Id").attr("data-target", "#modalPlanAddEdit");
+        $('#Id').val(null);
+        $('#Title').val("");
+        $('#Description').val("");
+        $('#datepickerStart').val("");
+        $('#datepickerEnd').val("");
+        $('#PlanId').val($('#plan-id-@Model.Id').val());
     });
 </script>
 
