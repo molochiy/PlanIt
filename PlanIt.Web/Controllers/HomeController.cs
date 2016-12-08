@@ -22,5 +22,11 @@ namespace PlanIt.Web.Controllers
             }
             return View();
         }
+
+        [AllowAnonymous]
+        public ActionResult About()
+        {
+            return View();
+        }
     }
 }
