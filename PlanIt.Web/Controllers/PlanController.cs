@@ -6,6 +6,7 @@ using System.Linq;
 using PlanIt.Entities;
 using System;
 using System.Web.Security;
+using System.Globalization;
 
 namespace PlanIt.Web.Controllers
 {
@@ -50,8 +51,8 @@ namespace PlanIt.Web.Controllers
                 User user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
                 DateTime? postBegin = null;
                 DateTime? postEnd = null;
-                if (postData.StartDate != "" && postData.StartDate != null) postBegin = DateTime.Parse(postData.StartDate);
-                if (postData.EndDate != "" && postData.EndDate != null) postEnd = DateTime.Parse(postData.EndDate);
+                if (postData.StartDate != "" && postData.StartDate != null) postBegin = Convert.ToDateTime(postData.StartDate);
+                if (postData.EndDate != "" && postData.EndDate != null) postEnd = Convert.ToDateTime(postData.EndDate);
                 if (postData.Id != null)
                 {
                     _planService.UpdatePlan(new Plan {
