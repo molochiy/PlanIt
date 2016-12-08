@@ -15,10 +15,10 @@ namespace PlanIt.Services.Abstract
 
         void SavePlan(Plan plan);
 
+        void UpdatePlan(Plan plan);
+
         IEnumerable<Plan> GetAllPlansByUserId(int id);
 
         IEnumerable<PlanItem> GetAllPlanItemsByPlanId(int id);
-
-        void DeletePlan(Plan plan);
     }
 }

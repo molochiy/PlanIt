@@ -44,7 +44,8 @@ namespace PlanIt.Services.Concrete
            _repository.Insert<Plan>(plan);
         }
 
-        public void DeletePlan(Plan plan)
+
+        public void UpdatePlan(Plan plan)
         {
             _repository.Update<Plan>(plan);
         }
