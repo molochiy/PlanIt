@@ -163,12 +163,10 @@
     <Content Include="Content\img\background.jpg" />
     <Content Include="Content\img\intro-bg.jpg" />
     <Content Include="Content\img\login.jpg" />
-    <Content Include="Content\js\bootstrap.js" />
-    <Content Include="Content\js\bootstrap.min.js" />
-    <Content Include="Content\js\jquery.js" />
-    <Content Include="Content\js\user\edit-profile.js" />
-    <Content Include="Content\js\user\menu.js" />
-    <Content Include="Content\js\user\notification-menu-item.js" />
+    <Content Include="Scripts\libs\jquery\jquery.js" />
+    <Content Include="Scripts\app\user\edit-profile.js" />
+    <Content Include="Scripts\app\user\menu.js" />
+    <Content Include="Scripts\app\user\notification-menu-item.js" />
     <Content Include="Content\Plan.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -247,17 +245,12 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
-    <Content Include="Scripts\jquery-1.12.4.js" />
-    <Content Include="Scripts\jquery-1.12.4.min.js" />
-    <Content Include="Scripts\jquery-1.12.4.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.1.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <None Include="Scripts\libs\jquery\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\libs\jquery\jquery-1.12.4.js" />
+    <Content Include="Scripts\libs\jquery\jquery-1.12.4.min.js" />
+    <Content Include="Scripts\libs\jquery\jquery-1.12.4.min.map" />
+    <Content Include="Scripts\libs\jquery\jquery.signalR-2.2.1.js" />
+    <Content Include="Scripts\libs\jquery\jquery.signalR-2.2.1.min.js" />
     <Content Include="Scripts\libs\bootstrap\bootstrap-datepicker.js" />
     <Content Include="Scripts\libs\bootstrap\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\libs\bootstrap\bootstrap.js" />
@@ -430,6 +423,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\js\" />
     <Folder Include="Infrastructure\" />
   </ItemGroup>
   <ItemGroup>
