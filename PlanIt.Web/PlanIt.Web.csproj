@@ -402,6 +402,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\libs\jquery\jquery.validate.unobtrusive.bootstrap.min.js.map" />
+    <Content Include="Views\Home\About.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Plan\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />

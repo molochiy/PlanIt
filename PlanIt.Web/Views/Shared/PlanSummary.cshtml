@@ -13,17 +13,15 @@
             <h3 class="panel-title pull-left">
                 <a href="@("#collapse-" + Model.Id)" data-parent="#collapsible-" class="accordion-toggle" data-toggle="collapse"><strong>@Model.Title</strong></a>
             </h3>
+            <h6 class="pull-left">@Model.Begin.Value.Date.ToString("d MMMM yyyy") - @Model.End.Value.Date.ToString("d MMMM yyyy")</h6>
             @using (Html.BeginForm("Plans", "Plan"))
             {
                 <div class="pull-right">
-                    @Html.ActionLink("Remove", "RemovePlan", "Plan", new { planId = Model.Id }, new { @class = "btn btn-success btn-remove-plan" })
-                </div>
-                <div class="pull-right">
+                    @Html.ActionLink("Remove", "RemovePlan", "Plan", new { planId = Model.Id }, new { @class = "btn btn-danger btn-remove-plan" })
+                    <button id="edit-plan-@Model.Id" type="button" class="btn btn-primary btn-success"><span class="glyphicon"></span>Edit</button>
                     <button type="button" class="btn btn-primary btn-warning" data-toggle="modal" data-target="@("#modalChooseUserToShare" + Model.Id)"><span class="glyphicon"></span>Share</button>
                 </div>
-     
-
-
+    
             <!-- Modal -->
                 <div class="modal fade" id="@("modalChooseUserToShare" + Model.Id)" role="dialog">
                     <div class="modal-dialog">
@@ -34,6 +32,7 @@
                                 <h4 class="modal-title">Share</h4>
                             </div>
                             <div class="modal-body">
+                                <div>Enter user email: </div>
                                 <input type="text" id="@("chooseUserAutocomplete-" + Model.Id)" />
                                 <div class="modal-footer">
                                     <button type="button" id="sharePlanBtn" class="btn btn-warning" onclick="@(string.Format("sharePlan({0})", Model.Id))" data-dismiss="modal">Share</button>
@@ -47,23 +46,32 @@
         </div>
         <div id="@("collapse-" + Model.Id)" class="panel-collapse collapse">
             <div class="panel-body">
-                <span class="lead"> @Model.Description</span>
+                <div class="panel panel-success panel-heading">
+                    <span><strong>Description:</strong> @Model.Description</span>
+                </div>
                 @foreach (var planItem in Model.PlanItems)
-                {
+            {
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h2 class="panel-title">
-                                @Model.PlanItems.Count
-                                <a href="@("#collapse-" + planItem.Id)" class="accordion-toggle" data-toggle="collapse">Headline 1.1</a>
-                            </h2>
+                            <h3 class="panel-title">
+                                <a href="@("#collapse-" + planItem.Id)" class="accordion-toggle" data-toggle="collapse">@planItem.Title</a>
+                            </h3>
+                            <h6 class="pull-left">@planItem.Begin.Value.Date.ToString("d MMMM yyyy") - @planItem.End.Value.Date.ToString("d MMMM yyyy")</h6>
+                            <div class="pull-right">
+                                @Html.ActionLink("Remove Item", "RemovePlan", "Plan", new { planId = planItem.Id, isItem = true }, new { @class = "btn btn-danger btn-remove-plan" })
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
                         <div id="@("collapse-" + planItem.Id)" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <span class="lead"> @Model.Description</span>
+                                <span> @planItem.Description</span>
                             </div>
                         </div>
                     </div>
                 }
+                <div class="text-center">
+                    <button id="add-plan-item-@Model.Id" type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add Plan Item</button>
+                </div>
             </div>
         </div>
     </div>
@@ -88,11 +96,22 @@
         $('#Id').val($('#plan-id-@Model.Id').val());
         $('#Title').val($('#plan-title-@Model.Id').val());
         $('#Description').val($('#plan-description-@Model.Id').val());
-        console.log($('#plan-begin-@Model.Id').val());
-        console.log($('#plan-end-@Model.Id').val());
+                console.log($('#plan-begin-@Model.Id').val());
+                console.log($('#plan-end-@Model.Id').val());
         $('#datepickerStart').val($('#plan-begin-@Model.Id').val());
         $('#datepickerEnd').val($('#plan-end-@Model.Id').val());
-    });
+            });
+
+    $('#add-plan-item-@Model.Id').click(function () {
+        $("#add-plan-item-@Model.Id").attr("data-toggle", "modal");
+        $("#add-plan-item-@Model.Id").attr("data-target", "#modalPlanAddEdit");
+        $('#Id').val(null);
+        $('#Title').val("");
+        $('#Description').val("");
+        $('#datepickerStart').val("");
+        $('#datepickerEnd').val("");
+        $('#PlanId').val($('#plan-id-@Model.Id').val());
+            });
 </script>
 
 

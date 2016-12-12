@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Landing Page - Start Bootstrap Theme</title>
+    <title>Plan It</title>
     <link href="~/Content/css/landing-page.css" rel="stylesheet">
     <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
@@ -37,7 +37,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#about">About</a>
+                        <a href="@Url.Action("About", "Home")">About</a>
                     </li>
                     <li>
                         <a href="@Url.Action("LogIn", "User")">Login</a>
@@ -52,7 +52,6 @@
         <!-- /.container -->
     </nav>
     @RenderBody()
-
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -64,7 +63,7 @@
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="#about">About</a>
+                            <a href="@Url.Action("About", "Home")">About</a>
                         </li>
                     </ul>
                     <p class="copyright text-muted small">Copyright &copy; PlanIt 2016. All Rights Reserved</p>

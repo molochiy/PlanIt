@@ -16,5 +16,7 @@ namespace PlanIt.Web.Models
         public string StartDate { get; set; }
 
         public string EndDate { get; set; }
+
+        public Nullable<int> PlanId { get; set; }
     }
 }
