@@ -20,5 +20,7 @@ namespace PlanIt.Services.Abstract
         void ChangeSharedPlanUserStatus(int sharedPlanUserId, string newSharingStatus);
 
         string GetSharingStatusById(int sharingStatusId);
+
+        List<string> GetUsersEmailsForNotification(int sharedPlanUserId, string newStatus);
     }
 }

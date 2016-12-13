@@ -81,5 +81,34 @@ namespace PlanIt.Services.Concrete
         {
             return _repository.GetSingle<SharingStatus>(s => s.Id == sharingStatusId).Name;
         }
+
+        public List<string> GetUsersEmailsForNotification(int sharedPlanUserId, string newStatus)
+        {
+            var userEmails = new List<string>();
+
+            SharedPlanUser sharedPlanUser = _repository.GetSingle<SharedPlanUser>(spu => spu.Id == sharedPlanUserId);
+
+            if (sharedPlanUser != null)
+            {
+                User userOwner = _repository.GetSingle<User>(u => u.Id == sharedPlanUser.UserOwnerId);
+
+                if (userOwner != null)
+                {
+                    userEmails.Add(userOwner.Email);
+                }
+
+                if (newStatus != "Notified")
+                {
+                    User userReceiver = _repository.GetSingle<User>(u => u.Id == sharedPlanUser.UserReceiverId);
+
+                    if (userReceiver != null)
+                    {
+                        userEmails.Add(userReceiver.Email);
+                    }
+                }
+            }
+
+            return userEmails;
+        }
     }
 }

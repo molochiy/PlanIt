@@ -104,7 +104,7 @@ namespace PlanIt.Web.Controllers
                 }
                 return Json(Url.Action("Index", "Plan"));
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return RedirectToAction("LogIn", "User");
             }
