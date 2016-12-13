@@ -46,7 +46,7 @@
             </div>
         </div>
         <div id="@("collapse-comments-" + Model.Id)" class="panel-collapse collapse">
-            <div class="panel-body">
+            <div id="@("list-comments-" + Model.Id)" class="panel-body">
                 @if (Model.Comments.Count > 0)
                 {
                     foreach (var comment in Model.Comments)
@@ -66,6 +66,9 @@
                     <div class="text-center">Not commented yet...</div>
                 }
             </div>
+            <textarea id="@("new-comment-text-" + Model.Id)" class="editor-content" rows="4" cols="50">                
+            </textarea>            
+            <input type="submit" value="Comment" onclick="@(string.Format("commentPlan({0})", Model.Id))"/>
         </div>
     </div>
 </div>
@@ -78,6 +81,7 @@
 <script src="~/Scripts/libs/jquery/jquery-ui-1.12.1.min.js"></script>
 <script src="~/Scripts/app/user-interactions/choose-user-to-share.js"></script>
 <script src="~/Scripts/app/user-interactions/share-plan.js"></script>
+<script src="~/Scripts/app/user-interactions/comment-plan.js"></script>
 <script src="~/Scripts/app/plan/collapse-plan-panel.js"></script>
 
 

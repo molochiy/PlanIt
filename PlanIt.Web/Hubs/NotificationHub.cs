@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using Microsoft.AspNet.SignalR;
 
 namespace PlanIt.Web.Hubs
 {
 
 
-    [Authorize]
+    [Microsoft.AspNet.SignalR.Authorize]
     public class NotificationHub : Hub, INotificationHub
     {
         private static readonly ConnectionMapping<string> _connections =
@@ -25,6 +26,26 @@ namespace PlanIt.Web.Hubs
                         GlobalHost.ConnectionManager.GetHubContext<NotificationHub>()
                             .Clients.Client(connectionId)
                             .updateNotificationCount();
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
+                    }
+                }
+            }
+        }
+
+        public void AddNewCommentToList(List<string> receivers, JsonResult data)
+        {
+            foreach (var receiver in receivers)
+            {
+                foreach (var connectionId in _connections.GetConnections(receiver))
+                {
+                    try
+                    {
+                        GlobalHost.ConnectionManager.GetHubContext<NotificationHub>()
+                            .Clients.Client(connectionId)
+                            .addNewCommentToList(data);
                     }
                     catch (Exception)
                     {

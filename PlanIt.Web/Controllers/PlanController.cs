@@ -8,6 +8,7 @@ using System;
 using System.Web.Security;
 using System.Globalization;
 using System.Collections.Generic;
+using PlanIt.Web.Hubs;
 
 namespace PlanIt.Web.Controllers
 {
@@ -16,12 +17,14 @@ namespace PlanIt.Web.Controllers
         private readonly IPlanService _planService;
         private readonly IUserService _userService;
         private readonly ISharingService _sharingService;
+        private readonly INotificationHub _notificationHub;
 
-        public PlanController(IPlanService planService, IUserService userService, ISharingService sharingService)
+        public PlanController(IPlanService planService, IUserService userService, ISharingService sharingService, INotificationHub notificationHub)
         {
             _planService = planService;
             _userService = userService;
             _sharingService = sharingService;
+            _notificationHub = notificationHub;
         }
 
         public ActionResult Index()
@@ -30,7 +33,7 @@ namespace PlanIt.Web.Controllers
             {
                 User user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
                 IEnumerable<Plan> plans = _planService.GetAllPlansByUserId(user.Id);
-                foreach(var plan in plans)
+                foreach (var plan in plans)
                 {
                     ICollection<Comment> comments = _planService.GetAllCommentsByPlanId(plan.Id);
                     if (comments.Count > 0)
@@ -52,7 +55,7 @@ namespace PlanIt.Web.Controllers
             {
                 return RedirectToAction("LogIn", "User");
             }
-                
+
         }
 
         public ActionResult PublicPlans()
@@ -83,7 +86,21 @@ namespace PlanIt.Web.Controllers
             {
                 return RedirectToAction("LogIn", "User");
             }
+        }
 
+        [HttpPost]
+        public JsonResult CommentPlan(string text, int planId)
+        {
+            var createdTime = DateTime.Now;
+
+            //TODO Added comment to DB
+
+            var result = Json(new { CreatedTime = createdTime.ToString(), PlanId = planId, Text = text, UserEmail = HttpContext.User.Identity.Name });
+
+            //TODO Get receivers(user's email who should get comment)
+            //_notificationHub.AddNewCommentToList(receivers, result);
+
+            return result;
         }
 
         public ActionResult AddPlan()
@@ -99,11 +116,12 @@ namespace PlanIt.Web.Controllers
                 User user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
                 DateTime? postBegin = null;
                 DateTime? postEnd = null;
-                if (postData.StartDate != "" && postData.StartDate != null) postBegin = Convert.ToDateTime(postData.StartDate);
-                if (postData.EndDate != "" && postData.EndDate != null) postEnd = Convert.ToDateTime(postData.EndDate);
+                if (postData.StartDate != "" && postData.StartDate != null) postBegin = DateTime.ParseExact(postData.StartDate, new [] { "MM/dd/yyyy" }, new CultureInfo("uk-UA"), DateTimeStyles.None);
+                if (postData.EndDate != "" && postData.EndDate != null) postEnd = DateTime.ParseExact(postData.EndDate, new[] { "MM/dd/yyyy" }, new CultureInfo("uk-UA"), DateTimeStyles.None);
                 if (postData.Id != null)
                 {
-                    _planService.UpdatePlan(new Plan {
+                    _planService.UpdatePlan(new Plan
+                    {
                         Id = Convert.ToInt32(postData.Id),
                         Title = postData.Title,
                         Description = postData.Description,
@@ -152,7 +170,7 @@ namespace PlanIt.Web.Controllers
                 }
                 return Json(Url.Action("Index", "Plan"));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return RedirectToAction("LogIn", "User");
             }
