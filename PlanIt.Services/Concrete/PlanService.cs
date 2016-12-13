@@ -67,5 +67,10 @@ namespace PlanIt.Services.Concrete
         {
             _repository.Update<Plan>(plan);
         }
+
+        public List<Comment> GetAllCommentsByPlanId(int planId)
+        {
+            return _repository.Get<Comment>(c => c.PlanId == planId);
+        }
     }
 }

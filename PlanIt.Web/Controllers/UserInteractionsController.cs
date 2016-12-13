@@ -39,7 +39,11 @@ namespace PlanIt.Web.Controllers
                     User userReciever = _userService.GetUserById(data.UserReceiverId);
                     Plan sharedPlan = _planService.GetPlanById(data.PlanId);
                     string sharingStatus = _sharingService.GetSharingStatusById(data.SharingStatusId);
-
+                    List<Comment> comments = _planService.GetAllCommentsByPlanId(data.PlanId);
+                    foreach(Comment comment in comments)
+                    {
+                        comment.User = _userService.GetUserById(comment.UserId);
+                    }
                     notifications.Add(new NotificationSummaryModel
                     {
                         SharedPlanUserId = data.Id,
@@ -47,7 +51,8 @@ namespace PlanIt.Web.Controllers
                         UserOwner = userOwner,
                         UserReciever = userReciever,
                         SharingDateTime = data.SharingDateTime,
-                        SharedPlan = sharedPlan
+                        SharedPlan = sharedPlan,
+                        SharedPlanComments = comments
                     });
                 }
                 return View(new NotificationViewModel
