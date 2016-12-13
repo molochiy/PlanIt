@@ -22,5 +22,7 @@ namespace PlanIt.Services.Abstract
         void ChangeOwnerWasNotifiedProperty(int sharedPlanUserId, bool newValue);
 
         string GetSharingStatusById(int sharingStatusId);
+
+        List<string> GetUsersEmailsForNotification(int sharedPlanUserId, string newStatus);
     }
 }

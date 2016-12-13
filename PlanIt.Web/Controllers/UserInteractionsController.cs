@@ -4,10 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.SignalR;
 using PlanIt.Services.Abstract;
 using PlanIt.Services.Concrete;
 using Newtonsoft.Json;
 using PlanIt.Entities;
+using PlanIt.Web.Hubs;
 using PlanIt.Web.Models;
 
 namespace PlanIt.Web.Controllers
@@ -17,12 +19,14 @@ namespace PlanIt.Web.Controllers
         private readonly IUserService _userService;
         private readonly ISharingService _sharingService;
         private readonly IPlanService _planService;
+        private readonly INotificationHub _notificationHub;
 
-        public UserInteractionsController(IUserService userService, ISharingService sharingService, IPlanService planService)
+        public UserInteractionsController(IUserService userService, ISharingService sharingService, IPlanService planService, INotificationHub notificationHub)
         {
             _userService = userService;
             _sharingService = sharingService;
             _planService = planService;
+            _notificationHub = notificationHub;
         }
 
         // GET: UserInteractions
@@ -78,6 +82,9 @@ namespace PlanIt.Web.Controllers
         public ActionResult ChangeSharedPlanUserStatus(int sharedPlanUserId, string newStatus)
         {
             _sharingService.ChangeSharedPlanUserStatus(sharedPlanUserId, newStatus);
+            var userEmailForNotification = _sharingService.GetUsersEmailsForNotification(sharedPlanUserId, newStatus);
+            _notificationHub.UpdateNotification(userEmailForNotification);
+
             return RedirectToAction("Index", "UserInteractions");
         }
 
@@ -89,9 +96,13 @@ namespace PlanIt.Web.Controllers
 
         /*public ActionResult AcceptAndAddPlan(int sharedPlanUserId, int sharedPlanId)
         {
-            _sharingService.ChangeSharedPlanUserStatus(sharedPlanUserId, "Accepted");
+            string status = "Accepted";
+
+            _sharingService.ChangeSharedPlanUserStatus(sharedPlanUserId, status);
+
             User user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
             Plan sharedPlan = _planService.GetPlanById(sharedPlanId);
+
             _planService.SavePlan(new Plan
             {
                 Title = sharedPlan.Title,
@@ -102,6 +113,10 @@ namespace PlanIt.Web.Controllers
                 IsDeleted = false,
                 UserId = user.Id
             });
+
+            var userEmailForNotification = _sharingService.GetUsersEmailsForNotification(sharedPlanUserId, status);
+            _notificationHub.UpdateNotification(userEmailForNotification);
+
             return RedirectToAction("Index", "UserInteractions");
         }*/
 
@@ -131,6 +146,7 @@ namespace PlanIt.Web.Controllers
                 }
 
                 _sharingService.SharePlan(planId, currentUserEmail, toUserEmail);
+                _notificationHub.UpdateNotification(new List<string> {toUserEmail});
             }
             catch (Exception)
             {
