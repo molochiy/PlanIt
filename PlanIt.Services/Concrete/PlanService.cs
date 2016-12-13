@@ -40,7 +40,7 @@ namespace PlanIt.Services.Concrete
             return plans;
         }
 
-        public IEnumerable<PlanItem> GetAllPlanItemsByPlanId(int id)
+        public ICollection<PlanItem> GetAllPlanItemsByPlanId(int id)
         {
             var planItems = _repository.Get<PlanItem>(u => u.PlanId == id);
             return planItems;
@@ -71,6 +71,28 @@ namespace PlanIt.Services.Concrete
         public List<Comment> GetAllCommentsByPlanId(int planId)
         {
             return _repository.Get<Comment>(c => c.PlanId == planId);
+        }
+
+        public List<Plan> GetAllPublicPlansByUserId(int userId)
+        {
+            List<Plan> plans = new List<Plan>();
+            plans = _repository.Get<Plan>(p => PlanIsPublic(userId,p.Id));
+            foreach(var p in plans)
+            {
+                ICollection<PlanItem> items = GetAllPlanItemsByPlanId(p.Id);
+                p.PlanItems = items;
+            }
+            return plans;
+        }
+
+        public bool PlanIsPublic(int userId, int planId)
+        {
+            int acceptedStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Accepted").Id;
+            List<SharedPlanUser> sharedPlanUserOwner = _repository.Get<SharedPlanUser>(s => s.UserOwnerId == userId && s.PlanId == planId && s.SharingStatusId == acceptedStatusId);
+            List<SharedPlanUser> sharedPlanUserReceiver = _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId && s.PlanId == planId && s.SharingStatusId == acceptedStatusId);
+            if (sharedPlanUserOwner.Count > 0 || sharedPlanUserReceiver.Count > 0)
+                return true;
+            return false;
         }
     }
 }

@@ -415,6 +415,8 @@
     <Content Include="Views\Shared\PlanModaAddlEdit.cshtml" />
     <Content Include="Views\UserInteractions\Index.cshtml" />
     <Content Include="Views\Shared\NotificationSummary.cshtml" />
+    <Content Include="Views\Plan\PublicPlans.cshtml" />
+    <Content Include="Views\Shared\PublicPlanSummary.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

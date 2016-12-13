@@ -23,8 +23,12 @@ namespace PlanIt.Services.Abstract
 
         IEnumerable<Plan> GetAllPlansByUserId(int id);
 
-        IEnumerable<PlanItem> GetAllPlanItemsByPlanId(int id);
+        ICollection<PlanItem> GetAllPlanItemsByPlanId(int id);
 
         List<Comment> GetAllCommentsByPlanId(int planId);
+
+        List<Plan> GetAllPublicPlansByUserId(int userId);
+
+        bool PlanIsPublic(int userId, int planId);
     }
 }

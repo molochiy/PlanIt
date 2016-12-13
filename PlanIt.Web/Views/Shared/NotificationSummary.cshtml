@@ -39,7 +39,7 @@
                 @if (Model.SharingStatus == "Pending")
                 {
                     <div>
-                        @Html.ActionLink("Accept", "AcceptAndAddPlan", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, sharedPlanId = Model.SharedPlan.Id }, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Accept", "ChangeSharedPlanUserStatus", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newStatus = "Accepted" }, new { @class = "btn btn-success" })
                         <span class="glyphicon glyphicon"></span>
                         @Html.ActionLink("Decline", "ChangeSharedPlanUserStatus", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newStatus = "Declined" }, new { @class = "btn btn-warning" })
                     </div>

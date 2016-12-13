@@ -1,0 +1,139 @@
+﻿@model PlanIt.Entities.Plan
+@using System;
+
+
+<div class="well">
+    @Html.Hidden("plan-id-" + @Model.Id.ToString(), @Model.Id)
+    @Html.Hidden("plan-title-" + @Model.Id.ToString(), @Model.Title)
+    @Html.Hidden("plan-description-" + @Model.Id.ToString(), @Model.Description)
+    @Html.Hidden("plan-begin-" + @Model.Id.ToString(), @Model.Begin != null ? @Model.Begin.Value.ToShortDateString().Replace('.', '/') : null)
+    @Html.Hidden("plan-end-" + @Model.Id.ToString(), @Model.End != null ? @Model.End.Value.ToShortDateString().Replace('.', '/') : null)
+    <div class="panel panel-default">
+        <div class="panel-heading plan-heading">
+            <h3 class="panel-title pull-left">
+                <a href="@("#collapse-" + Model.Id)" data-parent="#collapsible-" class="accordion-toggle" data-toggle="collapse"><strong>@Model.Title</strong></a>
+            </h3>
+            <h6 class="pull-left">@Model.Begin.Value.Date.ToString("d MMMM yyyy") - @Model.End.Value.Date.ToString("d MMMM yyyy")</h6>
+            @using (Html.BeginForm("Plans", "Plan"))
+            {
+                <a href="@("#collapse-comments-" + Model.Id)" data-parent="#collapsible-" class="accordion-toggle pull-right btn btn-info" data-toggle="collapse">Comments</a>
+                <h6 class="pull-left">Owner: @Model.User.Email</h6>
+            }
+            <div class="clearfix"></div>
+        </div>
+        <div id="@("collapse-" + Model.Id)" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="panel panel-success panel-heading">
+                    <span><strong>Description:</strong> @Model.Description</span>
+                </div>
+                @foreach (var planItem in Model.PlanItems)
+            {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <a href="@("#collapse-" + planItem.Id)" class="accordion-toggle" data-toggle="collapse">@planItem.Title</a>
+                            </h3>
+                            <h6 class="pull-left">@planItem.Begin.Value.Date.ToString("d MMMM yyyy") - @planItem.End.Value.Date.ToString("d MMMM yyyy")</h6>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="@("collapse-" + planItem.Id)" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <span> @planItem.Description</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div id="@("collapse-comments-" + Model.Id)" class="panel-collapse collapse">
+            <div class="panel-body">
+                @if (Model.Comments.Count > 0)
+                {
+                    foreach (var comment in Model.Comments)
+                    {
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                @comment.User.Email -- @comment.CreatedTime
+                            </div>
+                            <div class="panel-body">
+                                @comment.Text
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-center">Not commented yet...</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/libs/noty/jquery.noty.js"></script>
+<script src="~/Scripts/libs/noty/layouts/top.js"></script>
+<script src="~/Scripts/libs/noty/layouts/topCenter.js"></script>
+<script src="~/Scripts/libs/noty/themes/default.js"></script>
+
+<script src="~/Scripts/libs/jquery/jquery-ui-1.12.1.min.js"></script>
+<script src="~/Scripts/app/user-interactions/choose-user-to-share.js"></script>
+<script src="~/Scripts/app/user-interactions/share-plan.js"></script>
+<script src="~/Scripts/app/plan/collapse-plan-panel.js"></script>
+
+
+<script>
+    $('#edit-plan-@Model.Id').click(function () {
+
+        $("#edit-plan-@Model.Id").attr("data-toggle", "modal");
+        $("#edit-plan-@Model.Id").attr("data-target", "#modalPlanAddEdit");
+        $('#Id').val($('#plan-id-@Model.Id').val());
+        $('#Title').val($('#plan-title-@Model.Id').val());
+        $('#Description').val($('#plan-description-@Model.Id').val());
+                console.log($('#plan-begin-@Model.Id').val());
+                console.log($('#plan-end-@Model.Id').val());
+        $('#datepickerStart').val($('#plan-begin-@Model.Id').val());
+        $('#datepickerEnd').val($('#plan-end-@Model.Id').val());
+            });
+
+    $('#add-plan-item-@Model.Id').click(function () {
+        $("#add-plan-item-@Model.Id").attr("data-toggle", "modal");
+        $("#add-plan-item-@Model.Id").attr("data-target", "#modalPlanAddEdit");
+        $('#Id').val(null);
+        $('#Title').val("");
+        $('#Description').val("");
+        $('#datepickerStart').val("");
+        $('#datepickerEnd').val("");
+        $('#PlanId').val($('#plan-id-@Model.Id').val());
+            });
+</script>
+
+
+
+
+@*        <div class="container" style="background-color: #CCCCCC; margin-top:5px; margin-bottom:5px; padding:10px;">
+        <div class="well well-sm" style=" margin-bottom:5px;"><h5><strong>@plan.Title</strong></h5></div>
+
+        <div class="well"> @plan.Description</div>
+
+        @using (Html.BeginForm("Plans", "Plan"))
+        {
+            <div class="pull-right">
+                <input type="submit" class="btn btn-success" value="Edit" />
+                <input type="submit" class="btn btn-success" value="Remove" />
+            </div>
+        }
+    </div>*@
+
+
+@*<div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="..." alt="...">
+                <div class="caption">
+                    <h3>@plan.Title</h3>
+                    <p>@plan.Description</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                </div>
+            </div>
+        </div>
+    </div>}*@

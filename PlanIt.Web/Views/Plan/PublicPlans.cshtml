@@ -1,0 +1,24 @@
+﻿@model PlanIt.Web.Models.PlanIndexViewModel
+@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<div class="content-container container">
+    <h1>Public Plans</h1>
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            @if (Model.Plans.Count() == 0)
+            {
+                <h3>You don't have plans</h3>
+            }
+            else
+            {
+                foreach (var plan in Model.Plans)
+                {
+                    @Html.Partial("PublicPlanSummary", plan)
+                }
+            }
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/libs/jquery/jquery-ui-1.12.1.min.js"></script>
+

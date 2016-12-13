@@ -87,7 +87,7 @@ namespace PlanIt.Web.Controllers
             return RedirectToAction("Index", "UserInteractions");
         }
 
-        public ActionResult AcceptAndAddPlan(int sharedPlanUserId, int sharedPlanId)
+        /*public ActionResult AcceptAndAddPlan(int sharedPlanUserId, int sharedPlanId)
         {
             _sharingService.ChangeSharedPlanUserStatus(sharedPlanUserId, "Accepted");
             User user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
@@ -103,7 +103,7 @@ namespace PlanIt.Web.Controllers
                 UserId = user.Id
             });
             return RedirectToAction("Index", "UserInteractions");
-        }
+        }*/
 
         [HttpPost]
         public JsonResult SharePlan(int planId, string toUserEmail)

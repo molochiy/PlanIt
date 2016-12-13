@@ -15,11 +15,13 @@ namespace PlanIt.Web.Controllers
     {
         private readonly IPlanService _planService;
         private readonly IUserService _userService;
+        private readonly ISharingService _sharingService;
 
-        public PlanController(IPlanService planService, IUserService userService)
+        public PlanController(IPlanService planService, IUserService userService, ISharingService sharingService)
         {
             _planService = planService;
             _userService = userService;
+            _sharingService = sharingService;
         }
 
         public ActionResult Index()
@@ -39,6 +41,7 @@ namespace PlanIt.Web.Controllers
                         }
                     }
                     plan.Comments = comments;
+                    plan.User = _userService.GetUserById(plan.UserId);
                 }
                 return View(new PlanIndexViewModel
                 {
@@ -50,6 +53,37 @@ namespace PlanIt.Web.Controllers
                 return RedirectToAction("LogIn", "User");
             }
                 
+        }
+
+        public ActionResult PublicPlans()
+        {
+            try
+            {
+                User user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
+                IEnumerable<Plan> plans = _planService.GetAllPublicPlansByUserId(user.Id);
+                foreach (var plan in plans)
+                {
+                    ICollection<Comment> comments = _planService.GetAllCommentsByPlanId(plan.Id);
+                    if (comments.Count > 0)
+                    {
+                        foreach (Comment comment in comments)
+                        {
+                            comment.User = _userService.GetUserById(comment.UserId);
+                        }
+                    }
+                    plan.Comments = comments;
+                    plan.User = _userService.GetUserById(plan.UserId);
+                }
+                return View(new PlanIndexViewModel
+                {
+                    Plans = plans
+                });
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("LogIn", "User");
+            }
+
         }
 
         public ActionResult AddPlan()
