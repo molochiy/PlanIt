@@ -76,6 +76,12 @@ namespace PlanIt.Web.Controllers
             return RedirectToAction("Index", "UserInteractions");
         }
 
+        public ActionResult ChangeOwnerWasNotifiedProperty(int sharedPlanUserId, bool newValue)
+        {
+            _sharingService.ChangeOwnerWasNotifiedProperty(sharedPlanUserId, newValue);
+            return RedirectToAction("Index", "UserInteractions");
+        }
+
         public ActionResult AcceptAndAddPlan(int sharedPlanUserId, int sharedPlanId)
         {
             _sharingService.ChangeSharedPlanUserStatus(sharedPlanUserId, "Accepted");

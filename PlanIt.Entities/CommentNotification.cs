@@ -12,19 +12,14 @@ namespace PlanIt.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class SharedPlanUser
+    public partial class CommentNotification
     {
         public int Id { get; set; }
-        public int PlanId { get; set; }
-        public System.DateTime SharingDateTime { get; set; }
-        public int SharingStatusId { get; set; }
-        public int UserOwnerId { get; set; }
-        public int UserReceiverId { get; set; }
-        public bool OwnerWasNotified { get; set; }
+        public Nullable<int> CommentId { get; set; }
+        public Nullable<int> ReceiverId { get; set; }
+        public bool WasNotified { get; set; }
     
-        public virtual Plan Plan { get; set; }
-        public virtual SharingStatus SharingStatus { get; set; }
-        public virtual User UserOwner { get; set; }
-        public virtual User UserReceiver { get; set; }
+        public virtual Comment Comment { get; set; }
+        public virtual User User { get; set; }
     }
 }

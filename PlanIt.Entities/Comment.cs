@@ -14,14 +14,24 @@ namespace PlanIt.Entities
     
     public partial class Comment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Comment()
+        {
+            this.CommentNotifications = new HashSet<CommentNotification>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> PlanId { get; set; }
         public Nullable<int> PlanItemId { get; set; }
         public string Text { get; set; }
         public System.DateTime CreatedTime { get; set; }
         public bool IsDeleted { get; set; }
+        public int UserId { get; set; }
     
         public virtual Plan Plan { get; set; }
         public virtual PlanItem PlanItem { get; set; }
+        public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CommentNotification> CommentNotifications { get; set; }
     }
 }

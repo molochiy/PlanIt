@@ -11,7 +11,6 @@
 */
 
 -- Create Tables
-
 :r ".\Tables\Comment.sql"
 :r ".\Tables\Image.sql"
 :r ".\Tables\Plan.sql"

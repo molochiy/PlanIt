@@ -15,6 +15,16 @@
           <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CommentNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommentId" Type="int" />
+          <Property Name="ReceiverId" Type="int" />
+          <Property Name="WasNotified" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -84,6 +94,7 @@
           <Property Name="SharingStatusId" Type="int" Nullable="false" />
           <Property Name="UserOwnerId" Type="int" Nullable="false" />
           <Property Name="UserReceiverId" Type="int" Nullable="false" />
+          <Property Name="OwnerWasNotified" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SharingStatus">
           <Key>
@@ -130,6 +141,42 @@
             </Principal>
             <Dependent Role="Comment">
               <PropertyRef Name="PlanItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommentNotification_Comment">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="CommentNotification" Type="Self.CommentNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommentNotification">
+              <PropertyRef Name="CommentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommentNotification_Receiver">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="CommentNotification" Type="Self.CommentNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommentNotification">
+              <PropertyRef Name="ReceiverId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -303,6 +350,7 @@
         </Association>
         <EntityContainer Name="PlanItModelStoreContainer">
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommentNotification" EntityType="Self.CommentNotification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Plan" EntityType="Self.Plan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlanItem" EntityType="Self.PlanItem" Schema="dbo" store:Type="Tables" />
@@ -319,6 +367,18 @@
           <AssociationSet Name="FK_Comment_PlanItem" Association="Self.FK_Comment_PlanItem">
             <End Role="PlanItem" EntitySet="PlanItem" />
             <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_User" Association="Self.FK_Comment_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommentNotification_Comment" Association="Self.FK_CommentNotification_Comment">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="CommentNotification" EntitySet="CommentNotification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommentNotification_Receiver" Association="Self.FK_CommentNotification_Receiver">
+            <End Role="User" EntitySet="User" />
+            <End Role="CommentNotification" EntitySet="CommentNotification" />
           </AssociationSet>
           <AssociationSet Name="FK_Plan_Status" Association="Self.FK_Plan_Status">
             <End Role="Status" EntitySet="Status" />
@@ -393,6 +453,9 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Plan" Relationship="Self.FK_Comment_Plan" FromRole="Comment" ToRole="Plan" />
           <NavigationProperty Name="PlanItem" Relationship="Self.FK_Comment_PlanItem" FromRole="Comment" ToRole="PlanItem" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="PlanItModel.FK_Comment_User" FromRole="Comment" ToRole="User" />
+          <NavigationProperty Name="CommentNotifications" Relationship="PlanItModel.FK_CommentNotification_Comment" FromRole="Comment" ToRole="CommentNotification" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -482,6 +545,7 @@
           <Property Name="UserReceiverId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="UserOwner" Relationship="PlanItModel.FK_SharedPlanUser_UserOwner" FromRole="SharedPlanUser" ToRole="User" />
           <NavigationProperty Name="UserReceiver" Relationship="PlanItModel.FK_SharedPlanUser_UserReceiver" FromRole="SharedPlanUser" ToRole="User" />
+          <Property Name="OwnerWasNotified" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="SharingStatus">
           <Key>
@@ -516,6 +580,8 @@
           <NavigationProperty Name="SharedPlanItemUsersReceiver" Relationship="PlanItModel.FK_SharedPlanItemUser_UserReceiver" FromRole="User" ToRole="SharedPlanItemUser" />
           <NavigationProperty Name="SharedPlanUsersOwner" Relationship="PlanItModel.FK_SharedPlanUser_UserOwner" FromRole="User" ToRole="SharedPlanUser" />
           <NavigationProperty Name="SharedPlanUsersReceiver" Relationship="PlanItModel.FK_SharedPlanUser_UserReceiver" FromRole="User" ToRole="SharedPlanUser" />
+          <NavigationProperty Name="Comments" Relationship="PlanItModel.FK_Comment_User" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="CommentNotifications" Relationship="PlanItModel.FK_CommentNotification_Receiver" FromRole="User" ToRole="CommentNotification" />
         </EntityType>
         <Association Name="FK_Comment_Plan">
           <End Role="Plan" Type="Self.Plan" Multiplicity="0..1" />
@@ -736,6 +802,19 @@
             <End Role="User" EntitySet="Users" />
             <End Role="SharedPlanUser" EntitySet="SharedPlanUsers" />
           </AssociationSet>
+          <EntitySet Name="CommentNotifications" EntityType="PlanItModel.CommentNotification" />
+          <AssociationSet Name="FK_Comment_User" Association="PlanItModel.FK_Comment_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommentNotification_Comment" Association="PlanItModel.FK_CommentNotification_Comment">
+            <End Role="Comment" EntitySet="Comments" />
+            <End Role="CommentNotification" EntitySet="CommentNotifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommentNotification_Receiver" Association="PlanItModel.FK_CommentNotification_Receiver">
+            <End Role="User" EntitySet="Users" />
+            <End Role="CommentNotification" EntitySet="CommentNotifications" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_SharedPlanItemUser_UserOwner">
           <End Type="PlanItModel.User" Role="User" Multiplicity="1" />
@@ -785,6 +864,53 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CommentNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CommentId" Type="Int32" />
+          <Property Name="ReceiverId" Type="Int32" />
+          <Property Name="WasNotified" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Comment" Relationship="PlanItModel.FK_CommentNotification_Comment" FromRole="CommentNotification" ToRole="Comment" />
+          <NavigationProperty Name="User" Relationship="PlanItModel.FK_CommentNotification_Receiver" FromRole="CommentNotification" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Comment_User">
+          <End Type="PlanItModel.User" Role="User" Multiplicity="1" />
+          <End Type="PlanItModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommentNotification_Comment">
+          <End Type="PlanItModel.Comment" Role="Comment" Multiplicity="0..1" />
+          <End Type="PlanItModel.CommentNotification" Role="CommentNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommentNotification">
+              <PropertyRef Name="CommentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommentNotification_Receiver">
+          <End Type="PlanItModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="PlanItModel.CommentNotification" Role="CommentNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommentNotification">
+              <PropertyRef Name="ReceiverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -794,6 +920,7 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="PlanItModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PlanId" ColumnName="PlanId" />
                 <ScalarProperty Name="PlanItemId" ColumnName="PlanItemId" />
@@ -865,6 +992,7 @@
           <EntitySetMapping Name="SharedPlanUsers">
             <EntityTypeMapping TypeName="PlanItModel.SharedPlanUser">
               <MappingFragment StoreEntitySet="SharedPlanUser">
+                <ScalarProperty Name="OwnerWasNotified" ColumnName="OwnerWasNotified" />
                 <ScalarProperty Name="UserReceiverId" ColumnName="UserReceiverId" />
                 <ScalarProperty Name="UserOwnerId" ColumnName="UserOwnerId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -898,6 +1026,16 @@
                 <ScalarProperty Name="IsEmailConfirmed" ColumnName="IsEmailConfirmed" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommentNotifications">
+            <EntityTypeMapping TypeName="PlanItModel.CommentNotification">
+              <MappingFragment StoreEntitySet="CommentNotification">
+                <ScalarProperty Name="WasNotified" ColumnName="WasNotified" />
+                <ScalarProperty Name="ReceiverId" ColumnName="ReceiverId" />
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

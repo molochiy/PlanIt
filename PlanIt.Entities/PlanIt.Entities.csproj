@@ -55,6 +55,9 @@
     <Compile Include="Comment.cs">
       <DependentUpon>PlanItEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="CommentNotification.cs">
+      <DependentUpon>PlanItEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Image.cs">
       <DependentUpon>PlanItEntities.tt</DependentUpon>
     </Compile>

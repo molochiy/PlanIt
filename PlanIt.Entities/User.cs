@@ -22,6 +22,8 @@ namespace PlanIt.Entities
             this.SharedPlanItemUsersReceiver = new HashSet<SharedPlanItemUser>();
             this.SharedPlanUsersOwner = new HashSet<SharedPlanUser>();
             this.SharedPlanUsersReceiver = new HashSet<SharedPlanUser>();
+            this.Comments = new HashSet<Comment>();
+            this.CommentNotifications = new HashSet<CommentNotification>();
         }
     
         public int Id { get; set; }
@@ -41,5 +43,9 @@ namespace PlanIt.Entities
         public virtual ICollection<SharedPlanUser> SharedPlanUsersOwner { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SharedPlanUser> SharedPlanUsersReceiver { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CommentNotification> CommentNotifications { get; set; }
     }
 }

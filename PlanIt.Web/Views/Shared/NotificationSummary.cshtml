@@ -43,16 +43,10 @@
                         @Html.ActionLink("Decline", "ChangeSharedPlanUserStatus", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newStatus = "Declined" }, new { @class = "btn btn-warning" })
                     </div>
                 }
-                @if (Model.SharingStatus == "Accepted")
+                @if (Model.SharingStatus == "Accepted" || Model.SharingStatus == "Declined")
             {
                     <div>
-                        @Html.ActionLink("Ok", "ChangeSharedPlanUserStatus", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newStatus = "Notified" }, new { @class = "btn btn-default" })
-                    </div>
-                }
-                @if (Model.SharingStatus == "Declined")
-            {
-                    <div>
-                        @Html.ActionLink("Ok", "ChangeSharedPlanUserStatus", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newStatus = "Notified" }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Ok", "ChangeOwnerWasNotifiedProperty", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newValue = true }, new { @class = "btn btn-default" })
                     </div>
                 }
             </div>
