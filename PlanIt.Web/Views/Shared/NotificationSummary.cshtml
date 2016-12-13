@@ -81,7 +81,7 @@
         </div>
         <div id="@("collapse-comments-" + Model.SharedPlan.Id)" class="panel-collapse collapse">
             <div class="panel-body">
-                @foreach (var comment in Model.SharedPlanComments)
+                @foreach (var comment in Model.SharedPlan.Comments)
                 {
                     <div class="panel panel-info">
                         <div class="panel-heading">

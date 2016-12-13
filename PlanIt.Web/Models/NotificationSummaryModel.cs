@@ -19,7 +19,5 @@ namespace PlanIt.Web.Models
         public DateTime SharingDateTime { get; set; }
 
         public Plan SharedPlan { get; set; }
-
-        public List<Comment> SharedPlanComments { get; set; }
     }
 }
