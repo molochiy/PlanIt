@@ -41,6 +41,7 @@
                         </div>
                     </div>
                 </div>
+                <a href="@("#collapse-comments-" + Model.Id)" data-parent="#collapsible-" class="accordion-toggle pull-right btn btn-info" data-toggle="collapse">Comments</a>
             }
             <div class="clearfix"></div>
         </div>
@@ -72,6 +73,28 @@
                 <div class="text-center">
                     <button id="add-plan-item-@Model.Id" type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add Plan Item</button>
                 </div>
+            </div>
+        </div>
+        <div id="@("collapse-comments-" + Model.Id)" class="panel-collapse collapse">
+            <div class="panel-body">
+                @if (Model.Comments.Count > 0)
+                {
+                foreach (var comment in Model.Comments)
+                {
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            @comment.User.Email -- @comment.CreatedTime
+                        </div>
+                        <div class="panel-body">
+                            @comment.Text
+                        </div>
+                    </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-center">Not commented yet...</div>
+                }
             </div>
         </div>
     </div>

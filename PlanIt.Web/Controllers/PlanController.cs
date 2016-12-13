@@ -7,6 +7,7 @@ using PlanIt.Entities;
 using System;
 using System.Web.Security;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace PlanIt.Web.Controllers
 {
@@ -26,9 +27,22 @@ namespace PlanIt.Web.Controllers
             try
             {
                 User user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
+                IEnumerable<Plan> plans = _planService.GetAllPlansByUserId(user.Id);
+                foreach(var plan in plans)
+                {
+                    ICollection<Comment> comments = _planService.GetAllCommentsByPlanId(plan.Id);
+                    if (comments.Count > 0)
+                    {
+                        foreach (Comment comment in comments)
+                        {
+                            comment.User = _userService.GetUserById(comment.UserId);
+                        }
+                    }
+                    plan.Comments = comments;
+                }
                 return View(new PlanIndexViewModel
                 {
-                    Plans = _planService.GetAllPlansByUserId(user.Id)
+                    Plans = plans
                 });
             }
             catch (Exception)

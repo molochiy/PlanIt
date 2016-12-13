@@ -12,19 +12,19 @@
             @if (Model.SharingStatus == "Pending")
             {
                 <span class="pull-left panel-info">
-                    User @Model.UserOwner.Email has shared plan with you. 
-                                </span>
+                    User @Model.UserOwner.Email has shared plan with you.
+                </span>
             }
             @if (Model.SharingStatus == "Accepted")
             {
                 <span class="pull-left panel-info">
-                    User @Model.UserReciever.Email has accepted your plan. 
+                    User @Model.UserReciever.Email has accepted your plan.
                 </span>
             }
             @if (Model.SharingStatus == "Declined")
             {
                 <span class="pull-left panel-info">
-                    User @Model.UserReciever.Email has declined your plan. 
+                    User @Model.UserReciever.Email has declined your plan.
                 </span>
             }
             <span class="pull-right">
@@ -33,26 +33,21 @@
             <br />
             <div class="panel panel-default panel-heading">
                 <a href="@("#collapse-" + Model.SharedPlan.Id)" data-parent="#collapsible-" class="accordion-toggle" data-toggle="collapse"><strong>@Model.SharedPlan.Title</strong></a>
+                <a href="@("#collapse-comments-" + Model.SharedPlan.Id)" data-parent="#collapsible-" class="accordion-toggle pull-right" data-toggle="collapse">Comments</a>
             </div>
             <div class="text-center">
                 @if (Model.SharingStatus == "Pending")
-            {
+                {
                     <div>
                         @Html.ActionLink("Accept", "AcceptAndAddPlan", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, sharedPlanId = Model.SharedPlan.Id }, new { @class = "btn btn-success" })
                         <span class="glyphicon glyphicon"></span>
                         @Html.ActionLink("Decline", "ChangeSharedPlanUserStatus", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newStatus = "Declined" }, new { @class = "btn btn-warning" })
                     </div>
                 }
-                @if (Model.SharingStatus == "Accepted")
-            {
+                @if (Model.SharingStatus == "Accepted" || Model.SharingStatus == "Declined")
+                {
                     <div>
-                        @Html.ActionLink("Ok", "ChangeSharedPlanUserStatus", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newStatus = "Notified" }, new { @class = "btn btn-default" })
-                    </div>
-                }
-                @if (Model.SharingStatus == "Declined")
-            {
-                    <div>
-                        @Html.ActionLink("Ok", "ChangeSharedPlanUserStatus", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newStatus = "Notified" }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Ok", "ChangeOwnerWasNotifiedProperty", "UserInteractions", new { sharedPlanUserId = Model.SharedPlanUserId, newValue = true }, new { @class = "btn btn-default" })
                     </div>
                 }
             </div>
@@ -66,7 +61,7 @@
                     <span><strong>Description:</strong> @Model.SharedPlan.Description</span>
                 </div>
                 @foreach (var planItem in Model.SharedPlan.PlanItems)
-            {
+                {
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">
@@ -84,6 +79,21 @@
                 }
             </div>
         </div>
+        <div id="@("collapse-comments-" + Model.SharedPlan.Id)" class="panel-collapse collapse">
+            <div class="panel-body">
+                @foreach (var comment in Model.SharedPlan.Comments)
+                {
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                                @comment.User.Email -- @comment.CreatedTime
+                        </div>
+                        <div class="panel-body">
+                            @comment.Text
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>
 
@@ -96,7 +106,6 @@
 <script src="~/Scripts/app/user-interactions/choose-user-to-share.js"></script>
 <script src="~/Scripts/app/user-interactions/share-plan.js"></script>
 <script src="~/Scripts/app/plan/collapse-plan-panel.js"></script>
-
 
 <script>
     $('#edit-plan-@Model.SharedPlan.Id').click(function () {
@@ -123,34 +132,3 @@
         $('#PlanId').val($('#plan-id-@Model.SharedPlan.Id').val());
     });
 </script>
-
-
-
-
-@*        <div class="container" style="background-color: #CCCCCC; margin-top:5px; margin-bottom:5px; padding:10px;">
-        <div class="well well-sm" style=" margin-bottom:5px;"><h5><strong>@plan.Title</strong></h5></div>
-
-        <div class="well"> @plan.Description</div>
-
-        @using (Html.BeginForm("Plans", "Plan"))
-        {
-            <div class="pull-right">
-                <input type="submit" class="btn btn-success" value="Edit" />
-                <input type="submit" class="btn btn-success" value="Remove" />
-            </div>
-        }
-    </div>*@
-
-
-@*<div class="row">
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="..." alt="...">
-                <div class="caption">
-                    <h3>@plan.Title</h3>
-                    <p>@plan.Description</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                </div>
-            </div>
-        </div>
-    </div>}*@

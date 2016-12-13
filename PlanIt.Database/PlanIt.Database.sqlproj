@@ -80,6 +80,7 @@
     <None Include="Data\PlanItem.sql" />
     <None Include="Data\SharingStatus.sql" />
     <None Include="Data\Status.sql" />
+    <None Include="Foreign keys\CommentNotification.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PlanIt.Database.refactorlog" />
@@ -95,5 +96,8 @@
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\CommentNotification.sql" />
   </ItemGroup>
 </Project>

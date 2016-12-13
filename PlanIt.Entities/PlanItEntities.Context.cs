@@ -35,5 +35,6 @@ namespace PlanIt.Entities
         public virtual DbSet<SharingStatus> SharingStatuses { get; set; }
         public virtual DbSet<Status> Statuses { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<CommentNotification> CommentNotifications { get; set; }
     }
 }

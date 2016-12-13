@@ -6,6 +6,7 @@
     [SharingStatusId] INT NOT NULL,
 	[UserOwnerId] INT NOT NULL,
 	[UserReceiverId] INT NOT NULL,
+	[OwnerWasNotified] BIT NOT NULL DEFAULT 0,
 	constraint PK_SharedPlanUser primary key clustered 
 	(
 		Id asc, UserOwnerId, UserReceiverId

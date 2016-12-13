@@ -11,6 +11,7 @@ Post-Deployment Script Template
 */
 
 :r ".\Foreign keys\Comment.sql"
+:r ".\Foreign keys\CommentNotification.sql"
 :r ".\Foreign keys\Plan.sql"
 :r ".\Foreign keys\PlanItem.sql"
 :r ".\Foreign keys\SharedPlanItemUser.sql"

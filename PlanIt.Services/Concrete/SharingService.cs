@@ -47,25 +47,16 @@ namespace PlanIt.Services.Concrete
             var acceptedStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Accepted").Id;
             var declinedStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Declined").Id;
             return _repository.Get<SharedPlanUser>(
-               (s => (s.UserReceiverId == userId && s.SharingStatusId == pandingStatusId) ||
-              (s.UserOwnerId == userId && s.SharingStatusId == acceptedStatusId) ||
-              (s.UserOwnerId == userId && s.SharingStatusId == declinedStatusId)));
+               (s => 
+                    (s.UserReceiverId == userId && s.SharingStatusId == pandingStatusId) ||
+                    (s.UserOwnerId == userId && s.OwnerWasNotified == false &&
+                                         (s.SharingStatusId == acceptedStatusId ||
+                                          s.SharingStatusId == declinedStatusId))));
         }
 
         public int GetNumberOfNotificationForUser(string userEmail)
         {
-            var userId = _repository.GetSingle<User>(u => u.Email == userEmail).Id;
-            var pendingStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Pending").Id;
-            var notifiedStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Notified").Id;
-
-            var numberPendingPlans = _repository.Count<SharedPlanUser>(spu => spu.SharingStatusId == pendingStatusId && spu.UserReceiverId == userId);
-            var numberPendingPlanItems = _repository.Count<SharedPlanItemUser>(spiu => spiu.SharingStatusId == pendingStatusId && spiu.UserReceiverId == userId);
-
-
-            var numberSharedPlans = _repository.Count<SharedPlanUser>(spu => spu.SharingStatusId != pendingStatusId && spu.SharingStatusId != notifiedStatusId && spu.UserOwnerId == userId);
-            var numberSharedPlanItems = _repository.Count<SharedPlanItemUser>(spiu => spiu.SharingStatusId != pendingStatusId && spiu.SharingStatusId != notifiedStatusId && spiu.UserOwnerId == userId);
-
-            return numberPendingPlans + numberSharedPlans + numberPendingPlanItems + numberSharedPlanItems;
+            return GetSharedPlanUserToShow(userEmail).Count();
         }
 
         public void ChangeSharedPlanUserStatus(int sharedPlanUserId, string newSharingStatus)
@@ -74,6 +65,13 @@ namespace PlanIt.Services.Concrete
             var statusId = _repository.GetSingle<SharingStatus>(s => s.Name == newSharingStatus).Id;
             sharedInfo.SharingStatusId = statusId;
             sharedInfo.SharingDateTime = DateTime.Now;
+            _repository.Update<SharedPlanUser>(sharedInfo);
+        }
+
+        public void ChangeOwnerWasNotifiedProperty(int sharedPlanUserId, bool newValue)
+        {
+            var sharedInfo = _repository.GetSingle<SharedPlanUser>(s => s.Id == sharedPlanUserId);
+            sharedInfo.OwnerWasNotified = newValue;
             _repository.Update<SharedPlanUser>(sharedInfo);
         }
 

@@ -5,3 +5,7 @@
 if object_id(N'dbo.Comment', N'U') is not null and  object_id (N'FK_Comment_PlanItem') is null
 	alter table dbo.[Comment] with check add constraint FK_Comment_PlanItem foreign key (PlanItemId)
 	references dbo.[PlanItem] (Id)
+
+if object_id(N'dbo.Comment', N'U') is not null and  object_id (N'FK_Comment_User') is null
+	alter table dbo.[Comment] with check add constraint FK_Comment_User foreign key (UserId)
+	references dbo.[User] (Id)

@@ -43,7 +43,12 @@ namespace PlanIt.Web.Controllers
                     User userReciever = _userService.GetUserById(data.UserReceiverId);
                     Plan sharedPlan = _planService.GetPlanById(data.PlanId);
                     string sharingStatus = _sharingService.GetSharingStatusById(data.SharingStatusId);
-
+                    ICollection<Comment> comments = _planService.GetAllCommentsByPlanId(data.PlanId);
+                    foreach(Comment comment in comments)
+                    {
+                        comment.User = _userService.GetUserById(comment.UserId);
+                    }
+                    sharedPlan.Comments = comments;
                     notifications.Add(new NotificationSummaryModel
                     {
                         SharedPlanUserId = data.Id,
@@ -80,6 +85,12 @@ namespace PlanIt.Web.Controllers
             var userEmailForNotification = _sharingService.GetUsersEmailsForNotification(sharedPlanUserId, newStatus);
             _notificationHub.UpdateNotification(userEmailForNotification);
 
+            return RedirectToAction("Index", "UserInteractions");
+        }
+
+        public ActionResult ChangeOwnerWasNotifiedProperty(int sharedPlanUserId, bool newValue)
+        {
+            _sharingService.ChangeOwnerWasNotifiedProperty(sharedPlanUserId, newValue);
             return RedirectToAction("Index", "UserInteractions");
         }
 
