@@ -15,6 +15,8 @@ namespace PlanIt.Services.Abstract
 
         void SavePlan(Plan plan);
 
+        void SaveComment(Comment comment);
+
         void SavePlanItem(PlanItem plan);
 
         void UpdatePlan(Plan plan);

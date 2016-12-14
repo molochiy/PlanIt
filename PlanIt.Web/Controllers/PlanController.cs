@@ -92,13 +92,22 @@ namespace PlanIt.Web.Controllers
         public JsonResult CommentPlan(string text, int planId)
         {
             var createdTime = DateTime.Now;
-
-            //TODO Added comment to DB
+           
+            //Add comment to DB
+            _planService.SaveComment(new Comment
+            {
+                PlanId = planId,
+                Text = text,
+                CreatedTime = DateTime.Now,
+                UserId = _userService.GetUserIdByEmail(HttpContext.User.Identity.Name)
+            });
+            
 
             var result = Json(new { CreatedTime = createdTime.ToString(), PlanId = planId, Text = text, UserEmail = HttpContext.User.Identity.Name });
 
-            //TODO Get receivers(user's email who should get comment)
-            //_notificationHub.AddNewCommentToList(receivers, result);
+            //Get receivers(user's email who should get comment)
+            List<string> receivers = _sharingService.GetUsersEmailsWhoshouldGetComment(planId);
+            _notificationHub.AddNewCommentToList(receivers, result);
 
             return result;
         }

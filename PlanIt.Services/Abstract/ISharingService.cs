@@ -24,5 +24,7 @@ namespace PlanIt.Services.Abstract
         string GetSharingStatusById(int sharingStatusId);
 
         List<string> GetUsersEmailsForNotification(int sharedPlanUserId, string newStatus);
+
+        List<string> GetUsersEmailsWhoshouldGetComment(int planId);
     }
 }

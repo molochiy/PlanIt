@@ -51,6 +51,11 @@ namespace PlanIt.Services.Concrete
            _repository.Insert<Plan>(plan);
         }
 
+        public void SaveComment(Comment comment)
+        {
+            _repository.Insert<Comment>(comment);
+        }
+
 
         public void UpdatePlanItem(PlanItem planItem)
         {
@@ -75,13 +80,17 @@ namespace PlanIt.Services.Concrete
 
         public List<Plan> GetAllPublicPlansByUserId(int userId)
         {
-            List<Plan> plans = new List<Plan>();
-            plans = _repository.Get<Plan>(p => PlanIsPublic(userId,p.Id));
-            foreach(var p in plans)
+            int acceptedStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Accepted").Id;
+            List<int> sharedPlansWhereUserIsOwner = _repository.Get<SharedPlanUser>(s => s.UserOwnerId == userId && s.SharingStatusId == acceptedStatusId).Select(s => s.PlanId).ToList();
+            List<int> sharedPlansWhereUserIsReceiver = _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId && s.SharingStatusId == acceptedStatusId).Select(s => s.PlanId).ToList();
+            List<int> plansIds = sharedPlansWhereUserIsOwner.Union(sharedPlansWhereUserIsReceiver).ToList();
+            List<Plan> plans = _repository.Get<Plan>(p => plansIds.Contains(p.Id));
+            //Plan items should upload for current plan on current request
+            /*foreach(var p in plans)
             {
                 ICollection<PlanItem> items = GetAllPlanItemsByPlanId(p.Id);
                 p.PlanItems = items;
-            }
+            }*/
             return plans;
         }
 

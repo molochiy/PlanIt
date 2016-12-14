@@ -108,5 +108,24 @@ namespace PlanIt.Services.Concrete
 
             return userEmails;
         }
+
+        /// <summary>
+        /// Get emails of users who should see comment for current plan
+        /// </summary>
+        /// <param name="planId">Current plan id</param>
+        /// <returns>List of emails</returns>
+        public List<string> GetUsersEmailsWhoshouldGetComment(int planId)
+        {        
+            int acceptedSharingStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Accepted").Id;
+
+            //get receivers
+            List<int> usersId = _repository.Get<SharedPlanUser>(s => s.PlanId == planId && s.SharingStatusId == acceptedSharingStatusId).Select(s => s.UserReceiverId).ToList();
+            List<string> users = _repository.Get<User>(u => usersId.Contains(u.Id)).Select(u => u.Email).ToList();
+
+            //add owner
+            int ownerId = _repository.GetSingle<Plan>(p => p.Id == planId).UserId;
+            users.Add(_repository.GetSingle<User>(u => u.Id == ownerId).Email);
+            return users;
+        }
     }
 }
