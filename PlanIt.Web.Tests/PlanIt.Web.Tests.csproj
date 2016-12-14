@@ -58,9 +58,15 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest.cs" />
+    <Compile Include="HomeControllerTests.cs" />
+    <Compile Include="ProductControllerTests.cs" />
+    <Compile Include="ProductServiceTests.cs" />
+    <Compile Include="ProfileServiceTests.cs" />
+    <Compile Include="SharingServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserInteractionsUnitTests.cs" />
+    <Compile Include="UserControllerTests.cs" />
+    <Compile Include="UserInteractionsControllerTests.cs" />
+    <Compile Include="UserServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PlanIt.Services\PlanIt.Services.csproj">
