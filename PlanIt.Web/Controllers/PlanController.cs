@@ -92,24 +92,39 @@ namespace PlanIt.Web.Controllers
         public JsonResult CommentPlan(string text, int planId)
         {
             var createdTime = DateTime.Now;
-           
-            //Add comment to DB
-            _planService.SaveComment(new Comment
-            {
-                PlanId = planId,
-                Text = text,
-                CreatedTime = DateTime.Now,
-                UserId = _userService.GetUserIdByEmail(HttpContext.User.Identity.Name)
-            });
-            
+            var currentUserEmail = HttpContext.User.Identity.Name;
 
-            var result = Json(new { CreatedTime = createdTime.ToString(), PlanId = planId, Text = text, UserEmail = HttpContext.User.Identity.Name });
+            try
+            {
+                _planService.SaveComment(new Comment
+                {
+                    PlanId = planId,
+                    Text = text,
+                    CreatedTime = DateTime.Now,
+                    UserId = _userService.GetUserIdByEmail(currentUserEmail)
+                });
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Server error! Comment wasn't added."
+                });
+            }
+
+            var commentData = Json(new { CreatedTime = createdTime.ToString(), PlanId = planId, Text = text, UserEmail = currentUserEmail });
 
             //Get receivers(user's email who should get comment)
             List<string> receivers = _sharingService.GetUsersEmailsWhoshouldGetComment(planId);
-            _notificationHub.AddNewCommentToList(receivers, result);
 
-            return result;
+            _notificationHub.AddNewCommentToList(receivers, commentData);
+
+            return Json(new
+            {
+                success = true,
+                message = "Comment added."
+            });
         }
 
         public ActionResult AddPlan()

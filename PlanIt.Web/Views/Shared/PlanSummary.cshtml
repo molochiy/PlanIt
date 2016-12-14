@@ -33,7 +33,7 @@
                             </div>
                             <div class="modal-body">
                                 <div>Enter user email: </div>
-                                <input type="text" id="@("chooseUserAutocomplete-" + Model.Id)" />
+                                <input type="text" id="@("chooseUserAutocomplete-" + Model.Id)" onkeyup="@(string.Format("chooseUserAutocomplete({0})", Model.Id))"/>
                                 <div class="modal-footer">
                                     <button type="button" id="sharePlanBtn" class="btn btn-warning" onclick="@(string.Format("sharePlan({0})", Model.Id))" data-dismiss="modal">Share</button>
                                 </div>
