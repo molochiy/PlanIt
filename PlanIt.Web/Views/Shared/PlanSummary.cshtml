@@ -79,17 +79,47 @@
             <div class="panel-body">
                 @if (Model.Comments.Count > 0)
                 {
-                foreach (var comment in Model.Comments)
-                {
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            @comment.User.Email -- @comment.CreatedTime
-                        </div>
-                        <div class="panel-body">
-                            @comment.Text
-                        </div>
-                    </div>
-                    }
+                    <ul class="chat">
+                        @foreach (var comment in Model.Comments)
+                        {
+                            if (Model.User.Email != comment.User.Email)
+                            {
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">@comment.User.Email</strong> <small class="pull-right text-muted">
+                                                <span class="glyphicon glyphicon-time"></span>@comment.CreatedTime
+                                            </small>
+                                        </div>
+                                        <p>
+                                            @comment.Text
+                                        </p>
+                                    </div>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="right clearfix">
+                                    <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <small class="text-muted"><span class="glyphicon glyphicon-time"></span>@comment.CreatedTime</small>
+                                            <strong class="pull-right primary-font">@comment.User.Email</strong>
+                                        </div>
+                                        <p>
+                                            @comment.Text
+                                        </p>
+                                    </div>
+                                </li>
+                            }
+
+                        }
+                    </ul>
                 }
                 else
                 {

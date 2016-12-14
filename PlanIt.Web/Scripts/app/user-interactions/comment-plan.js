@@ -37,19 +37,42 @@ function commentPlan(planId) {
 };
 
 function addNewCommentToList(data) {
-    var listCommentsElementId = "#list-comments-" + data.Data.PlanId;
+    var listCommentsElementId = "#list-comments-" + data.Data.PlanId + "> .chat";
     var listCommentsElement = $(listCommentsElementId);
-
-    var newCommentHtml = '<div class="panel panel-info"> ' +
-        '<div class="panel-heading"> ' +
-        data.Data.UserEmail +
-        '--' +
-        data.Data.CreatedTime +
-        '</div> ' +
-        '<div class="panel-body"> ' +
-        data.Data.Text +
-        '</div>' +
-        '</div>';
+    var name = usrName;
+    var newCommentHtml;
+    if (data.Data.UserEmail && data.Data.UserEmail == usrName) {
+        newCommentHtml = '<li class="right clearfix">' +
+                                    '<span class="chat-img pull-right">' +
+                                        '<img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />' +
+                                    '</span>' +
+                                    '<div class="chat-body clearfix">' +
+                                        '<div class="header">' +
+                                            '<small class="text-muted"><span class="glyphicon glyphicon-time"></span>' + data.Data.CreatedTime + '</small>' +
+                                            '<strong class="pull-right primary-font">' + data.Data.CreatedTime + '</strong>' +
+                                        '</div>' +
+                                        '<p>' +
+                                            data.Data.Text +
+                                        '</p>' +
+                                    '</div>' +
+                                '</li>';
+    } else {
+        newCommentHtml = '<li class="left clearfix">' +
+                                    '<span class="chat-img pull-left">' +
+                                        '<img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />' +
+                                    '</span>' +
+                                    '<div class="chat-body clearfix">' +
+                                        '<div class="header">' +
+                                            '<strong class="primary-font">' + data.Data.UserEmail + '</strong> <small class="pull-right text-muted">' +
+                                                '<span class="glyphicon glyphicon-time"></span>' + data.Data.CreatedTime +
+                                            '</small>' +
+                                        '</div>' +
+                                        '<p>' +
+                                            data.Data.Text +
+                                        '</p>' +
+                                    '</div>' +
+                                '</li>';
+    }
 
     listCommentsElement.append(newCommentHtml);
 };
