@@ -49,7 +49,7 @@ function addNewCommentToList(data) {
                                     '<div class="chat-body clearfix">' +
                                         '<div class="header">' +
                                             '<small class="text-muted"><span class="glyphicon glyphicon-time"></span>' + data.Data.CreatedTime + '</small>' +
-                                            '<strong class="pull-right primary-font">' + data.Data.CreatedTime + '</strong>' +
+                                            '<strong class="pull-right primary-font">' + data.Data.UserEmail + '</strong>' +
                                         '</div>' +
                                         '<p>' +
                                             data.Data.Text +

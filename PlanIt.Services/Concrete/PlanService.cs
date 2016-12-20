@@ -86,11 +86,11 @@ namespace PlanIt.Services.Concrete
             List<int> plansIds = sharedPlansWhereUserIsOwner.Union(sharedPlansWhereUserIsReceiver).ToList();
             List<Plan> plans = _repository.Get<Plan>(p => plansIds.Contains(p.Id));
             //Plan items should upload for current plan on current request
-            /*foreach(var p in plans)
+            foreach(var p in plans)
             {
                 ICollection<PlanItem> items = GetAllPlanItemsByPlanId(p.Id);
                 p.PlanItems = items;
-            }*/
+            }
             return plans;
         }
 
