@@ -40,8 +40,8 @@
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Moq, Version=4.5.28.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.5.28\lib\net45\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.5.29.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.5.29\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -69,6 +69,14 @@
     <Compile Include="UserServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PlanIt.Entities\PlanIt.Entities.csproj">
+      <Project>{40729599-84EF-4699-B509-FECD6DB2E2D3}</Project>
+      <Name>PlanIt.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlanIt.Repositories\PlanIt.Repositories.csproj">
+      <Project>{B0EFCC36-FD57-4495-BCBF-E405AABC6C71}</Project>
+      <Name>PlanIt.Repositories</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PlanIt.Services\PlanIt.Services.csproj">
       <Project>{73d5e374-4a34-4660-bb9a-2b79a2df3dae}</Project>
       <Name>PlanIt.Services</Name>
