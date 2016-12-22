@@ -33,7 +33,7 @@ namespace PlanIt.Services.Tests
         }
 
         [TestMethod]
-        public void GetUserByIdExistTest()
+        public void GetUserByIdFoundTest()
         {
             // Arrange
             _mockRepository.Setup(rep => rep.GetSingle(It.IsAny<Func<User, bool>>())).Returns(_users[0]);
@@ -46,7 +46,7 @@ namespace PlanIt.Services.Tests
         }
 
         [TestMethod]
-        public void GetUserByIdNullTest()
+        public void GetUserByIdNotFoundTest()
         {
             // Arrange
             _mockRepository.Setup(rep => rep.GetSingle(It.IsAny<Func<User, bool>>())).Returns((User)null);
@@ -59,33 +59,33 @@ namespace PlanIt.Services.Tests
         }
 
         [TestMethod]
-        public void GetUserExistByEmailTest()
+        public void GetUserByEmailFoundTest()
         {
             // Arrange
             _mockRepository.Setup(rep => rep.GetSingle(It.IsAny<Func<User, bool>>())).Returns((User)null);
 
             // Act
-            var actualResult = _userService.GetUserExistByEmail("e1@e.e");
+            var actualResult = _userService.GetUserByEmail("e1@e.e");
 
             // Assert
             Assert.AreEqual(null, actualResult);
         }
 
         [TestMethod]
-        public void GetUserExistByEmailNullTest()
+        public void GetUserByEmailNotFoundTest()
         {
             // Arrange
             _mockRepository.Setup(rep => rep.GetSingle(It.IsAny<Func<User, bool>>())).Returns((User)null);
 
             // Act
-            var actualResult = _userService.GetUserExistByEmail("");
+            var actualResult = _userService.GetUserByEmail("");
 
             // Assert
             Assert.AreEqual(null, actualResult);
         }
 
         [TestMethod]
-        public void GetUserIdByEmailTest()
+        public void GetUserIdByEmailFoundTest()
         {
             // Arrange
             _mockRepository.Setup(rep => rep.GetSingle(It.IsAny<Func<User, bool>>())).Returns(_users[0]);
@@ -99,7 +99,7 @@ namespace PlanIt.Services.Tests
 
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
-        public void GetUserIdByEmailNullRefExceptionTest()
+        public void GetUserIdByEmailNullReferenceExceptionTest()
         {
             // Arrange
             _mockRepository.Setup(rep => rep.GetSingle(It.IsAny<Func<User, bool>>())).Returns((User)null);
@@ -109,7 +109,7 @@ namespace PlanIt.Services.Tests
         }
 
         [TestMethod]
-        public void GetUsersEmailsByEmailSubstringExceptCurrentUserTest()
+        public void GetEmailsForSharingTest()
         {
             // Arrange
             _mockRepository.Setup(rep => rep.Get(It.IsAny<Func<User, bool>>())).Returns((List<User>)_users);
@@ -117,7 +117,7 @@ namespace PlanIt.Services.Tests
             var expectedResult = _users.Select(u => u.Email).Where(email => email != currentUserEmail).ToList();
 
             // Act
-            var actualResult = _userService.GetUsersEmailsByEmailSubstringExceptCurrentUser("", currentUserEmail);
+            var actualResult = _userService.GetEmailsForSharing("", currentUserEmail);
 
             // Assert
             Assert.IsTrue(expectedResult.SequenceEqual(actualResult));
@@ -137,26 +137,26 @@ namespace PlanIt.Services.Tests
         }
 
         [TestMethod]
-        public void UserExistsByEmailTrueTest()
+        public void UserWithSpecificEmailExistsTest()
         {
             // Arrange
             _mockRepository.Setup(rep => rep.Exists(It.IsAny<Func<User, bool>>())).Returns(true);
 
             // Act
-            var actualResult = _userService.UserExistsByEmail("e1@e.e");
+            var actualResult = _userService.UserWithSpecificEmailExists("e1@e.e");
 
             // Assert
             Assert.IsTrue(actualResult);
         }
 
         [TestMethod]
-        public void UserExistsByEmailFalseTest()
+        public void UserWithSpecificEmailNotExistsTest()
         {
             // Arrange
             _mockRepository.Setup(rep => rep.Exists(It.IsAny<Func<User, bool>>())).Returns(false);
 
             // Act
-            var actualResult = _userService.UserExistsByEmail("");
+            var actualResult = _userService.UserWithSpecificEmailExists("");
 
             // Assert
             Assert.IsFalse(actualResult);

@@ -11,14 +11,14 @@ namespace PlanIt.Services.Abstract
     {
         User GetUserById(int id);
 
-        User GetUserExistByEmail(string email);
+        User GetUserByEmail(string email);
 
-        List<string> GetUsersEmailsByEmailSubstringExceptCurrentUser(string emailSubstring, string currentUserEmail);
+        List<string> GetEmailsForSharing(string emailSubstring, string currentUserEmail);
 
         int GetUserIdByEmail(string email);
 
         User AddUser(User user);
 
-        bool UserExistsByEmail(string email);
+        bool UserWithSpecificEmailExists(string email);
     }
 }

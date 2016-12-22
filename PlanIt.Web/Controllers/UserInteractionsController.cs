@@ -74,7 +74,7 @@ namespace PlanIt.Web.Controllers
         public string GetUsersByPartOfEmailsExceptCurrentUser(string partOfEmail)
         {
             var currentUserEmail = HttpContext.User.Identity.Name;
-            var emails = _userService.GetUsersEmailsByEmailSubstringExceptCurrentUser(partOfEmail, currentUserEmail);
+            var emails = _userService.GetEmailsForSharing(partOfEmail, currentUserEmail);
 
             return JsonConvert.SerializeObject(emails);
         }
@@ -100,7 +100,7 @@ namespace PlanIt.Web.Controllers
 
             _sharingService.ChangeSharedPlanUserStatus(sharedPlanUserId, status);
 
-            User user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
+            User user = _userService.GetUserByEmail(HttpContext.User.Identity.Name);
             Plan sharedPlan = _planService.GetPlanById(sharedPlanId);
 
             _planService.SavePlan(new Plan
@@ -136,7 +136,7 @@ namespace PlanIt.Web.Controllers
 
             try
             {
-                if (!_userService.UserExistsByEmail(toUserEmail))
+                if (!_userService.UserWithSpecificEmailExists(toUserEmail))
                 {
                     return Json(new
                     {

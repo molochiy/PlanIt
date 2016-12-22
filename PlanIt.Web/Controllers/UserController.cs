@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using PlanIt.Services.Abstract;
 using PlanIt.Entities;
 using System.Web.Security;
-using System.Web.Helpers;
 using System.Text;
-using System.Net;
 
 namespace PlanIt.Web.Controllers
 {
@@ -38,7 +32,7 @@ namespace PlanIt.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_userService.GetUserExistByEmail(user.Email) != null)
+                if (_userService.GetUserByEmail(user.Email) != null)
                 {
                     ModelState.AddModelError("", "User with such email already registred");
                 }
@@ -88,7 +82,7 @@ namespace PlanIt.Web.Controllers
         {
             bool IsValid = false;
 
-            var user = _userService.GetUserExistByEmail(email);
+            var user = _userService.GetUserByEmail(email);
             if (user != null && user.Password == sha256(password))
             {
                 IsValid = true;
@@ -113,7 +107,7 @@ namespace PlanIt.Web.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                var user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
+                var user = _userService.GetUserByEmail(HttpContext.User.Identity.Name);
                 if (user != null)
                 {
                     var profileId = user.ProfileId;
@@ -133,7 +127,7 @@ namespace PlanIt.Web.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                var user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
+                var user = _userService.GetUserByEmail(HttpContext.User.Identity.Name);
                 if (user != null)
                 {
                     var profileId = user.ProfileId;

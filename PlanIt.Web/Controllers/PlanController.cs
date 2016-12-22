@@ -31,7 +31,7 @@ namespace PlanIt.Web.Controllers
         {
             try
             {
-                User user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
+                User user = _userService.GetUserByEmail(HttpContext.User.Identity.Name);
                 IEnumerable<Plan> plans = _planService.GetAllPlansByUserId(user.Id);
                 foreach (var plan in plans)
                 {
@@ -62,7 +62,7 @@ namespace PlanIt.Web.Controllers
         {
             try
             {
-                User user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
+                User user = _userService.GetUserByEmail(HttpContext.User.Identity.Name);
                 IEnumerable<Plan> plans = _planService.GetAllPublicPlansByUserId(user.Id);
                 foreach (var plan in plans)
                 {
@@ -137,7 +137,7 @@ namespace PlanIt.Web.Controllers
         {
             try
             {
-                User user = _userService.GetUserExistByEmail(HttpContext.User.Identity.Name);
+                User user = _userService.GetUserByEmail(HttpContext.User.Identity.Name);
                 DateTime? postBegin = null;
                 DateTime? postEnd = null;
                 if (postData.StartDate != "" && postData.StartDate != null) postBegin = DateTime.ParseExact(postData.StartDate, new [] { "MM/dd/yyyy" }, new CultureInfo("uk-UA"), DateTimeStyles.None);
