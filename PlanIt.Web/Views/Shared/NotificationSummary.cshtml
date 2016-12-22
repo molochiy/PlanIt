@@ -33,7 +33,7 @@
             <br />
             <div class="panel panel-default panel-heading">
                 <a href="@("#collapse-" + Model.SharedPlan.Id)" data-parent="#collapsible-" class="accordion-toggle" data-toggle="collapse"><strong>@Model.SharedPlan.Title</strong></a>
-                <a href="@("#collapse-comments-" + Model.SharedPlan.Id)" data-parent="#collapsible-" class="accordion-toggle pull-right" data-toggle="collapse">Comments</a>
+                @*<a href="@("#collapse-comments-" + Model.SharedPlan.Id)" data-parent="#collapsible-" class="accordion-toggle pull-right" data-toggle="collapse">Comments</a>*@
             </div>
             <div class="text-center">
                 @if (Model.SharingStatus == "Pending")

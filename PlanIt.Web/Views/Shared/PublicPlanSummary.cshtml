@@ -13,11 +13,10 @@
             <h3 class="panel-title pull-left">
                 <a href="@("#collapse-" + Model.Id)" data-parent="#collapsible-" class="accordion-toggle" data-toggle="collapse"><strong>@Model.Title</strong></a>
             </h3>
-            <h6 class="pull-left">@Model.Begin.Value.Date.ToString("d MMMM yyyy") - @Model.End.Value.Date.ToString("d MMMM yyyy")</h6>
+            <h6 class="pull-left">@Model.Begin.Value.Date.ToString("d MMMM yyyy") - @Model.End.Value.Date.ToString("d MMMM yyyy") -- Owner: <strong>@Model.User.Email</strong></h6>
             @using (Html.BeginForm("Plans", "Plan"))
             {
                 <a href="@("#collapse-comments-" + Model.Id)" data-parent="#collapsible-" class="accordion-toggle pull-right btn btn-info" data-toggle="collapse">Comments</a>
-                <h6 class="pull-left">Owner: @Model.User.Email</h6>
             }
             <div class="clearfix"></div>
         </div>
@@ -64,7 +63,7 @@
                                                 <span class="glyphicon glyphicon-time"></span>@comment.CreatedTime
                                             </small>
                                         </div>
-                                        <p>
+                                        <p class="pull-right">
                                             @comment.Text
                                         </p>
                                     </div>
