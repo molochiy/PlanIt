@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanIt.Services", "PlanIt.S
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "PlanIt.Database", "PlanIt.Database\PlanIt.Database.sqlproj", "{0E052E82-74F5-49FE-BB70-0FCFC9CCB697}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C9429F14-B0D3-43A7-A689-6310F7F57688}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanIt.Services.Tests", "PlanIt.Services.Tests\PlanIt.Services.Tests.csproj", "{57C71BD8-C5A9-45BB-B03A-624A758AB981}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,8 +51,16 @@ Global
 		{0E052E82-74F5-49FE-BB70-0FCFC9CCB697}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E052E82-74F5-49FE-BB70-0FCFC9CCB697}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E052E82-74F5-49FE-BB70-0FCFC9CCB697}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{57C71BD8-C5A9-45BB-B03A-624A758AB981}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57C71BD8-C5A9-45BB-B03A-624A758AB981}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57C71BD8-C5A9-45BB-B03A-624A758AB981}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57C71BD8-C5A9-45BB-B03A-624A758AB981}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{179C20F4-9E7D-450E-9D37-D2555FA5E917} = {C9429F14-B0D3-43A7-A689-6310F7F57688}
+		{57C71BD8-C5A9-45BB-B03A-624A758AB981} = {C9429F14-B0D3-43A7-A689-6310F7F57688}
 	EndGlobalSection
 EndGlobal

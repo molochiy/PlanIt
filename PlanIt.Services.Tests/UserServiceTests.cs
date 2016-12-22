@@ -8,7 +8,7 @@ using PlanIt.Repositories.Abstract;
 using PlanIt.Services.Abstract;
 using PlanIt.Services.Concrete;
 
-namespace PlanIt.Web.Tests
+namespace PlanIt.Services.Tests
 {
     [TestClass]
     public class UserServiceTests
