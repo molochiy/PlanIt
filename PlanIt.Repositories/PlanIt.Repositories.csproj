@@ -63,6 +63,7 @@
     <Compile Include="Concrete\EFDataContext.cs" />
     <Compile Include="Concrete\EFDataContextFactory.cs" />
     <Compile Include="Concrete\EFRepository.cs" />
+    <Compile Include="Extentions\PropertyPathVisitor.cs" />
     <Compile Include="Extentions\QueriableExtentions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

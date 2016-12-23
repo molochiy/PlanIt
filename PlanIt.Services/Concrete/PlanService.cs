@@ -17,13 +17,8 @@ namespace PlanIt.Services.Concrete
 
         public Plan GetPlanById(int id)
         {
-            var plan = _repository.GetSingle<Plan>(u => u.Id == id && !u.IsDeleted);
-            var planItems = GetAllPlanItemsByPlanId(plan.Id).ToList();
-            foreach(PlanItem item in planItems)
-            {
-                if (!item.IsDeleted)
-                    plan.PlanItems.Add(item);
-            }
+            var plan = _repository.GetSingle<Plan>(p => p.Id == id && !p.IsDeleted, p => p.PlanItems);
+            
             return plan;
         }
 
@@ -35,8 +30,8 @@ namespace PlanIt.Services.Concrete
 
         public IEnumerable<Plan> GetAllPlansByUserId(int id)
         {
-            var plans = _repository.Get<Plan>(u => u.UserId == id && !u.IsDeleted);
-            plans.ForEach(plan => GetAllPlanItemsByPlanId(plan.Id).ToList().ForEach(item => { if (!item.IsDeleted) plan.PlanItems.Add(item); }));
+            var plans = _repository.Get<Plan>(p => p.UserId == id && !p.IsDeleted, p => p.PlanItems, p => p.Comments.Select(c => c.User), p => p.User);
+
             return plans;
         }
 
@@ -56,7 +51,6 @@ namespace PlanIt.Services.Concrete
             _repository.Insert<Comment>(comment);
         }
 
-
         public void UpdatePlanItem(PlanItem planItem)
         {
             _repository.Update<PlanItem>(planItem);
@@ -66,7 +60,6 @@ namespace PlanIt.Services.Concrete
         {
             _repository.Insert<PlanItem>(planItem);
         }
-
 
         public void UpdatePlan(Plan plan)
         {

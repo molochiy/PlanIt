@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace PlanIt.Repositories.Extentions
 {
@@ -30,42 +29,13 @@ namespace PlanIt.Repositories.Extentions
                 throw new ArgumentNullException("Query can not be null");
             }
 
-            var properties = new List<string>();
-            Action<string> add = (str) => properties.Insert(0, str);
             var expression = path.Body;
 
-            do
-            {
-                switch (expression.NodeType)
-                {
-                    case ExpressionType.MemberAccess:
-                        var member = (MemberExpression)expression;
-                        if (member.Member.MemberType != MemberTypes.Property)
-                        {
-                            throw new ArgumentException("The selected member must be a property.", "path");
-                        }
-                        add(member.Member.Name);
-                        expression = member.Expression;
-                        break;
-                    case ExpressionType.Call:
-                        var method = (MethodCallExpression)expression;
-                        if (method.Method.Name != SINGLE_METHOD_NAME || method.Method.DeclaringType != ENUMERABLE_TYPE)
-                        {
-                            throw new ArgumentException(
-                                    string.Format("Method '{0}' is not supported, only method '{1}' is supported to singularize navigation properties.",
-                                        string.Join(Type.Delimiter.ToString(), method.Method.DeclaringType.FullName, method.Method.Name),
-                                        string.Join(Type.Delimiter.ToString(), ENUMERABLE_TYPE.FullName, SINGLE_METHOD_NAME)),
-                                    "path");
-                        }
-                        expression = (MemberExpression)method.Arguments.Single();
-                        break;
-                    default:
-                        throw new ArgumentException("The property selector expression has an incorrect format.", "path");
-                }
+            var propertyPathVisitor = new PropertyPathVisitor();
 
-            } while (expression.NodeType != ExpressionType.Parameter);
+            var propertyPath = propertyPathVisitor.GetPropertyPath(expression);
 
-            return query.Include(string.Join(Type.Delimiter.ToString(), properties));
+            return query.Include(propertyPath);
         }
     }
 }
