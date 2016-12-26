@@ -18,17 +18,14 @@ namespace PlanIt.Web.Controllers
     {
         private readonly IUserService _userService;
         private readonly ISharingService _sharingService;
-        private readonly IPlanService _planService;
         private readonly INotificationHub _notificationHub;
 
         public UserInteractionsController(IUserService userService, 
                                           ISharingService sharingService,
-                                          IPlanService planService,
                                           INotificationHub notificationHub)
         {
             _userService = userService;
             _sharingService = sharingService;
-            _planService = planService;
             _notificationHub = notificationHub;
         }
 
@@ -40,28 +37,18 @@ namespace PlanIt.Web.Controllers
             {
                 List<SharedPlanUser> sharingData = _sharingService.GetSharingInfoForNotifications(HttpContext.User.Identity.Name);
                 List<NotificationSummaryModel> notifications = new List<NotificationSummaryModel>();
+
                 foreach (var data in sharingData)
-                {
-                    User userOwner = _userService.GetUserById(data.UserOwnerId);
-                    User userReciever = _userService.GetUserById(data.UserReceiverId);
-                    Plan sharedPlan = _planService.GetPlanById(data.PlanId);
-                    string sharingStatus = _sharingService.GetSharingStatusById(data.SharingStatusId);
-                    notifications.Add(new NotificationSummaryModel
-                    {
-                        SharedPlanUserId = data.Id,
-                        SharingStatus = sharingStatus,
-                        UserOwner = userOwner,
-                        UserReciever = userReciever,
-                        SharingDateTime = data.SharingDateTime,
-                        SharedPlan = sharedPlan
-                    });
+                {                    
+                    notifications.Add(data);
                 }
+
                 return View(new NotificationViewModel
                 {
                     Notifications = notifications
                 });
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return RedirectToAction("LogIn", "User");
             }

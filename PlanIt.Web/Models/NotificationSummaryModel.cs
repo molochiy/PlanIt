@@ -19,5 +19,20 @@ namespace PlanIt.Web.Models
         public DateTime SharingDateTime { get; set; }
 
         public Plan SharedPlan { get; set; }
+
+        public static implicit operator NotificationSummaryModel(SharedPlanUser sharedPlanUser)
+        {
+            var notificationSummaryModel = new NotificationSummaryModel
+            {
+                SharedPlanUserId = sharedPlanUser.Id,
+                SharingStatus = sharedPlanUser.SharingStatus.Name,
+                UserOwner = sharedPlanUser.UserOwner,
+                UserReciever = sharedPlanUser.UserReceiver,
+                SharingDateTime = sharedPlanUser.SharingDateTime,
+                SharedPlan = sharedPlanUser.Plan
+            };
+
+            return notificationSummaryModel;
+        }
     }
 }

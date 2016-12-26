@@ -51,12 +51,19 @@ namespace PlanIt.Services.Concrete
             var pandingStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Pending").Id;
             var acceptedStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Accepted").Id;
             var declinedStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Declined").Id;
-            return _repository.Get<SharedPlanUser>(
-               (s => 
-                    (s.UserReceiverId == userId && s.SharingStatusId == pandingStatusId) ||
-                    (s.UserOwnerId == userId && s.OwnerWasNotified == false &&
-                                         (s.SharingStatusId == acceptedStatusId ||
-                                          s.SharingStatusId == declinedStatusId))));
+
+            var sharingInfo = _repository.Get<SharedPlanUser>(
+               s =>
+                   (s.UserReceiverId == userId && s.SharingStatusId == pandingStatusId) ||
+                   (s.UserOwnerId == userId && s.OwnerWasNotified == false &&
+                    (s.SharingStatusId == acceptedStatusId ||
+                     s.SharingStatusId == declinedStatusId)),
+               spu => spu.UserOwner,
+               spu => spu.UserReceiver,
+               spu => spu.Plan,
+               spu => spu.SharingStatus);
+
+            return sharingInfo;
         }
 
         /// <summary>
