@@ -61,24 +61,52 @@ namespace PlanIt.Web.Tests
         }
 
         [TestMethod]
-        public void SingUpTest()
+        public void SingUpGetTest()
         {
             ActionResult result = _userController.SignUp();
             Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
 
-        //[TestMethod]
-        //public void LogInTest()
-        //{
-        //    var actionResult = _userController.LogIn() as ActionResult;
-        //    Assert.IsInstanceOfType(actionResult, typeof(RedirectToRouteResult));
-        //    RedirectToRouteResult routeResult = actionResult as RedirectToRouteResult;
-        //    Assert.AreEqual(routeResult.RouteValues["action"], "Index");
-        //    Assert.AreEqual(routeResult.RouteValues["controller"], "Plan");
-        //}
+        [TestMethod]
+        public void SingUpPostTest()
+        {
+
+        }
 
         [TestMethod]
-        public void EditProfileTest()
+        public void LogInGetAuthenticatedTest()
+        {
+            var actionResult = _userController.LogIn() as ActionResult;
+            Assert.IsInstanceOfType(actionResult, typeof(RedirectToRouteResult));
+            RedirectToRouteResult routeResult = actionResult as RedirectToRouteResult;
+            Assert.AreEqual(routeResult.RouteValues["action"], "Index");
+            Assert.AreEqual(routeResult.RouteValues["controller"], "Plan");
+        }
+
+        [TestMethod]
+        public void LogInGetNotAuthenticatedTest()
+        {
+            var mocks = new MockRepository(MockBehavior.Default);
+            Mock<IPrincipal> mockPrincipal = mocks.Create<IPrincipal>();
+            mockPrincipal.SetupGet(p => p.Identity.Name).Returns("testUser");
+            mockPrincipal.Setup(p => p.IsInRole("User")).Returns(true);
+            var mockContext = new Mock<ControllerContext>();
+            mockContext.SetupGet(p => p.HttpContext.User).Returns(mockPrincipal.Object);
+            mockContext.SetupGet(p => p.HttpContext.User.Identity.IsAuthenticated).Returns(false);
+            _userController = new UserController(_userService, _profileService) { ControllerContext = mockContext.Object };
+
+            ActionResult result = _userController.LogIn();
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+        }
+
+        [TestMethod]
+        public void LogInPostTest()
+        {
+
+        }
+
+        [TestMethod]
+        public void EditProfileGetAuthenticatedTest()
         {    
             var actionResult = _userController.EditProfile() as ActionResult;
             Assert.IsInstanceOfType(actionResult, typeof(RedirectToRouteResult));
@@ -87,27 +115,20 @@ namespace PlanIt.Web.Tests
             Assert.AreEqual(routeResult.RouteValues["controller"], "Home");
         }
 
-        //[TestMethod]
-        //public void LogInTest2()
-        //{
-        //    var mocks = new MockRepository(MockBehavior.Default);
-        //    Mock<IPrincipal> mockPrincipal = mocks.Create<IPrincipal>();
-        //    mockPrincipal.SetupGet(p => p.Identity.Name).Returns("testUser");
-        //    mockPrincipal.Setup(p => p.IsInRole("User")).Returns(true);
-        //    var mockContext = new Mock<ControllerContext>();
-        //    mockContext.SetupGet(p => p.HttpContext.User).Returns(mockPrincipal.Object);
-        //    mockContext.SetupGet(p => p.HttpContext.Request.IsAuthenticated).Returns(false);
-        //    _userController = new UserController(_userService, _profileService) { ControllerContext = mockContext.Object };
+        [TestMethod]
+        public void EditProfileGetNotAuthenticatedTest()
+        {
+        }
 
-        //    var actionResult = _userController.LogIn() as ActionResult;
-        //    Assert.IsInstanceOfType(actionResult, typeof(RedirectToRouteResult));
-        //    RedirectToRouteResult routeResult = actionResult as RedirectToRouteResult;
-        //    Assert.AreEqual(routeResult.RouteValues["action"], "Index");
-        //    Assert.AreEqual(routeResult.RouteValues["controller"], "Plan");
+        [TestMethod]
+        public void EditProfilePostAuthenticatedTest()
+        {
+        }
 
-        //    ActionResult result = _userController.LogIn();
-        //    Assert.IsInstanceOfType(result, typeof(ViewResult));
-        //}
-        
+        [TestMethod]
+        public void EditProfilePostNotAuthenticatedTest()
+        {
+        }
+
     }
 }
