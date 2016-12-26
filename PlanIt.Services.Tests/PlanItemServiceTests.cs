@@ -36,9 +36,80 @@ namespace PlanIt.Services.Tests
         [TestMethod]
         public void GetPlanItemByIdFoundTest()
         {
-            Assert.IsTrue(true);
+            // Arrange
+            _mockRepository.Setup(rep => rep.GetSingle(It.IsAny<Func<PlanItem, bool>>())).Returns(_planItems[0]);
+
+            // Act
+            var actualResult = _planItemService.GetPlanItemById(1);
+
+            // Assert
+            Assert.AreEqual(_planItems[0], actualResult);
         }
 
+        [TestMethod]
+        public void GetPlanItemByIdNotFoundTest()
+        {
+            // Arrange
+            _mockRepository.Setup(rep => rep.GetSingle(It.IsAny<Func<PlanItem, bool>>())).Returns((PlanItem)null);
+
+            // Act
+            var actualResult = _planItemService.GetPlanItemById(0);
+
+            // Assert
+            Assert.AreEqual(null, actualResult);
+        }
+
+        [TestMethod]
+        public void UpdatePlanItemTest()
+        {
+            // Arrange
+            _mockRepository.Setup(rep => rep.Update(It.IsAny<PlanItem>())).Returns<PlanItem>(u => u);
+
+            // Act
+            var actualResult = _planItemService.UpdatePlanItem(_planItems[0]);
+
+            // Assert
+            Assert.AreEqual(_planItems[0], actualResult);
+        }
+
+        [TestMethod]
+        public void InsertPlanItemTest()
+        {
+            // Arrange
+            _mockRepository.Setup(rep => rep.Insert(It.IsAny<PlanItem>())).Returns<PlanItem>(u => u);
+
+            // Act
+            var actualResult = _planItemService.SavePlanItem(_planItems[0]);
+
+            // Assert
+            Assert.AreEqual(_planItems[0], actualResult);
+        }
+
+        [TestMethod]
+        public void GetPlanItemsByPlanIdFoundTest()
+        {
+            // Arrange
+            _mockRepository.Setup(rep => rep.Get(It.IsAny<Func<PlanItem, bool>>())).Returns((List<PlanItem>)_planItems);
+
+            // Act
+            var actualResult = _planItemService.GetPlanItemsByPlanId(1);
+
+            // Assert
+            Assert.AreEqual(_plan.PlanItems, actualResult);
+        }
+
+        [TestMethod]
+        public void GetPlanItemsByPlanIdNotFoundTest()
+        {
+            // Arrange
+            _mockRepository.Setup(rep => rep.Get(It.IsAny<Func<PlanItem, bool>>())).Returns((List<PlanItem>)null);
+
+            // Act
+            var actualResult = _planItemService.GetPlanItemsByPlanId(2);
+
+            // Assert
+            Assert.AreEqual(null, actualResult);
+        }
 
     }
 }
