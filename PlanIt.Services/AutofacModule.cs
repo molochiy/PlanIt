@@ -18,6 +18,7 @@ namespace PlanIt.Services
             builder.RegisterType<PlanService>().As<IPlanService>();
             builder.RegisterType<ProfileService>().As<IProfileService>();
             builder.RegisterType<SharingService>().As<ISharingService>();
+            builder.RegisterType<PlanItemService>().As<IPlanItemService>();
         }
     }
 }

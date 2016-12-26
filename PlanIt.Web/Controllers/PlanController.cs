@@ -17,14 +17,16 @@ namespace PlanIt.Web.Controllers
         private readonly IPlanService _planService;
         private readonly IUserService _userService;
         private readonly ISharingService _sharingService;
+        private readonly IPlanItemService _planItemService;
         private readonly INotificationHub _notificationHub;
 
-        public PlanController(IPlanService planService, IUserService userService, ISharingService sharingService, INotificationHub notificationHub)
+        public PlanController(IPlanService planService, IUserService userService, ISharingService sharingService, INotificationHub notificationHub, IPlanItemService planItemService)
         {
             _planService = planService;
             _userService = userService;
             _sharingService = sharingService;
             _notificationHub = notificationHub;
+            _planItemService = planItemService;
         }
 
         public ActionResult Index()
@@ -32,7 +34,7 @@ namespace PlanIt.Web.Controllers
             try
             {
                 User user = _userService.GetUserByEmail(HttpContext.User.Identity.Name);
-                IEnumerable<Plan> plans = _planService.GetAllPlansByUserId(user.Id);
+                IEnumerable<Plan> plans = _planService.GetPlansByUserId(user.Id);
 
                 return View(new PlanIndexViewModel
                 {
@@ -128,8 +130,8 @@ namespace PlanIt.Web.Controllers
                 User user = _userService.GetUserByEmail(HttpContext.User.Identity.Name);
                 DateTime? postBegin = null;
                 DateTime? postEnd = null;
-                if (postData.StartDate != "" && postData.StartDate != null) postBegin = DateTime.ParseExact(postData.StartDate, new [] { "MM/dd/yyyy" }, new CultureInfo("uk-UA"), DateTimeStyles.None);
-                if (postData.EndDate != "" && postData.EndDate != null) postEnd = DateTime.ParseExact(postData.EndDate, new[] { "MM/dd/yyyy" }, new CultureInfo("uk-UA"), DateTimeStyles.None);
+                if (!string.IsNullOrEmpty(postData.StartDate)) postBegin = DateTime.ParseExact(postData.StartDate, new [] { "MM/dd/yyyy" }, new CultureInfo("uk-UA"), DateTimeStyles.None);
+                if (!string.IsNullOrEmpty(postData.EndDate)) postEnd = DateTime.ParseExact(postData.EndDate, new[] { "MM/dd/yyyy" }, new CultureInfo("uk-UA"), DateTimeStyles.None);
                 if (postData.Id != null)
                 {
                     _planService.UpdatePlan(new Plan
@@ -162,7 +164,7 @@ namespace PlanIt.Web.Controllers
                                 PlanId = postData.PlanId.Value
                             };
                             plan.PlanItems.Add(planItem);
-                            _planService.SavePlanItem(planItem);
+                            _planItemService.SavePlanItem(planItem);
                             _planService.UpdatePlan(plan);
                         }
                     }
@@ -192,24 +194,15 @@ namespace PlanIt.Web.Controllers
         {
             if (isItem)
             {
-                PlanItem planItemFromDb = _planService.GetPlanItemById(planId);
+                PlanItem planItemFromDb = _planItemService.GetPlanItemById(planId);
                 planItemFromDb.IsDeleted = true;
-                _planService.UpdatePlanItem(planItemFromDb);
+                _planItemService.UpdatePlanItem(planItemFromDb);
             }
             else
             {
                 Plan planFromDb = _planService.GetPlanById(planId);
-                _planService.UpdatePlan(new Plan
-                {
-                    Id = planFromDb.Id,
-                    Title = planFromDb.Title,
-                    Description = planFromDb.Description,
-                    Begin = planFromDb.Begin,
-                    End = planFromDb.End,
-                    StatusId = planFromDb.StatusId,
-                    IsDeleted = true,
-                    UserId = planFromDb.UserId
-                });
+                planFromDb.IsDeleted = true;
+                _planService.UpdatePlan(planFromDb);
             }
             return RedirectToAction("Index", "Plan");
         }

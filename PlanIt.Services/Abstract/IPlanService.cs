@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using PlanIt.Entities;
 
 namespace PlanIt.Services.Abstract
@@ -11,21 +7,13 @@ namespace PlanIt.Services.Abstract
     {
         Plan GetPlanById(int id);
 
-        PlanItem GetPlanItemById(int id);
-
         void SavePlan(Plan plan);
 
         void SaveComment(Comment comment);
 
-        void SavePlanItem(PlanItem plan);
-
         void UpdatePlan(Plan plan);
 
-        void UpdatePlanItem(PlanItem plan);
-
-        IEnumerable<Plan> GetAllPlansByUserId(int id);
-
-        ICollection<PlanItem> GetAllPlanItemsByPlanId(int id);
+        IEnumerable<Plan> GetPlansByUserId(int id);
 
         List<Comment> GetAllCommentsByPlanId(int planId);
 

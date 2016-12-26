@@ -22,23 +22,14 @@ namespace PlanIt.Services.Concrete
             return plan;
         }
 
-        public PlanItem GetPlanItemById(int id)
+        public IEnumerable<Plan> GetPlansByUserId(int id)
         {
-            var planItem = _repository.GetSingle<PlanItem>(u => u.Id == id);
-            return planItem;
-        }
-
-        public IEnumerable<Plan> GetAllPlansByUserId(int id)
-        {
-            var plans = _repository.Get<Plan>(p => p.UserId == id && !p.IsDeleted, p => p.PlanItems, p => p.Comments.Select(c => c.User), p => p.User);
+            var plans = _repository.Get<Plan>(p => p.UserId == id && !p.IsDeleted, 
+                p => p.PlanItems,
+                p => p.Comments.Select(c => c.User),
+                p => p.User);
 
             return plans;
-        }
-
-        public ICollection<PlanItem> GetAllPlanItemsByPlanId(int id)
-        {
-            var planItems = _repository.Get<PlanItem>(u => u.PlanId == id);
-            return planItems;
         }
 
         public void SavePlan(Plan plan)
@@ -49,16 +40,6 @@ namespace PlanIt.Services.Concrete
         public void SaveComment(Comment comment)
         {
             _repository.Insert<Comment>(comment);
-        }
-
-        public void UpdatePlanItem(PlanItem planItem)
-        {
-            _repository.Update<PlanItem>(planItem);
-        }
-
-        public void SavePlanItem(PlanItem planItem)
-        {
-            _repository.Insert<PlanItem>(planItem);
         }
 
         public void UpdatePlan(Plan plan)
@@ -81,7 +62,7 @@ namespace PlanIt.Services.Concrete
             //Plan items should upload for current plan on current request
             foreach(var p in plans)
             {
-                ICollection<PlanItem> items = GetAllPlanItemsByPlanId(p.Id);
+                ICollection<PlanItem> items = GetPlanItemsByPlanId(p.Id);
                 p.PlanItems = items;
             }
             return plans;
@@ -93,7 +74,10 @@ namespace PlanIt.Services.Concrete
             List<SharedPlanUser> sharedPlanUserOwner = _repository.Get<SharedPlanUser>(s => s.UserOwnerId == userId && s.PlanId == planId && s.SharingStatusId == acceptedStatusId);
             List<SharedPlanUser> sharedPlanUserReceiver = _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId && s.PlanId == planId && s.SharingStatusId == acceptedStatusId);
             if (sharedPlanUserOwner.Count > 0 || sharedPlanUserReceiver.Count > 0)
+            {
                 return true;
+            }
+
             return false;
         }
     }
