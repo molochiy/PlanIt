@@ -57,10 +57,17 @@ namespace PlanIt.Web.Tests
             Assert.AreEqual(null, actualResult);
         }
 
-        //[TestMethod]
-        //public void SaveProfileTest()
-        //{
-        //    _mockRepository.Setup(rep => rep.Insert(It.IsAny<User>())).Returns(_users[0]);
-        //}
+        [TestMethod]
+        public void UpdateProfileTest()
+        {
+            // Arrange
+            _mockRepository.Setup(rep => rep.Insert(It.IsAny<Profile>())).Returns<Profile>(u => u);
+
+            // Act
+            var actualResult = _profileService.UpdateProfile(_profiles[0]);
+
+            // Assert
+            Assert.AreEqual(_profiles[0], actualResult);
+        }
     }
 }

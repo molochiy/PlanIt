@@ -18,14 +18,10 @@ namespace PlanIt.Services.Concrete
         {
             return _repository.GetSingle<Profile>(u => u.Id == id);
         }
-        public void SaveProfile(Profile profile)
-        {
-            _repository.Insert<Profile>(profile);
-        }
     
-        public void UpdateProfile(Profile profile)
+        public Profile UpdateProfile(Profile profile)
         {
-            _repository.Update<Profile>(profile);
+           return  _repository.Update<Profile>(profile);
         }
     }
 }

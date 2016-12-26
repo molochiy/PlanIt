@@ -10,7 +10,6 @@ namespace PlanIt.Services.Abstract
     public interface IProfileService
     {
         Profile GetProfileById(int id);
-        void SaveProfile(Profile profile);
-        void UpdateProfile(Profile profile);
+        Profile UpdateProfile(Profile profile);
     }
 }
