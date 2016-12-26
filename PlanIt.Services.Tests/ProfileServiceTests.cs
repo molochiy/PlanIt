@@ -61,7 +61,7 @@ namespace PlanIt.Web.Tests
         public void UpdateProfileTest()
         {
             // Arrange
-            _mockRepository.Setup(rep => rep.Insert(It.IsAny<Profile>())).Returns<Profile>(u => u);
+            _mockRepository.Setup(rep => rep.Update(It.IsAny<Profile>())).Returns<Profile>(u => u);
 
             // Act
             var actualResult = _profileService.UpdateProfile(_profiles[0]);
