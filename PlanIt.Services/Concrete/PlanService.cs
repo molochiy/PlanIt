@@ -15,17 +15,36 @@ namespace PlanIt.Services.Concrete
         {
         }
 
+        public List<PlanItem> FilterPlanItems(ICollection<PlanItem> planItems)
+        {
+            List<PlanItem> filtered = new List<PlanItem>();
+            if(planItems.Count > 0)
+            {
+                foreach(var item in planItems)
+                {
+                    if(!item.IsDeleted)
+                    {
+                        filtered.Add(item);
+                    }
+                }
+            }
+            return filtered;
+        }
+
         public Plan GetPlanById(int id)
         {
-            var plan = _repository.GetSingle<Plan>(p => p.Id == id && !p.IsDeleted, p => p.PlanItems);
-            
+            var plan = _repository.GetSingle<Plan>(p => p.UserId == id && !p.IsDeleted,
+                p => FilterPlanItems(p.PlanItems),
+                p => p.Comments.Select(c => c.User),
+                p => p.User);
+
             return plan;
         }
 
         public IEnumerable<Plan> GetPlansByUserId(int id)
         {
-            var plans = _repository.Get<Plan>(p => p.UserId == id && !p.IsDeleted, 
-                p => p.PlanItems,
+            var plans = _repository.Get<Plan>(p => p.UserId == id && !p.IsDeleted,
+                p => FilterPlanItems(p.PlanItems),
                 p => p.Comments.Select(c => c.User),
                 p => p.User);
 
@@ -55,24 +74,15 @@ namespace PlanIt.Services.Concrete
         public List<Plan> GetAllPublicPlansByUserId(int userId)
         {
             int acceptedStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Accepted").Id;
+
             List<int> sharedPlansWhereUserIsOwner = _repository.Get<SharedPlanUser>(s => s.UserOwnerId == userId && s.SharingStatusId == acceptedStatusId).Select(s => s.PlanId).ToList();
             List<int> sharedPlansWhereUserIsReceiver = _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId && s.SharingStatusId == acceptedStatusId).Select(s => s.PlanId).ToList();
             List<int> plansIds = sharedPlansWhereUserIsOwner.Union(sharedPlansWhereUserIsReceiver).ToList();
-            List<Plan> plans = _repository.Get<Plan>(p => plansIds.Contains(p.Id));
+            List<Plan> plans = _repository.Get<Plan>(p => plansIds.Contains(p.Id),
+                                                     p => FilterPlanItems(p.PlanItems),
+                                                     p => p.Comments.Select(c => c.User),
+                                                     p => p.User);
             return plans;
-        }
-
-        public bool PlanIsPublic(int userId, int planId)
-        {
-            int acceptedStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Accepted").Id;
-            List<SharedPlanUser> sharedPlanUserOwner = _repository.Get<SharedPlanUser>(s => s.UserOwnerId == userId && s.PlanId == planId && s.SharingStatusId == acceptedStatusId);
-            List<SharedPlanUser> sharedPlanUserReceiver = _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId && s.PlanId == planId && s.SharingStatusId == acceptedStatusId);
-            if (sharedPlanUserOwner.Count > 0 || sharedPlanUserReceiver.Count > 0)
-            {
-                return true;
-            }
-
-            return false;
         }
     }
 }

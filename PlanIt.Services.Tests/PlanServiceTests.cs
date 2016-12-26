@@ -32,6 +32,27 @@ namespace PlanIt.Services.Tests
             };
         }
 
+        [TestMethod]
+        public void FilterPlanItemsTest()
+        {
+            //Arrange
+            IList<PlanItem> planItems = new List<PlanItem>
+            {
+                new PlanItem {Id = 1, PlanId = 1, Title = "item1", IsDeleted = false },
+                new PlanItem {Id = 2, PlanId = 1, Title = "item2", IsDeleted = true },
+                new PlanItem {Id = 3, PlanId = 1, Title = "item3", IsDeleted = false }
+
+            };
+
+            //Act
+            List<PlanItem> actual = _planService.FilterPlanItems(planItems);
+            
+            //Assert
+            Assert.AreEqual(2, actual.Count);
+            Assert.AreEqual(1, actual[0].Id);
+            Assert.AreEqual(3, actual[1].Id);
+        }
+
         //GetPlanById
         [TestMethod]
         public void GetPlanById()

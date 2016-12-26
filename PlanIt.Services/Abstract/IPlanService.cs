@@ -5,6 +5,8 @@ namespace PlanIt.Services.Abstract
 {
     public interface IPlanService
     {
+        List<PlanItem> FilterPlanItems(ICollection<PlanItem> planItems);
+
         Plan GetPlanById(int id);
 
         void SavePlan(Plan plan);
@@ -18,7 +20,5 @@ namespace PlanIt.Services.Abstract
         List<Comment> GetAllCommentsByPlanId(int planId);
 
         List<Plan> GetAllPublicPlansByUserId(int userId);
-
-        bool PlanIsPublic(int userId, int planId);
     }
 }

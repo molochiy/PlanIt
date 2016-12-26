@@ -46,12 +46,6 @@ namespace PlanIt.Web.Controllers
                     User userReciever = _userService.GetUserById(data.UserReceiverId);
                     Plan sharedPlan = _planService.GetPlanById(data.PlanId);
                     string sharingStatus = _sharingService.GetSharingStatusById(data.SharingStatusId);
-                    ICollection<Comment> comments = _planService.GetAllCommentsByPlanId(data.PlanId);
-                    foreach(Comment comment in comments)
-                    {
-                        comment.User = _userService.GetUserById(comment.UserId);
-                    }
-                    sharedPlan.Comments = comments;
                     notifications.Add(new NotificationSummaryModel
                     {
                         SharedPlanUserId = data.Id,
