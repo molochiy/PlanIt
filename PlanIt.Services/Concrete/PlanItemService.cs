@@ -18,14 +18,14 @@ namespace PlanIt.Services.Concrete
             return planItem;
         }
 
-        public void SavePlanItem(PlanItem planItem)
+        public PlanItem SavePlanItem(PlanItem planItem)
         {
-            _repository.Insert<PlanItem>(planItem);
+            return _repository.Insert<PlanItem>(planItem);
         }
 
-        public void UpdatePlanItem(PlanItem planItem)
+        public PlanItem UpdatePlanItem(PlanItem planItem)
         {
-            _repository.Update<PlanItem>(planItem);
+            return _repository.Update<PlanItem>(planItem);
         }
 
         public ICollection<PlanItem> GetPlanItemsByPlanId(int id)

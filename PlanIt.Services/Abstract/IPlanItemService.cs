@@ -7,9 +7,9 @@ namespace PlanIt.Services.Abstract
     {
         PlanItem GetPlanItemById(int id);
 
-        void SavePlanItem(PlanItem plan);
+        PlanItem SavePlanItem(PlanItem plan);
 
-        void UpdatePlanItem(PlanItem plan);
+        PlanItem UpdatePlanItem(PlanItem plan);
 
         ICollection<PlanItem> GetPlanItemsByPlanId(int id);
     }
