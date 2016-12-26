@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Moq;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PlanIt.Entities;
 using PlanIt.Repositories.Abstract;
@@ -63,91 +64,35 @@ namespace PlanIt.Web.Tests
         [TestMethod]
         public void GetSharingInfoForNotificationsTest()
         {
-            //Arrange
-            User user = new User { Id = 1, Email = "user@gmail.com", IsEmailConfirmed = true, Password = "pass1", ProfileId = 1 };
-            List<SharingStatus> sharingStatuses = new List<SharingStatus>
-            {
-                new SharingStatus { Id = 1, Name = "Pending" },
-                new SharingStatus { Id = 2, Name = "Accepted" },
-                new SharingStatus { Id = 3, Name = "Declined" }
-            };
-            List<SharedPlanUser> sharingInfoList = new List<SharedPlanUser>
-            {
-                new SharedPlanUser { Id = 1, PlanId = 1, UserOwnerId = 1, UserReceiverId = 1, SharingStatusId= 3, OwnerWasNotified = false },
-                new SharedPlanUser { Id = 1, PlanId = 2, UserOwnerId = 1, UserReceiverId = 2, SharingStatusId= 2, OwnerWasNotified = true }
-            };
-
+            User user = new User { Id = 1, Email = "user@gmail.com", IsEmailConfirmed = true, ProfileId = 1 };
             _mockRepository.Setup(rep => rep.GetSingle<User>(It.IsAny<Func<User, bool>>())).Returns(user);
-            _mockRepository.SetupSequence(rep => rep.GetSingle<SharingStatus>(It.IsAny<Func<SharingStatus, bool>>()))
-                .Returns(sharingStatuses[0])
-                .Returns(sharingStatuses[1])
-                .Returns(sharingStatuses[2]);
-            List<SharedPlanUser> repositoryGetInfo = sharingInfoList.Where(s =>
-                    (s.UserReceiverId == user.Id && s.SharingStatusId == sharingStatuses[0].Id) ||
-                    (s.UserOwnerId == user.Id && s.OwnerWasNotified == false &&
-                                         (s.SharingStatusId == sharingStatuses[1].Id ||
-                                          s.SharingStatusId == sharingStatuses[2].Id))).ToList();
-            _mockRepository.Setup(rep => rep.Get<SharedPlanUser>(It.IsAny<Func<SharedPlanUser, bool>>())).Returns(repositoryGetInfo);
-
-            List<SharedPlanUser> expectedInfo = new List<SharedPlanUser>
-            {
-                new SharedPlanUser {Id=1, PlanId=1, UserOwnerId=1, UserReceiverId=2, SharingStatusId=3, OwnerWasNotified = false }
-            };
+            _mockRepository.Setup(rep => rep.GetSingle<SharingStatus>(It.IsAny<Func<SharingStatus, bool>>())).Returns(new SharingStatus());
+            List<SharedPlanUser> repositoryInfo = new List<SharedPlanUser>();
+            _mockRepository.Setup(rep => rep.Get<SharedPlanUser>(It.IsAny<Func<SharedPlanUser, bool>>(),
+                                                                 It.IsAny<Expression<Func<SharedPlanUser, object>>[]>())).Returns(repositoryInfo);
 
             //Act
             List<SharedPlanUser> realInfo = _sharingService.GetSharingInfoForNotifications(user.Email);
 
             //Assert
-            Assert.IsTrue(realInfo.Count == expectedInfo.Count);
-            Assert.AreEqual(expectedInfo[0].PlanId, realInfo[0].PlanId);
-            Assert.AreEqual(expectedInfo[0].UserOwnerId, realInfo[0].UserOwnerId);
-            Assert.AreEqual(expectedInfo[0].UserReceiverId, realInfo[0].UserReceiverId);
-            Assert.AreEqual(expectedInfo[0].SharingStatusId, realInfo[0].SharingStatusId);
-            Assert.AreEqual(expectedInfo[0].OwnerWasNotified, realInfo[0].OwnerWasNotified);
+            Assert.IsTrue(realInfo.Count == 0);
         }
 
         [TestMethod]
         public void GetNumberOfNotificationsTest()
         {
-            //Arrange
-            User user = new User { Id = 1, Email = "user@gmail.com", IsEmailConfirmed = true, Password = "pass1", ProfileId = 1 };
-            List<SharingStatus> sharingStatuses = new List<SharingStatus>
-            {
-                new SharingStatus {Id=1, Name="Pending" },
-                new SharingStatus {Id=2, Name="Accepted" },
-                new SharingStatus {Id=3, Name="Declined" }
-            };
-            List<SharedPlanUser> sharingInfoList = new List<SharedPlanUser>
-            {
-                new SharedPlanUser {Id=1, PlanId=1, UserOwnerId=1, UserReceiverId=2, SharingStatusId=3, OwnerWasNotified = false },
-                new SharedPlanUser {Id=1, PlanId=2, UserOwnerId=1, UserReceiverId=2, SharingStatusId=2, OwnerWasNotified = true },
-                new SharedPlanUser {Id=1, PlanId=3, UserOwnerId=2, UserReceiverId=1, SharingStatusId=1, OwnerWasNotified = false }
-            };
-
+            User user = new User { Id = 1, Email = "user@gmail.com", IsEmailConfirmed = true, ProfileId = 1 };
             _mockRepository.Setup(rep => rep.GetSingle<User>(It.IsAny<Func<User, bool>>())).Returns(user);
-            _mockRepository.SetupSequence(rep => rep.GetSingle<SharingStatus>(It.IsAny<Func<SharingStatus, bool>>()))
-                .Returns(sharingStatuses[0])
-                .Returns(sharingStatuses[1])
-                .Returns(sharingStatuses[2]);
-            List<SharedPlanUser> repositoryGetInfo = sharingInfoList.Where(s =>
-                    (s.UserReceiverId == user.Id && s.SharingStatusId == sharingStatuses[0].Id) ||
-                    (s.UserOwnerId == user.Id && s.OwnerWasNotified == false &&
-                                         (s.SharingStatusId == sharingStatuses[1].Id ||
-                                          s.SharingStatusId == sharingStatuses[2].Id))).ToList();
-            _mockRepository.Setup(rep => rep.Get<SharedPlanUser>(It.IsAny<Func<SharedPlanUser, bool>>())).Returns(repositoryGetInfo);
-
-            List<SharedPlanUser> expectedInfo = new List<SharedPlanUser>
-            {
-                new SharedPlanUser {Id=1, PlanId=1, UserOwnerId=1, UserReceiverId=2, SharingStatusId=3, OwnerWasNotified = false },
-                new SharedPlanUser {Id=1, PlanId=3, UserOwnerId=2, UserReceiverId=1, SharingStatusId=1, OwnerWasNotified = false }
-            };
-            int expectedNumberOfNotifications = expectedInfo.Count;
+            _mockRepository.Setup(rep => rep.GetSingle<SharingStatus>(It.IsAny<Func<SharingStatus, bool>>())).Returns(new SharingStatus());
+            List<SharedPlanUser> repositoryInfo = new List<SharedPlanUser>();
+            _mockRepository.Setup(rep => rep.Get<SharedPlanUser>(It.IsAny<Func<SharedPlanUser, bool>>(),
+                                                                 It.IsAny<Expression<Func<SharedPlanUser, object>>[]>())).Returns(repositoryInfo);
 
             //Act
-            int realNumberOfNotifications = _sharingService.GetNumberOfNotifications(user.Email);
+            int actualNumber = _sharingService.GetNumberOfNotifications(user.Email);
 
             //Assert
-            Assert.AreEqual(expectedNumberOfNotifications, realNumberOfNotifications);
+            Assert.AreEqual(repositoryInfo.Count, actualNumber);
         }
 
         [TestMethod]
