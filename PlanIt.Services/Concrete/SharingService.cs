@@ -20,15 +20,15 @@ namespace PlanIt.Services.Concrete
         /// Sharing own plan to another user
         /// </summary>
         /// <param name="planId">Current plan id</param>
-        /// <param name="fromUserEmail">User who shares own plan</param>
-        /// <param name="toUserEmail">User who receives shared plan</param>
-        public void SharePlan(int planId, string fromUserEmail, string toUserEmail)
+        /// <param name="ownerEmail">User who shares own plan</param>
+        /// <param name="receiverEmail">User who receives shared plan</param>
+        public SharedPlanUser SharePlan(int planId, string ownerEmail, string receiverEmail)
         {
             //Add check if current plan exists, owner exists, receiver exists
             //Check whether current plan isn't already shared to htis user
             var sharingDateTime = DateTime.Now;
-            var fromUserId = _repository.GetSingle<User>(u => u.Email == fromUserEmail).Id;
-            var toUserId = _repository.GetSingle<User>(u => u.Email == toUserEmail).Id;
+            var fromUserId = _repository.GetSingle<User>(u => u.Email == ownerEmail).Id;
+            var toUserId = _repository.GetSingle<User>(u => u.Email == receiverEmail).Id;
             var sharingStatusId = _repository.GetSingle<SharingStatus>(ss => ss.Name == "Pending").Id;
             var sharedPlanUser = new SharedPlanUser
             {
@@ -38,7 +38,7 @@ namespace PlanIt.Services.Concrete
                 UserOwnerId = fromUserId,
                 UserReceiverId = toUserId
             };
-            _repository.Insert(sharedPlanUser);
+            return _repository.Insert(sharedPlanUser);
         }
 
         /// <summary>
@@ -79,14 +79,14 @@ namespace PlanIt.Services.Concrete
         /// </summary>
         /// <param name="sharedPlanUserId">Sharing info id</param>
         /// <param name="newSharingStatus">New sharing status string</param>
-        public void ChangeSharingStatus(int sharedPlanUserId, string newSharingStatus)
+        public SharedPlanUser ChangeSharingStatus(int sharedPlanUserId, string newSharingStatus)
         {
             //Check whether status i correct (Accepted, Declined or Pending and nothing else)
             var sharedInfo = _repository.GetSingle<SharedPlanUser>(s => s.Id == sharedPlanUserId);
             var statusId = _repository.GetSingle<SharingStatus>(s => s.Name == newSharingStatus).Id;
             sharedInfo.SharingStatusId = statusId;
             sharedInfo.SharingDateTime = DateTime.Now;
-            _repository.Update<SharedPlanUser>(sharedInfo);
+            return _repository.Update<SharedPlanUser>(sharedInfo);
         }
 
         /// <summary>
@@ -94,12 +94,12 @@ namespace PlanIt.Services.Concrete
         /// </summary>
         /// <param name="sharedPlanUserId">Current sharing info id</param>
         /// <param name="newValue">True</param>
-        public void ChangeOwnerWasNotifiedProperty(int sharedPlanUserId, bool newValue)
+        public SharedPlanUser ChangeOwnerWasNotifiedProperty(int sharedPlanUserId, bool newValue)
         {
             //Check whether such sharing info exists
             var sharedInfo = _repository.GetSingle<SharedPlanUser>(s => s.Id == sharedPlanUserId);
             sharedInfo.OwnerWasNotified = newValue;
-            _repository.Update<SharedPlanUser>(sharedInfo);
+            return _repository.Update<SharedPlanUser>(sharedInfo);
         }
 
         public string GetSharingStatusById(int sharingStatusId)
