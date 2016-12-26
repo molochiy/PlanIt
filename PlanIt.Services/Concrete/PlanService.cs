@@ -33,7 +33,7 @@ namespace PlanIt.Services.Concrete
 
         public Plan GetPlanById(int id)
         {
-            var plan = _repository.GetSingle<Plan>(p => p.UserId == id && !p.IsDeleted,
+            var plan = _repository.GetSingle<Plan>(p => p.Id == id && !p.IsDeleted,
                 p => FilterPlanItems(p.PlanItems),
                 p => p.Comments.Select(c => c.User),
                 p => p.User);
