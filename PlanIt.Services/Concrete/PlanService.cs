@@ -59,12 +59,6 @@ namespace PlanIt.Services.Concrete
             List<int> sharedPlansWhereUserIsReceiver = _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId && s.SharingStatusId == acceptedStatusId).Select(s => s.PlanId).ToList();
             List<int> plansIds = sharedPlansWhereUserIsOwner.Union(sharedPlansWhereUserIsReceiver).ToList();
             List<Plan> plans = _repository.Get<Plan>(p => plansIds.Contains(p.Id));
-            //Plan items should upload for current plan on current request
-            foreach(var p in plans)
-            {
-                ICollection<PlanItem> items = GetPlanItemsByPlanId(p.Id);
-                p.PlanItems = items;
-            }
             return plans;
         }
 

@@ -1,9 +1,6 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PlanIt.Entities;
 using PlanIt.Repositories.Abstract;
 using PlanIt.Services.Abstract;

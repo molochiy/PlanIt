@@ -58,6 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="PlanItemServiceTests.cs" />
     <Compile Include="PlanServiceTests.cs" />
     <Compile Include="ProfileServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
