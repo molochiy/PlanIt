@@ -51,19 +51,19 @@ namespace PlanIt.Services.Concrete
             return plans;
         }
 
-        public void SavePlan(Plan plan)
+        public Plan SavePlan(Plan plan)
         {
-           _repository.Insert<Plan>(plan);
+           return _repository.Insert<Plan>(plan);
         }
 
-        public void SaveComment(Comment comment)
+        public Comment SaveComment(Comment comment)
         {
-            _repository.Insert<Comment>(comment);
+            return _repository.Insert<Comment>(comment);
         }
 
-        public void UpdatePlan(Plan plan)
+        public Plan UpdatePlan(Plan plan)
         {
-            _repository.Update<Plan>(plan);
+            return _repository.Update<Plan>(plan);
         }
 
         public List<Comment> GetAllCommentsByPlanId(int planId)

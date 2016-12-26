@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Collections.Generic;
 using Moq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,7 +17,7 @@ namespace PlanIt.Services.Tests
     {
         private Mock<IRepository> _mockRepository;
         private IPlanService _planService;
-        private IList<Plan> _plans;
+        private List<Plan> _plans;
 
         [TestInitialize]
         public void Initialize()
@@ -53,38 +55,110 @@ namespace PlanIt.Services.Tests
             Assert.AreEqual(3, actual[1].Id);
         }
 
-        //GetPlanById
         [TestMethod]
-        public void GetPlanById()
+        public void GetPlanByIdFoundTest()
         {
             // Arrange
-            _mockRepository.Setup(rep => rep.GetSingle(It.IsAny<Func<Plan, bool>>())).Returns(_plans[0]);
+            _mockRepository.Setup(rep => rep.GetSingle<Plan>(It.IsAny<Func<Plan, bool>>(), 
+                It.IsAny<Expression<Func<Plan, object>>[]>())).Returns(_plans[0]);
 
             // Act
-            var actualResult = _planService.GetPlanById(0);
+            var actualResult = _planService.GetPlanById(1);
 
             // Assert
             Assert.AreEqual(_plans[0], actualResult);
         }
-        //GetPlansByUserId
-        //SavePlan
-        //SaveComment
-        //UpdatePlan
-        //GetAllCommentsByPlanId
-        //GetAllPublicPlansByUserId
-        //PlanIsPublic
-
 
         [TestMethod]
-        public void Test()
+        public void GetPlanByIdNotFoundTest()
         {
             // Arrange
-            _mockRepository.Setup(rep => rep.GetSingle(It.IsAny<Func<Plan, bool>>())).Returns(_plans[0]);
+            _mockRepository.Setup(rep => rep.GetSingle<Plan>(It.IsAny<Func<Plan, bool>>(),
+                It.IsAny<Expression<Func<Plan, object>>[]>())).Returns((Plan)null);
 
             // Act
+            var actualResult = _planService.GetPlanById(1);
 
             // Assert
-            Assert.AreEqual(1, 1);
+            Assert.AreEqual(null, actualResult);
+        }
+
+        [TestMethod]
+        public void GetPlanByUserIdTest()
+        {
+            //Arrange
+            List<Plan> plans = _plans.Where(p => p.UserId == 1).ToList();
+            _mockRepository.Setup(rep => rep.Get<Plan>(It.IsAny<Func<Plan, bool>>(),
+                It.IsAny<Expression<Func<Plan, object>>[]>())).Returns(plans);
+            //Act
+            List<Plan> actual = _planService.GetPlansByUserId(1).ToList();
+
+            //Assert
+            Assert.AreEqual(plans.Count, actual.Count);
+            Assert.AreEqual(plans[0].Id, actual[0].Id);
+            Assert.AreEqual(plans[1].Id, actual[1].Id);
+            Assert.AreEqual(plans[2].Id, actual[2].Id);
+        }
+
+        [TestMethod]
+        public void SavePlanTest()
+        {
+            // Arrange
+            _mockRepository.Setup(rep => rep.Insert(It.IsAny<Plan>())).Returns<Plan>(u => u);
+
+            // Act
+            var actualResult = _planService.SavePlan(_plans[0]);
+
+            // Assert
+            Assert.AreEqual(_plans[0], actualResult);
+        }
+
+        [TestMethod]
+        public void SaveCommentTest()
+        {
+            Comment comment = new Comment { Id = 1, PlanId = 1, Text = "SomeText", UserId = 1 };
+            // Arrange
+            _mockRepository.Setup(rep => rep.Insert(It.IsAny<Comment>())).Returns<Comment>(c => c);
+
+            // Act
+            var actualResult = _planService.SaveComment(comment);
+
+            // Assert
+            Assert.AreEqual(comment, actualResult);
+        }
+
+        [TestMethod]
+        public void UpdatePlanTest()
+        {
+            // Arrange
+            _mockRepository.Setup(rep => rep.Update(It.IsAny<Plan>())).Returns<Plan>(u => u);
+
+            // Act
+            var actualResult = _planService.UpdatePlan(_plans[0]);
+
+            // Assert
+            Assert.AreEqual(_plans[0], actualResult);
+        }
+
+        [TestMethod]
+        public void GetAllPublicPlansByUserIdTest()
+        {
+            //Arrange
+            SharingStatus status = new SharingStatus();
+            List<Plan> plans = new List<Plan>();
+            List<SharedPlanUser> sharingInfo = new List<SharedPlanUser>();
+
+            _mockRepository.Setup(rep => rep.Get<Plan>(It.IsAny<Func<Plan, bool>>(),
+               It.IsAny<Expression<Func<Plan, object>>[]>())).Returns(plans);
+            _mockRepository.Setup(rep => rep.Get<SharedPlanUser>(It.IsAny<Func<SharedPlanUser, bool>>())).Returns(sharingInfo);
+            _mockRepository.Setup(rep => rep.GetSingle<SharingStatus>(It.IsAny<Func<SharingStatus, bool>>())).Returns(status);
+
+            //Act
+            List<Plan> actual = _planService.GetAllPublicPlansByUserId(1);
+
+            //Assert
+            Assert.AreEqual(plans.Count, actual.Count);
+            Assert.IsTrue(actual.Count == 0);
         }
     }
 }

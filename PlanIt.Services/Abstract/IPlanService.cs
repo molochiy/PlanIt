@@ -9,11 +9,11 @@ namespace PlanIt.Services.Abstract
 
         Plan GetPlanById(int id);
 
-        void SavePlan(Plan plan);
+        Plan SavePlan(Plan plan);
 
-        void SaveComment(Comment comment);
+        Comment SaveComment(Comment comment);
 
-        void UpdatePlan(Plan plan);
+        Plan UpdatePlan(Plan plan);
 
         IEnumerable<Plan> GetPlansByUserId(int id);
 
