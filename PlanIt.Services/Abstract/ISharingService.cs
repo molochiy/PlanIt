@@ -11,13 +11,11 @@ namespace PlanIt.Services.Abstract
     {
         void SharePlan(int planId, string fromUserEmail, string toUserEmail);
 
-        List<SharedPlanUser> GetSharedPlanUserData(string userEmail);
+        List<SharedPlanUser> GetSharingInfoForNotifications(string userEmail);
 
-        List<SharedPlanUser> GetSharedPlanUserToShow(string userEmail);
+        int GetNumberOfNotifications(string userEmail);
 
-        int GetNumberOfNotificationForUser(string userEmail);
-
-        void ChangeSharedPlanUserStatus(int sharedPlanUserId, string newSharingStatus);
+        void ChangeSharingStatus(int sharedPlanUserId, string newSharingStatus);
 
         void ChangeOwnerWasNotifiedProperty(int sharedPlanUserId, bool newValue);
 
@@ -25,6 +23,6 @@ namespace PlanIt.Services.Abstract
 
         List<string> GetUsersEmailsForNotification(int sharedPlanUserId, string newStatus);
 
-        List<string> GetUsersEmailsWhoshouldGetComment(int planId);
+        List<string> GetUsersEmailsWhoShouldGetComment(int planId);
     }
 }

@@ -21,7 +21,10 @@ namespace PlanIt.Web.Controllers
         private readonly IPlanService _planService;
         private readonly INotificationHub _notificationHub;
 
-        public UserInteractionsController(IUserService userService, ISharingService sharingService, IPlanService planService, INotificationHub notificationHub)
+        public UserInteractionsController(IUserService userService, 
+                                          ISharingService sharingService,
+                                          IPlanService planService,
+                                          INotificationHub notificationHub)
         {
             _userService = userService;
             _sharingService = sharingService;
@@ -35,7 +38,7 @@ namespace PlanIt.Web.Controllers
         {
             try
             {
-                List<SharedPlanUser> sharingData = _sharingService.GetSharedPlanUserToShow(HttpContext.User.Identity.Name);
+                List<SharedPlanUser> sharingData = _sharingService.GetSharingInfoForNotifications(HttpContext.User.Identity.Name);
                 List<NotificationSummaryModel> notifications = new List<NotificationSummaryModel>();
                 foreach (var data in sharingData)
                 {
@@ -81,7 +84,7 @@ namespace PlanIt.Web.Controllers
 
         public ActionResult ChangeSharedPlanUserStatus(int sharedPlanUserId, string newStatus)
         {
-            _sharingService.ChangeSharedPlanUserStatus(sharedPlanUserId, newStatus);
+            _sharingService.ChangeSharingStatus(sharedPlanUserId, newStatus);
             var userEmailForNotification = _sharingService.GetUsersEmailsForNotification(sharedPlanUserId, newStatus);
             _notificationHub.UpdateNotification(userEmailForNotification);
 
@@ -165,9 +168,9 @@ namespace PlanIt.Web.Controllers
         {
             string userEmail = HttpContext.User.Identity.Name;
 
-            int numberOfNotification = _sharingService.GetNumberOfNotificationForUser(userEmail);
+            int numberOfNotifications = _sharingService.GetNumberOfNotifications(userEmail);
 
-            return Json(new { numberOfNotification }, JsonRequestBehavior.AllowGet);
+            return Json(new { numberOfNotifications }, JsonRequestBehavior.AllowGet);
         }
     }
 }
