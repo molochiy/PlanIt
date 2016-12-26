@@ -106,7 +106,7 @@ namespace PlanIt.Web.Controllers
             var commentData = Json(new { CreatedTime = createdTime.ToString(), PlanId = planId, Text = text, UserEmail = currentUserEmail });
 
             //Get receivers(user's email who should get comment)
-            List<string> receivers = _sharingService.GetUsersEmailsWhoshouldGetComment(planId);
+            List<string> receivers = _sharingService.GetUsersEmailsWhoShouldGetComment(planId);
 
             _notificationHub.AddNewCommentToList(receivers, commentData);
 
