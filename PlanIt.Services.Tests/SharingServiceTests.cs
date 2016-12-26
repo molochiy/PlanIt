@@ -67,14 +67,14 @@ namespace PlanIt.Web.Tests
             User user = new User { Id = 1, Email = "user@gmail.com", IsEmailConfirmed = true, Password = "pass1", ProfileId = 1 };
             List<SharingStatus> sharingStatuses = new List<SharingStatus>
             {
-                new SharingStatus {Id=1, Name="Pending" },
-                new SharingStatus {Id=2, Name="Accepted" },
-                new SharingStatus {Id=3, Name="Declined" }
+                new SharingStatus { Id = 1, Name = "Pending" },
+                new SharingStatus { Id = 2, Name = "Accepted" },
+                new SharingStatus { Id = 3, Name = "Declined" }
             };
             List<SharedPlanUser> sharingInfoList = new List<SharedPlanUser>
             {
-                new SharedPlanUser {Id=1, PlanId=1, UserOwnerId=1, UserReceiverId=2, SharingStatusId=3, OwnerWasNotified = false },
-                new SharedPlanUser {Id=1, PlanId=2, UserOwnerId=1, UserReceiverId=2, SharingStatusId=2, OwnerWasNotified = true }
+                new SharedPlanUser { Id = 1, PlanId = 1, UserOwnerId = 1, UserReceiverId = 1, SharingStatusId= 3, OwnerWasNotified = false },
+                new SharedPlanUser { Id = 1, PlanId = 2, UserOwnerId = 1, UserReceiverId = 2, SharingStatusId= 2, OwnerWasNotified = true }
             };
 
             _mockRepository.Setup(rep => rep.GetSingle<User>(It.IsAny<Func<User, bool>>())).Returns(user);
@@ -142,7 +142,7 @@ namespace PlanIt.Web.Tests
                 new SharedPlanUser {Id=1, PlanId=3, UserOwnerId=2, UserReceiverId=1, SharingStatusId=1, OwnerWasNotified = false }
             };
             int expectedNumberOfNotifications = expectedInfo.Count;
-            
+
             //Act
             int realNumberOfNotifications = _sharingService.GetNumberOfNotifications(user.Email);
 
@@ -247,7 +247,7 @@ namespace PlanIt.Web.Tests
 
             //Assert
             Assert.IsTrue(actualUserEmails.Count == 3);
-            CollectionAssert.Contains(actualUserEmails,"user1@gmail.com");
+            CollectionAssert.Contains(actualUserEmails, "user1@gmail.com");
             CollectionAssert.Contains(actualUserEmails, "user2@gmail.com");
             CollectionAssert.Contains(actualUserEmails, "user3@gmail.com");
         }
