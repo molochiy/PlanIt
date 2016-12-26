@@ -148,39 +148,52 @@ namespace PlanIt.Web.Controllers
                 }
                 else
                 {
-                    if (postData.PlanId != null)
+                    _planService.SavePlan(new Plan
                     {
-                        Plan plan = _planService.GetPlanById(postData.PlanId.Value);
-                        if (plan != null)
-                        {
-                            PlanItem planItem = new PlanItem
-                            {
-                                Title = postData.Title,
-                                Description = postData.Description,
-                                Begin = postBegin,
-                                End = postEnd,
-                                StatusId = 1,
-                                IsDeleted = false,
-                                PlanId = postData.PlanId.Value
-                            };
-                            plan.PlanItems.Add(planItem);
-                            _planItemService.SavePlanItem(planItem);
-                            _planService.UpdatePlan(plan);
-                        }
-                    }
-                    else
+                        Title = postData.Title,
+                        Description = postData.Description,
+                        Begin = postBegin,
+                        End = postEnd,
+                        StatusId = 1,
+                        IsDeleted = false,
+                        UserId = user.Id
+                    });
+                }
+                return Json(Url.Action("Index", "Plan"));
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("LogIn", "User");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddPlanItem(PlanAddPlanViewModel postData)
+        {
+            try
+            {
+                User user = _userService.GetUserByEmail(HttpContext.User.Identity.Name);
+                DateTime? postBegin = null;
+                DateTime? postEnd = null;
+                if (!string.IsNullOrEmpty(postData.StartDate)) postBegin = DateTime.ParseExact(postData.StartDate, new[] { "MM/dd/yyyy" }, new CultureInfo("uk-UA"), DateTimeStyles.None);
+                if (!string.IsNullOrEmpty(postData.EndDate)) postEnd = DateTime.ParseExact(postData.EndDate, new[] { "MM/dd/yyyy" }, new CultureInfo("uk-UA"), DateTimeStyles.None);
+
+                Plan plan = _planService.GetPlanById(postData.PlanId.Value);
+                if (plan != null)
+                {
+                    PlanItem planItem = new PlanItem
                     {
-                        _planService.SavePlan(new Plan
-                        {
-                            Title = postData.Title,
-                            Description = postData.Description,
-                            Begin = postBegin,
-                            End = postEnd,
-                            StatusId = 1,
-                            IsDeleted = false,
-                            UserId = user.Id
-                        });
-                    }
+                        Title = postData.Title,
+                        Description = postData.Description,
+                        Begin = postBegin,
+                        End = postEnd,
+                        StatusId = 1,
+                        IsDeleted = false,
+                        PlanId = postData.PlanId.Value
+                    };
+                    plan.PlanItems.Add(planItem);
+                    _planItemService.SavePlanItem(planItem);
+                    _planService.UpdatePlan(plan);
                 }
                 return Json(Url.Action("Index", "Plan"));
             }

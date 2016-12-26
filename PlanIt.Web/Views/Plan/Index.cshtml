@@ -71,6 +71,7 @@
   });
   $('#btn-add-plan').click(function () {
       $('#Id').val(null);
+      $('#PlanId').val(null);
       $('#Title').val("");
       $('#Description').val("");
       $('#datepickerStart').val("");
@@ -81,8 +82,14 @@
 
     <script type="text/jscript">
         $('#planAddEdit').click(function () {
-            var url = '/Plan/AddPlan/';
+            var url;
             var post = {};
+            if ($('#PlanId').val()) {
+                url = '/Plan/AddPlanItem/';
+                post.PlanId = $('#PlanId').val();
+            } else {
+                url = '/Plan/AddPlan/';
+            }
             if ($('#Title').val() == "") {
                 if ($("#Title").prev(".validation").length == 0) {
                     $("#Title").before("<div class='validation' style='color:red; margin-botton: 2px;'>Please enter Title: </div>");
@@ -93,7 +100,6 @@
                 $("#Title").attr("data-dismiss", "modal");
 
                 post.Id = $('#Id').val();
-                post.PlanId = $('#PlanId').val();
                 post.title = $('#Title').val();
                 post.description = $('#Description').val();
                 post.startDate = $('#datepickerStart').val();
