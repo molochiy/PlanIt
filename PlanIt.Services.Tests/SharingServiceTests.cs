@@ -142,6 +142,7 @@ namespace PlanIt.Web.Tests
                 new SharedPlanUser {Id=1, PlanId=3, UserOwnerId=2, UserReceiverId=1, SharingStatusId=1, OwnerWasNotified = false }
             };
             int expectedNumberOfNotifications = expectedInfo.Count;
+            
             //Act
             int realNumberOfNotifications = _sharingService.GetNumberOfNotifications(user.Email);
 
@@ -152,7 +153,7 @@ namespace PlanIt.Web.Tests
         [TestMethod]
         public void ChangeSharingStatusTest()
         {
-            //Assert
+            //Arrange
             SharedPlanUser sharingInfo = new SharedPlanUser { Id = 1, PlanId = 1, UserOwnerId = 1, UserReceiverId = 2, SharingStatusId = 1, OwnerWasNotified = false };
             SharingStatus newSharingStatus = new SharingStatus { Id = 2, Name = "Accepted" };
             _mockRepository.Setup(rep => rep.GetSingle<SharedPlanUser>(It.IsAny<Func<SharedPlanUser, bool>>())).Returns(sharingInfo);

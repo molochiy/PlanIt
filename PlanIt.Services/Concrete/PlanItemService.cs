@@ -5,7 +5,7 @@ using PlanIt.Services.Abstract;
 
 namespace PlanIt.Services.Concrete
 {
-    class PlanItemService: BaseService, IPlanItemService
+    public class PlanItemService: BaseService, IPlanItemService
     {
         public PlanItemService(IRepository repository) : base(repository)
         {
