@@ -13,7 +13,10 @@
             <h3 class="panel-title pull-left">
                 <a href="@("#collapse-" + Model.Id)" data-parent="#collapsible-" class="accordion-toggle" data-toggle="collapse"><strong>@Model.Title</strong></a>
             </h3>
-            <h6 class="pull-left">@Model.Begin.Value.Date.ToString("d MMMM yyyy") - @Model.End.Value.Date.ToString("d MMMM yyyy")</h6>
+            @if (@Model.Begin != null && Model.End != null)
+            {
+                <h6 class="pull-left">@Model.Begin.Value.Date.ToString("d MMMM yyyy") - @Model.End.Value.Date.ToString("d MMMM yyyy")</h6>
+            }
             @using (Html.BeginForm("Plans", "Plan"))
             {
                 <div class="pull-right">
@@ -57,7 +60,10 @@
                             <h3 class="panel-title">
                                 <a href="@("#collapse-" + planItem.Id)" class="accordion-toggle" data-toggle="collapse">@planItem.Title</a>
                             </h3>
-                            <h6 class="pull-left">@planItem.Begin.Value.Date.ToString("d MMMM yyyy") - @planItem.End.Value.Date.ToString("d MMMM yyyy")</h6>
+                            @if (planItem.Begin != null && planItem.End != null)
+                            {
+                                <h6 class="pull-left">@planItem.Begin.Value.Date.ToString("d MMMM yyyy") - @planItem.End.Value.Date.ToString("d MMMM yyyy")</h6>
+                            }
                             <div class="pull-right">
                                 @Html.ActionLink("Remove Item", "RemovePlan", "Plan", new { planId = planItem.Id, isItem = true }, new { @class = "btn btn-danger btn-remove-plan" })
                             </div>
