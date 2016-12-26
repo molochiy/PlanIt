@@ -11,33 +11,20 @@ using PlanIt.Services.Concrete;
 namespace PlanIt.Web.Tests
 {
     [TestClass]
-    public class SharingServiceTestsWithStubForRepo
+    public class SharingServiceTests
     {
         private Mock<IRepository> _mockRepository;
         private ISharingService _sharingService;
-        private IList<User> _users;
-        private IList<SharedPlanUser> _sharingInfoList;
 
         [TestInitialize]
         public void Initialize()
         {
             _mockRepository = new Mock<IRepository>();
             _sharingService = new SharingService(_mockRepository.Object);
-            _users = new List<User>
-            {
-                new User { Id = 1, Email = "owner@gmail.com", IsEmailConfirmed = true, Password = "pass1", ProfileId = 1 },
-                new User { Id = 2, Email = "firstReceiver@gmail.com", IsEmailConfirmed = true, Password = "pass2", ProfileId = 2},
-                new User { Id = 2, Email = "secondReceiver@gmail.com", IsEmailConfirmed = true, Password = "pass3", ProfileId = 3}
-            };
-            _sharingInfoList = new List<SharedPlanUser>
-            {
-                new SharedPlanUser { PlanId=1, UserOwnerId=1, UserReceiverId=2, SharingStatusId=1},
-            };
-
         }
 
         [TestMethod]
-        public void SharePlanTestWithStubForRepo()
+        public void SharePlanTest()
         {
             // Arrange
             Plan plan = new Plan { Id = 1, Title = "Title", UserId = 1 };
@@ -64,9 +51,9 @@ namespace PlanIt.Web.Tests
 
             // Act
             var sharingInfo = _sharingService.SharePlan(plan.Id, owner.Email, receiver.Email);
-            
+
             // Assert
-            Assert.AreEqual(expectedSharingInfo.PlanId,sharingInfo.PlanId);
+            Assert.AreEqual(expectedSharingInfo.PlanId, sharingInfo.PlanId);
             Assert.IsTrue(Math.Abs((expectedSharingInfo.SharingDateTime - sharingInfo.SharingDateTime).TotalSeconds) < 1);
             Assert.AreEqual(expectedSharingInfo.SharingStatusId, sharingInfo.SharingStatusId);
             Assert.AreEqual(expectedSharingInfo.UserOwnerId, sharingInfo.UserOwnerId);
@@ -74,7 +61,7 @@ namespace PlanIt.Web.Tests
         }
 
         [TestMethod]
-        public void GetSharingInfoForNotificationsTestWithStubForRepo()
+        public void GetSharingInfoForNotificationsTest()
         {
             //Arrange
             User user = new User { Id = 1, Email = "user@gmail.com", IsEmailConfirmed = true, Password = "pass1", ProfileId = 1 };
@@ -106,7 +93,7 @@ namespace PlanIt.Web.Tests
             {
                 new SharedPlanUser {Id=1, PlanId=1, UserOwnerId=1, UserReceiverId=2, SharingStatusId=3, OwnerWasNotified = false }
             };
-            
+
             //Act
             List<SharedPlanUser> realInfo = _sharingService.GetSharingInfoForNotifications(user.Email);
 
@@ -120,7 +107,7 @@ namespace PlanIt.Web.Tests
         }
 
         [TestMethod]
-        public void GetNumberOfNotificationsTestWithStubForRepo()
+        public void GetNumberOfNotificationsTest()
         {
             //Arrange
             User user = new User { Id = 1, Email = "user@gmail.com", IsEmailConfirmed = true, Password = "pass1", ProfileId = 1 };
@@ -163,7 +150,7 @@ namespace PlanIt.Web.Tests
         }
 
         [TestMethod]
-        public void ChangeSharingStatusTestWithStubForRepo()
+        public void ChangeSharingStatusTest()
         {
             //Assert
             SharedPlanUser sharingInfo = new SharedPlanUser { Id = 1, PlanId = 1, UserOwnerId = 1, UserReceiverId = 2, SharingStatusId = 1, OwnerWasNotified = false };
@@ -174,9 +161,9 @@ namespace PlanIt.Web.Tests
             sharingInfo.SharingDateTime = DateTime.Now;
             _mockRepository.Setup(rep => rep.Update(It.IsAny<SharedPlanUser>())).Returns<SharedPlanUser>(u => u);
             SharedPlanUser expectedInfo = new SharedPlanUser { Id = 1, PlanId = 1, UserOwnerId = 1, UserReceiverId = 2, SharingDateTime = DateTime.Now, SharingStatusId = newSharingStatus.Id, OwnerWasNotified = false };
-            
+
             //Act
-            var actualInfo =  _sharingService.ChangeSharingStatus(sharingInfo.Id, newSharingStatus.Name);
+            var actualInfo = _sharingService.ChangeSharingStatus(sharingInfo.Id, newSharingStatus.Name);
 
             //Assert
             Assert.AreEqual(expectedInfo.Id, actualInfo.Id);
@@ -188,7 +175,7 @@ namespace PlanIt.Web.Tests
         }
 
         [TestMethod]
-        public void ChangeOwnerWasNotifiedPropertyTestWithStubForRepo()
+        public void ChangeOwnerWasNotifiedPropertyTest()
         {
             //Arrange
             SharedPlanUser sharingInfo = new SharedPlanUser { Id = 1, PlanId = 1, UserOwnerId = 1, UserReceiverId = 2, SharingStatusId = 1, OwnerWasNotified = false };
@@ -203,6 +190,65 @@ namespace PlanIt.Web.Tests
 
             //Assert
             Assert.AreEqual(expectedInfo.OwnerWasNotified, actualInfo.OwnerWasNotified);
+        }
+
+        [TestMethod]
+        public void GetSharingStatusByIdTest()
+        {
+            //Arrange
+            SharingStatus newSharingStatus = new SharingStatus { Id = 2, Name = "Accepted" };
+            _mockRepository.Setup(rep => rep.GetSingle<SharingStatus>(It.IsAny<Func<SharingStatus, bool>>())).Returns(newSharingStatus);
+            string expectedName = "Accepted";
+
+            //Act
+            string actualName = _sharingService.GetSharingStatusById(newSharingStatus.Id);
+
+            //Assert
+            Assert.AreEqual(expectedName, actualName);
+        }
+
+        [TestMethod]
+        public void GetUsersEmailsForNotificationTest()
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void GetUsersEmailsWhoShouldGetCommentTest()
+        {
+            //Arrange
+            SharingStatus sharingStatus = new SharingStatus { Id = 2, Name = "Accepted" };
+            _mockRepository.Setup(rep => rep.GetSingle<SharingStatus>(It.IsAny<Func<SharingStatus, bool>>())).Returns(sharingStatus);
+            Plan plan = new Plan { Id = 1, UserId = 1 };
+            User owner = new User { Id = 1, Email = "user1@gmail.com", IsEmailConfirmed = true, Password = "pass1", ProfileId = 1 };
+            List<User> receivers = new List<User>
+            {
+               new User { Id = 2, Email = "user2@gmail.com", IsEmailConfirmed = true, Password = "pass2", ProfileId = 2 },
+             new User { Id = 3, Email = "user3@gmail.com", IsEmailConfirmed = true, Password = "pass3", ProfileId = 3 }
+            };
+            List<SharedPlanUser> sharingInfoList = new List<SharedPlanUser>
+            {
+                new SharedPlanUser {Id=1, PlanId=1, UserOwnerId=1, UserReceiverId=2, SharingStatusId=2, OwnerWasNotified = false },
+                new SharedPlanUser {Id=2, PlanId=1, UserOwnerId=1, UserReceiverId=3, SharingStatusId=2, OwnerWasNotified = false }
+            };
+            _mockRepository.Setup(rep => rep.Get<SharedPlanUser>(It.IsAny<Func<SharedPlanUser, bool>>())).Returns(sharingInfoList);
+            _mockRepository.Setup(rep => rep.Get<User>(It.IsAny<Func<User, bool>>())).Returns(receivers);
+            _mockRepository.Setup(rep => rep.GetSingle<User>(It.IsAny<Func<User, bool>>())).Returns(owner);
+            _mockRepository.Setup(rep => rep.GetSingle<Plan>(It.IsAny<Func<Plan, bool>>())).Returns(plan);
+
+            //Act
+            List<string> actualUserEmails = _sharingService.GetUsersEmailsWhoShouldGetComment(plan.Id);
+
+            //Assert
+            Assert.IsTrue(actualUserEmails.Count == 3);
+            CollectionAssert.Contains(actualUserEmails,"user1@gmail.com");
+            CollectionAssert.Contains(actualUserEmails, "user2@gmail.com");
+            CollectionAssert.Contains(actualUserEmails, "user3@gmail.com");
         }
     }
 }

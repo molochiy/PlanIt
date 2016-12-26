@@ -24,8 +24,6 @@ namespace PlanIt.Services.Concrete
         /// <param name="receiverEmail">User who receives shared plan</param>
         public SharedPlanUser SharePlan(int planId, string ownerEmail, string receiverEmail)
         {
-            //Add check if current plan exists, owner exists, receiver exists
-            //Check whether current plan isn't already shared to htis user
             var sharingDateTime = DateTime.Now;
             var fromUserId = _repository.GetSingle<User>(u => u.Email == ownerEmail).Id;
             var toUserId = _repository.GetSingle<User>(u => u.Email == receiverEmail).Id;
@@ -75,13 +73,12 @@ namespace PlanIt.Services.Concrete
         }
 
         /// <summary>
-        /// Change sharing status for some sharing info (in table SharedPlanUser)
+        /// Change sharing status (Accepted, Declined or Pending) for some sharing info (in table SharedPlanUser)
         /// </summary>
         /// <param name="sharedPlanUserId">Sharing info id</param>
         /// <param name="newSharingStatus">New sharing status string</param>
         public SharedPlanUser ChangeSharingStatus(int sharedPlanUserId, string newSharingStatus)
         {
-            //Check whether status i correct (Accepted, Declined or Pending and nothing else)
             var sharedInfo = _repository.GetSingle<SharedPlanUser>(s => s.Id == sharedPlanUserId);
             var statusId = _repository.GetSingle<SharingStatus>(s => s.Name == newSharingStatus).Id;
             sharedInfo.SharingStatusId = statusId;
@@ -90,7 +87,7 @@ namespace PlanIt.Services.Concrete
         }
 
         /// <summary>
-        /// When ownre was notified appropriate property is setted with true
+        /// When owner was notified appropriate property is setted with true
         /// </summary>
         /// <param name="sharedPlanUserId">Current sharing info id</param>
         /// <param name="newValue">True</param>
@@ -102,6 +99,11 @@ namespace PlanIt.Services.Concrete
             return _repository.Update<SharedPlanUser>(sharedInfo);
         }
 
+        /// <summary>
+        /// Geting sharing status name (Accepted, Declined or Pending) for sharing status with current id
+        /// </summary>
+        /// <param name="sharingStatusId">Id of current sharing status</param>
+        /// <returns>Current sharing status name</returns>
         public string GetSharingStatusById(int sharingStatusId)
         {
             return _repository.GetSingle<SharingStatus>(s => s.Id == sharingStatusId).Name;
