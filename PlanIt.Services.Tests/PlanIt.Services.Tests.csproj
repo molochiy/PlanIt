@@ -94,7 +94,6 @@
     <Compile Include="ProfileServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharingServiceTests.cs" />
-    <Compile Include="PlanControllerTests.cs" />
     <Compile Include="UserServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>

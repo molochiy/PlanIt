@@ -66,11 +66,6 @@ namespace PlanIt.Services.Concrete
             return _repository.Update<Plan>(plan);
         }
 
-        public List<Comment> GetAllCommentsByPlanId(int planId)
-        {
-            return _repository.Get<Comment>(c => c.PlanId == planId);
-        }
-
         public List<Plan> GetAllPublicPlansByUserId(int userId)
         {
             int acceptedStatusId = _repository.GetSingle<SharingStatus>(s => s.Name == "Accepted").Id;

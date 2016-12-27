@@ -87,7 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HomeControllerTests.cs" />
-    <Compile Include="ProductControllerTests.cs" />
+    <Compile Include="PlanControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControllerTests.cs" />
     <Compile Include="UserInteractionsControllerTests.cs" />

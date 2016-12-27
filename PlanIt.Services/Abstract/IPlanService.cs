@@ -17,8 +17,6 @@ namespace PlanIt.Services.Abstract
 
         IEnumerable<Plan> GetPlansByUserId(int id);
 
-        List<Comment> GetAllCommentsByPlanId(int planId);
-
         List<Plan> GetAllPublicPlansByUserId(int userId);
     }
 }
