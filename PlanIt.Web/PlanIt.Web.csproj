@@ -167,6 +167,7 @@
     <Content Include="Scripts\app\plan\collapse-plan-panel.js" />
     <Content Include="Scripts\app\user-interactions\comment-plan.js" />
     <Content Include="Scripts\app\user-interactions\get-participants.js" />
+    <Content Include="Scripts\app\user-interactions\remove-participant.js" />
     <Content Include="Scripts\libs\jquery\jquery.js" />
     <Content Include="Scripts\app\user\edit-profile.js" />
     <Content Include="Scripts\app\user\menu.js" />
