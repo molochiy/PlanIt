@@ -64,6 +64,14 @@ namespace PlanIt.Web.Controllers
             return JsonConvert.SerializeObject(emails);
         }
 
+        [HttpGet]
+        public string GetReceiversEmailsOfCurrentPlan(int planId)
+        {
+            var currentUserEmail = HttpContext.User.Identity.Name;
+            var emails = _sharingService.GetReceiversEmailsByPlanId(planId);
+            return JsonConvert.SerializeObject(emails);
+        }
+
         //When you share plan with someone sharing info (SharedPlanUser) status become Pending
         //Receiver can change this status only to Accepted or Declined
         //Meening this mathod is for changing Pending status to Accepted or Declined
