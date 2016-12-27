@@ -179,7 +179,11 @@
         $('#datepickerStart').val("");
         $('#datepickerEnd').val("");
         $('#PlanId').val($('#plan-id-@Model.Id').val());
-            });
+    });
+
+    $('#modalChooseUserToShare'+ @Model.Id.ToString()).click(function () {
+        $('#chooseUserAutocomplete-@Model.Id').val("");
+    });
 </script>
 
 

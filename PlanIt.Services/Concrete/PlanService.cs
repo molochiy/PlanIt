@@ -34,20 +34,23 @@ namespace PlanIt.Services.Concrete
         public Plan GetPlanById(int id)
         {
             var plan = _repository.GetSingle<Plan>(p => p.Id == id && !p.IsDeleted,
-                p => FilterPlanItems(p.PlanItems),
+                p => p.PlanItems,
                 p => p.Comments.Select(c => c.User),
                 p => p.User);
 
+            plan.PlanItems = FilterPlanItems(plan.PlanItems);
             return plan;
         }
 
         public IEnumerable<Plan> GetPlansByUserId(int id)
         {
             var plans = _repository.Get<Plan>(p => p.UserId == id && !p.IsDeleted,
-                p => FilterPlanItems(p.PlanItems),
+                p => p.PlanItems,
                 p => p.Comments.Select(c => c.User),
                 p => p.User);
 
+            for (int i = 0; i < plans.Count; i++)
+                plans[i].PlanItems = FilterPlanItems(plans[i].PlanItems);
             return plans;
         }
 
@@ -74,9 +77,11 @@ namespace PlanIt.Services.Concrete
             List<int> sharedPlansWhereUserIsReceiver = _repository.Get<SharedPlanUser>(s => s.UserReceiverId == userId && s.SharingStatusId == acceptedStatusId).Select(s => s.PlanId).ToList();
             List<int> plansIds = sharedPlansWhereUserIsOwner.Union(sharedPlansWhereUserIsReceiver).ToList();
             List<Plan> plans = _repository.Get<Plan>(p => plansIds.Contains(p.Id),
-                                                     p => FilterPlanItems(p.PlanItems),
+                                                     p => p.PlanItems,
                                                      p => p.Comments.Select(c => c.User),
                                                      p => p.User);
+            for (int i = 0; i < plans.Count; i++)
+                plans[i].PlanItems = FilterPlanItems(plans[i].PlanItems);
             return plans;
         }
     }
