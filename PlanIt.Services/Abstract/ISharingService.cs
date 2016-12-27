@@ -20,5 +20,7 @@ namespace PlanIt.Services.Abstract
         string GetOwnerEmailBySharingInfoId(int sharedPlanUserId);
 
         List<string> GetUsersEmailsWhoShouldGetComment(int planId);
+
+        List<string> GetReceiversEmailsByPlanId(int planId);
     }
 }

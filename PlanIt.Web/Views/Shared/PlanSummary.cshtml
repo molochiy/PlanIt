@@ -23,6 +23,14 @@
                     @Html.ActionLink("Remove", "RemovePlan", "Plan", new { planId = Model.Id }, new { @class = "btn btn-danger btn-remove-plan" })
                     <button id="edit-plan-@Model.Id" type="button" class="btn btn-primary btn-success"><span class="glyphicon"></span>Edit</button>
                     <button type="button" class="btn btn-primary btn-warning" data-toggle="modal" data-target="@("#modalChooseUserToShare" + Model.Id)"><span class="glyphicon"></span>Share</button>
+                    <span class="glyphicon"></span>
+                    <div class="dropdown pull-right">
+                        <button class="btn btn-info dropdown-toggle" type="button" onclick="@(string.Format("getParticipants({0})", Model.Id))" data-toggle="dropdown">
+                            Participants
+                            <span class="caret"></span>
+                        </button>
+                        <ul id="@("getParticipantsDropDown-" + Model.Id)" class="dropdown-menu" role="menu" aria-labelledby="menu1"></ul>
+                    </div>
                 </div>
     
             <!-- Modal -->
@@ -143,6 +151,7 @@
 
 <script src="~/Scripts/libs/jquery/jquery-ui-1.12.1.min.js"></script>
 <script src="~/Scripts/app/user-interactions/choose-user-to-share.js"></script>
+<script src="~/Scripts/app/user-interactions/get-participants.js"></script>
 <script src="~/Scripts/app/user-interactions/share-plan.js"></script>
 <script src="~/Scripts/app/plan/collapse-plan-panel.js"></script>
 
