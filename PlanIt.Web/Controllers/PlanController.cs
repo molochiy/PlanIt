@@ -20,7 +20,11 @@ namespace PlanIt.Web.Controllers
         private readonly IPlanItemService _planItemService;
         private readonly INotificationHub _notificationHub;
 
-        public PlanController(IPlanService planService, IUserService userService, ISharingService sharingService, INotificationHub notificationHub, IPlanItemService planItemService)
+        public PlanController(IPlanService planService, 
+                              IUserService userService, 
+                              ISharingService sharingService, 
+                              INotificationHub notificationHub, 
+                              IPlanItemService planItemService)
         {
             _planService = planService;
             _userService = userService;
