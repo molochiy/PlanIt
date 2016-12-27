@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Diagnostics.CodeAnalysis;
 using Autofac;
 using PlanIt.Repositories.Abstract;
 using PlanIt.Repositories.Concrete;
@@ -7,6 +8,7 @@ using PlanIt.Services.Concrete;
 
 namespace PlanIt.Services
 {
+    [ExcludeFromCodeCoverage]
     public class AutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

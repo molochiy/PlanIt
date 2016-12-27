@@ -17,7 +17,7 @@
     <AssemblyName>PlanIt.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44369</IISExpressSSLPort>
+    <IISExpressSSLPort>44317</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -164,6 +164,8 @@
     <Content Include="Content\img\background.jpg" />
     <Content Include="Content\img\intro-bg.jpg" />
     <Content Include="Content\img\login.jpg" />
+    <Content Include="Content\img\me.png" />
+    <Content Include="Content\img\user.png" />
     <Content Include="Scripts\app\plan\collapse-plan-panel.js" />
     <Content Include="Scripts\app\user-interactions\comment-plan.js" />
     <Content Include="Scripts\app\user-interactions\get-participants.js" />
@@ -461,9 +463,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62215</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44369/</IISUrl>
+          <IISUrl>https://localhost:44317/</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>https://localhost:44369/</IISAppRootUrl>
+          <IISAppRootUrl>https://localhost:44317/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

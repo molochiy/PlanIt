@@ -13,7 +13,7 @@ namespace PlanIt.Services.Concrete
 
         public PlanItem GetPlanItemById(int id)
         {
-            var planItem = _repository.GetSingle<PlanItem>(u => u.Id == id);
+            var planItem = _repository.GetSingle<PlanItem>(u => u.Id == id && !u.IsDeleted);
 
             return planItem;
         }
@@ -30,7 +30,7 @@ namespace PlanIt.Services.Concrete
 
         public ICollection<PlanItem> GetPlanItemsByPlanId(int id)
         {
-            var planItems = _repository.Get<PlanItem>(u => u.PlanId == id);
+            var planItems = _repository.Get<PlanItem>(u => u.PlanId == id && !u.IsDeleted);
             return planItems;
         }
     }
