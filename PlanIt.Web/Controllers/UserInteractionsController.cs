@@ -131,6 +131,25 @@ namespace PlanIt.Web.Controllers
             return Json(new { success = true, message = "Plan was successfully shared!" });
         }
 
+        [HttpPost]
+        public JsonResult RemoveParticipant(string participantEmail, int planId)
+        {
+            var currentUserEmail = HttpContext.User.Identity.Name;
+            try
+            {
+                _sharingService.RemoveParticipant(currentUserEmail, participantEmail, planId);
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Server error! Participant wasn't deleted."
+                });
+            }
+            return Json(new { success = true, message = "Participant was deleted!" });
+        }
+
         [HttpGet]
         public JsonResult GetNumberOfNotifications()
         {

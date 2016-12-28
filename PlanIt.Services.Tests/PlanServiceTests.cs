@@ -70,20 +70,6 @@ namespace PlanIt.Services.Tests
         }
 
         [TestMethod]
-        public void GetPlanByIdNotFoundTest()
-        {
-            // Arrange
-            _mockRepository.Setup(rep => rep.GetSingle<Plan>(It.IsAny<Func<Plan, bool>>(),
-                It.IsAny<Expression<Func<Plan, object>>[]>())).Returns((Plan)null);
-
-            // Act
-            var actualResult = _planService.GetPlanById(1);
-
-            // Assert
-            Assert.AreEqual(null, actualResult);
-        }
-
-        [TestMethod]
         public void GetPlanByUserIdTest()
         {
             //Arrange
@@ -144,12 +130,16 @@ namespace PlanIt.Services.Tests
         public void GetAllPublicPlansByUserIdTest()
         {
             //Arrange
-            SharingStatus status = new SharingStatus();
-            List<Plan> plans = new List<Plan>();
-            List<SharedPlanUser> sharingInfo = new List<SharedPlanUser>();
+            SharingStatus status = new SharingStatus { Id = 1, Name = "Accepted" };
+            List<SharedPlanUser> sharingInfo = new List<SharedPlanUser>
+            {
+                new SharedPlanUser {Id = 1, UserOwnerId = 1, UserReceiverId = 2, PlanId = 1 },
+                new SharedPlanUser {Id = 2, UserOwnerId = 1, UserReceiverId = 3, PlanId = 1 },
+                new SharedPlanUser {Id = 3, UserOwnerId = 2, UserReceiverId = 3, PlanId = 2 }
+            };
 
             _mockRepository.Setup(rep => rep.Get<Plan>(It.IsAny<Func<Plan, bool>>(),
-               It.IsAny<Expression<Func<Plan, object>>[]>())).Returns(plans);
+               It.IsAny<Expression<Func<Plan, object>>[]>())).Returns(_plans);
             _mockRepository.Setup(rep => rep.Get<SharedPlanUser>(It.IsAny<Func<SharedPlanUser, bool>>())).Returns(sharingInfo);
             _mockRepository.Setup(rep => rep.GetSingle<SharingStatus>(It.IsAny<Func<SharingStatus, bool>>())).Returns(status);
 
@@ -157,8 +147,7 @@ namespace PlanIt.Services.Tests
             List<Plan> actual = _planService.GetAllPublicPlansByUserId(1);
 
             //Assert
-            Assert.AreEqual(plans.Count, actual.Count);
-            Assert.IsTrue(actual.Count == 0);
+            Assert.AreEqual(_plans.Count, actual.Count);
         }
     }
 }

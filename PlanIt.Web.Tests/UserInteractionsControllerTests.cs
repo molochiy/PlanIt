@@ -252,6 +252,50 @@ namespace PlanIt.Web.Tests
         }
 
         [TestMethod]
+        public void RemoveParticipantSuccessTest()
+        {
+            //Arrange
+            var expectedSuccess = true;
+            var expectedMessage = "Participant was deleted!";
+            var participantEmail = "participantemail";
+
+            var controllerContext = new Mock<ControllerContext>();
+            var principal = new Mock<IPrincipal>();
+            principal.SetupGet(x => x.Identity.Name).Returns("email");
+            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
+            _userInteractionsController.ControllerContext = controllerContext.Object;
+
+            _mockSharingService.Setup(s => s.RemoveParticipant(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Returns(new SharedPlanUser());
+
+            //Act
+            var actualResult = _userInteractionsController.RemoveParticipant(participantEmail, 0);
+
+            //Assert
+            Assert.AreEqual(new { success = expectedSuccess, message = expectedMessage }.ToString(), actualResult.Data.ToString());
+        }
+
+        [TestMethod]
+        public void RemoveParticipantInternalServerErrorTest()
+        {
+            var expectedSuccess = false;
+            var expectedMessage = "Server error! Participant wasn't deleted.";
+            var participantEmail = "participantemail";
+
+            var controllerContext = new Mock<ControllerContext>();
+            var principal = new Mock<IPrincipal>();
+            principal.SetupGet(x => x.Identity.Name).Returns("email");
+            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
+            _userInteractionsController.ControllerContext = controllerContext.Object;
+
+            _mockSharingService.Setup(s => s.RemoveParticipant(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Throws<InvalidOperationException>();
+
+            //Act
+            var actualResult = _userInteractionsController.RemoveParticipant(participantEmail, 0);
+
+            Assert.AreEqual(new { success = expectedSuccess, message = expectedMessage }.ToString(), actualResult.Data.ToString());
+        }
+
+        [TestMethod]
         public void GetNumberOfNotificationsTest()
         {
             var controllerContext = new Mock<ControllerContext>();
@@ -265,6 +309,26 @@ namespace PlanIt.Web.Tests
             var actualResult = _userInteractionsController.GetNumberOfNotifications();
 
             Assert.AreEqual(new { numberOfNotifications = 1 }.ToString(), actualResult.Data.ToString());
+        }
+
+        [TestMethod]
+        public void GetReceiversEmailsOfCurrentPlanTest()
+        {
+            //Arrange
+            var controllerContext = new Mock<ControllerContext>();
+            var principal = new Mock<IPrincipal>();
+            principal.SetupGet(x => x.Identity.Name).Returns("email");
+            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
+            _userInteractionsController.ControllerContext = controllerContext.Object;
+
+            List<string> expected = new List<string> { "email@gmail.com" };
+            _mockSharingService.Setup(ss => ss.GetReceiversEmailsByPlanId(It.IsAny<int>())).Returns(expected);
+
+            //Act
+            var actual = _userInteractionsController.GetReceiversEmailsOfCurrentPlan(1);
+
+            //Assert
+            Assert.AreEqual(JsonConvert.SerializeObject(expected), actual);
         }
     }
 }

@@ -7,6 +7,8 @@ namespace PlanIt.Services.Abstract
     {
         SharedPlanUser SharePlan(int planId, string ownerEmail, string receiverEmail);
 
+        SharedPlanUser RemoveParticipant(string ownerEmail, string participantEmail, int planId);
+
         List<SharedPlanUser> GetSharingInfoForNotifications(string userEmail);
 
         int GetNumberOfNotifications(string userEmail);

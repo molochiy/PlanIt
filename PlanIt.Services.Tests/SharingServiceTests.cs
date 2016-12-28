@@ -154,14 +154,49 @@ namespace PlanIt.Web.Tests
         }
 
         [TestMethod]
-        public void GetUsersEmailsForNotificationTest()
+        public void GetOwnerEmailBySharingInfoIdFoundTest()
         {
             //Arrange
-
+            User owner = new User { Id = 1, Email = "owner@gmail.com" };
+            SharedPlanUser sharingInfo = new SharedPlanUser { Id = 1, PlanId = 1, UserOwnerId = 1, UserOwner = owner, UserReceiverId = 2, SharingStatusId = 1, OwnerWasNotified = false };
+            _mockRepository.Setup(rep => rep.GetSingle<SharedPlanUser>(It.IsAny<Func<SharedPlanUser, bool>>(),
+                                                                       It.IsAny<Expression<Func<SharedPlanUser, object>>[]>())).Returns(sharingInfo);
             //Act
+            string actual = _sharingService.GetOwnerEmailBySharingInfoId(1);
 
             //Assert
-            Assert.IsTrue(true);
+            Assert.AreEqual(owner.Email, actual);
+        }
+
+        
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void GetOwnerEmailBySharingInfoIdNotFoundTest()
+        {
+            //Arrange
+            _mockRepository.Setup(rep => rep.GetSingle<SharedPlanUser>(It.IsAny<Func<SharedPlanUser, bool>>(),
+                                                                       It.IsAny<Expression<Func<SharedPlanUser, object>>[]>())).Returns((SharedPlanUser)null);
+            //Act
+            string actual = _sharingService.GetOwnerEmailBySharingInfoId(1);
+        }
+
+        [TestMethod]
+        public void RemoveParticipantTest()
+        {
+            //Arrange
+            SharingStatus status = new SharingStatus { Id = 4, Name = "Removed" };
+            SharedPlanUser sharingInfo = new SharedPlanUser { Id = 1, SharingDateTime = DateTime.Now, SharingStatusId = 1 };
+            _mockRepository.Setup(rep => rep.GetSingle<SharingStatus>(It.IsAny<Func<SharingStatus, bool>>())).Returns(status);
+            _mockRepository.Setup(rep => rep.GetSingle<User>(It.IsAny<Func<User, bool>>())).Returns(new User());
+            _mockRepository.Setup(rep => rep.GetSingle<SharedPlanUser>(It.IsAny<Func<SharedPlanUser, bool>>())).Returns(sharingInfo);
+            _mockRepository.Setup(rep => rep.Update(It.IsAny<SharedPlanUser>())).Returns<SharedPlanUser>(u => u);
+
+            //Act
+            SharedPlanUser actualInfo = _sharingService.RemoveParticipant("owner@gmail.com", "receiver@gmail.com", 1);
+
+            //Assert
+            Assert.IsTrue(Math.Abs((sharingInfo.SharingDateTime - actualInfo.SharingDateTime).TotalSeconds) < 1);
+            Assert.AreEqual(sharingInfo.SharingStatusId, actualInfo.SharingStatusId);
         }
 
         [TestMethod]

@@ -36,6 +36,18 @@ namespace PlanIt.Services.Concrete
             return _repository.Insert(sharedPlanUser);
         }
 
+        public SharedPlanUser RemoveParticipant(string ownerEmail, string participantEmail, int planId)
+        {
+            var statusId = _repository.GetSingle<SharingStatus>(ss => ss.Name == "Removed").Id;
+            var ownerId = _repository.GetSingle<User>(u => u.Email == ownerEmail).Id;
+            var participantId = _repository.GetSingle<User>(u => u.Email == participantEmail).Id;
+            var sharingInfo = _repository.GetSingle<SharedPlanUser>(s => s.PlanId == planId && s.UserOwnerId == ownerId && s.UserReceiverId == participantId);
+            sharingInfo.SharingStatusId = statusId;
+            sharingInfo.SharingDateTime = DateTime.Now;
+            return _repository.Update<SharedPlanUser>(sharingInfo);
+
+        }
+
         /// <summary>
         /// Getting information about sharing (from table SharedPlanUser) for current user
         /// to notify user about such events:
@@ -122,7 +134,7 @@ namespace PlanIt.Services.Concrete
             }
             else
             {
-                throw new Exception("Sharing info doesn' exist");
+                throw new NullReferenceException("Sharing info doesn' exist");
             }
         }
 
