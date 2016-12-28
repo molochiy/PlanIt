@@ -59,6 +59,7 @@
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="ImageId" Type="int" />
+          <Property Name="Weight" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -501,6 +502,7 @@
           <NavigationProperty Name="Status" Relationship="Self.FK_PlanItem_Status" FromRole="PlanItem" ToRole="Status" />
           <NavigationProperty Name="SharedPlanItemUsers" Relationship="Self.FK_SharedPlanItemUserr_PlanItem" FromRole="PlanItem" ToRole="SharedPlanItemUser" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Weight" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -955,6 +957,7 @@
           <EntitySetMapping Name="PlanItems">
             <EntityTypeMapping TypeName="PlanItModel.PlanItem">
               <MappingFragment StoreEntitySet="PlanItem">
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PlanId" ColumnName="PlanId" />

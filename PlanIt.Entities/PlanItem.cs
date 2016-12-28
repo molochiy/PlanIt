@@ -30,6 +30,7 @@ namespace PlanIt.Entities
         public bool IsDeleted { get; set; }
         public Nullable<int> ImageId { get; set; }
         public string Description { get; set; }
+        public int Weight { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }

@@ -9,6 +9,7 @@
     [StatusId] INT NOT NULL, 
     [IsDeleted] BIT NOT NULL DEFAULT 0,
 	[ImageId] INT NULL,
+	[Weight] INT NOT NULL
 	constraint PK_PlanItem primary key clustered 
 	(
 		Id asc

@@ -23,11 +23,3 @@
 :r ".\Tables\User.sql"
 
 -- Inser data
-
-:r ".\Data\Comment.sql"
-:r ".\Data\SharingStatus.sql"
-:r ".\Data\Status.sql"
-:r ".\Data\Profile.sql"
-:r ".\Data\User.sql"
-:r ".\Data\Plan.sql"
-:r ".\Data\PlanItem.sql"
