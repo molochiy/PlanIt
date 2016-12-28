@@ -134,7 +134,7 @@ namespace PlanIt.Services.Concrete
             }
             else
             {
-                throw new Exception("Sharing info doesn' exist");
+                throw new NullReferenceException("Sharing info doesn' exist");
             }
         }
 

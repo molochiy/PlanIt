@@ -25,11 +25,11 @@
                     <button type="button" class="btn btn-primary btn-warning" data-toggle="modal" data-target="@("#modalChooseUserToShare" + Model.Id)"><span class="glyphicon"></span>Share</button>
                     <span class="glyphicon"></span>
                     <div class="dropdown pull-right">
-                        <button class="btn btn-info dropdown-toggle" type="button" onclick="@(string.Format("getParticipants({0})", Model.Id))" data-toggle="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" onclick="@(string.Format("getParticipants({0})", Model.Id))" data-toggle="dropdown">
                             Participants
                             <span class="caret"></span>
                         </button>
-                        <ul id="@("getParticipantsDropDown-" + Model.Id)" class="dropdown-menu" role="menu" aria-labelledby="menu1"></ul>
+                        <ul id="@("getParticipantsDropDown-" + Model.Id)" class="dropdown-menu" role="menu"></ul>
                     </div>
                 </div>
     
