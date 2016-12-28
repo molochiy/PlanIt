@@ -1,1 +1,28 @@
-﻿
+﻿input[type="checkbox"].change-status {
+    width: 20px;
+    height: 20px;
+}
+
+.panel-default > .panel-heading.status-done {
+    background-color: lightgreen
+}
+
+.panel-default > .panel-heading.status-in-progress {
+  background-color: #ffff80
+}
+
+.status-done {
+    background-color: lightgreen
+}
+
+.status-in-progress {
+  background-color: #ffff80
+}
+
+.panel-default.status-done {
+    background-color: lightgreen
+}
+
+.panel-default.status-in-progress {
+  background-color: #ffff80
+}

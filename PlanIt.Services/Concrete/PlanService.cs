@@ -44,9 +44,10 @@ namespace PlanIt.Services.Concrete
         public IEnumerable<Plan> GetPlansByUserId(int id)
         {
             var plans = _repository.Get<Plan>(p => p.UserId == id && !p.IsDeleted,
-                p => FilterPlanItems(p.PlanItems),
+                p => p.PlanItems.Select(pi => pi.Status),
                 p => p.Comments.Select(c => c.User),
-                p => p.User);
+                p => p.User,
+                p => p.Status);
 
             return plans;
         }

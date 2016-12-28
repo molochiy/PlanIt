@@ -1,16 +1,29 @@
 ﻿@model PlanIt.Entities.Plan
-   @using System;
+@{
+    string planStatusClass = string.Empty;
+
+    if (!Model.Begin.HasValue || Model.Begin.Value < DateTime.Now)
+    {
+        planStatusClass = " status-in-progress";
+    }
+
+    if (Model.Status.Name.Equals("Done"))
+    {
+        planStatusClass = " status-done";
+    }    
+}
 
 
-<div class="well">
+<div id="well-@Model.Id" class="@("well" + planStatusClass)">
     @Html.Hidden("plan-id-"+@Model.Id.ToString(), @Model.Id)
 	@Html.Hidden("plan-title-"+@Model.Id.ToString(), @Model.Title)
     @Html.Hidden("plan-description-" + @Model.Id.ToString(), @Model.Description)
     @Html.Hidden("plan-begin-" + @Model.Id.ToString(), @Model.Begin != null ? @Model.Begin.Value.ToShortDateString().Replace('.', '/'):null)
     @Html.Hidden("plan-end-" + @Model.Id.ToString(), @Model.End!= null ? @Model.End.Value.ToShortDateString().Replace('.', '/'):null)
     <div class="panel panel-default">
-        <div class="panel-heading plan-heading">
+        <div id="plan-panel-@Model.Id" class="@("panel-heading" + planStatusClass + " plan-heading")">
             <h3 class="panel-title pull-left">
+                <input id="plan-checkbox-@Model.Id" type="checkbox" class="change-status" onclick="@(string.Format("changePlanStatus({0})", Model.Id))" />
                 <a href="@("#collapse-" + Model.Id)" data-parent="#collapsible-" class="accordion-toggle" data-toggle="collapse"><strong>@Model.Title</strong></a>
             </h3>
             @if (@Model.Begin != null && Model.End != null)
@@ -62,8 +75,20 @@
                     <span><strong>Description:</strong> @Model.Description</span>
                 </div>
                 @foreach (var planItem in Model.PlanItems)
-            {
-                    <div class="panel panel-default">
+                {
+                    string planItemStatusClass = string.Empty;
+
+                    if (!planItem.Begin.HasValue || planItem.Begin.Value < DateTime.Now)
+                    {
+                        planItemStatusClass = " status-in-progress";
+                    }
+
+                    if (planItem.Status.Name.Equals("Done"))
+                    {
+                        planItemStatusClass = " status-done";
+                    }
+
+                    <div class="@("panel panel-default" + planItemStatusClass)">
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 <a href="@("#collapse-" + planItem.Id)" class="accordion-toggle" data-toggle="collapse">@planItem.Title</a>
@@ -92,12 +117,12 @@
         <div id="@("collapse-comments-" + Model.Id)" class="panel-collapse collapse">
             <div class="panel-body">
                 @if (Model.Comments.Count > 0)
-                {
+    {
                     <ul class="chat">
                         @foreach (var comment in Model.Comments)
-                        {
-                            if (Model.User.Email != comment.User.Email)
-                            {
+    {
+        if (Model.User.Email != comment.User.Email)
+        {
                                 <li class="left clearfix">
                                     <span class="chat-img pull-left">
                                         <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
@@ -154,6 +179,7 @@
 <script src="~/Scripts/app/user-interactions/get-participants.js"></script>
 <script src="~/Scripts/app/user-interactions/share-plan.js"></script>
 <script src="~/Scripts/app/plan/collapse-plan-panel.js"></script>
+<script src="~/Scripts/app/plan/change-status.js"></script>
 
 
 <script>
@@ -164,11 +190,11 @@
         $('#Id').val($('#plan-id-@Model.Id').val());
         $('#Title').val($('#plan-title-@Model.Id').val());
         $('#Description').val($('#plan-description-@Model.Id').val());
-                console.log($('#plan-begin-@Model.Id').val());
-                console.log($('#plan-end-@Model.Id').val());
+        console.log($('#plan-begin-@Model.Id').val());
+        console.log($('#plan-end-@Model.Id').val());
         $('#datepickerStart').val($('#plan-begin-@Model.Id').val());
         $('#datepickerEnd').val($('#plan-end-@Model.Id').val());
-            });
+    });
 
     $('#add-plan-item-@Model.Id').click(function () {
         $("#add-plan-item-@Model.Id").attr("data-toggle", "modal");
@@ -179,7 +205,7 @@
         $('#datepickerStart').val("");
         $('#datepickerEnd').val("");
         $('#PlanId').val($('#plan-id-@Model.Id').val());
-            });
+    });
 </script>
 
 
